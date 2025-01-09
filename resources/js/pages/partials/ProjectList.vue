@@ -1,14 +1,12 @@
 <script>
-import Sidenav from '../partials/Sidenav.vue';
-import HeaderDashboard from '../partials/HeaderDashboard.vue';
-import ProjectList from './partials/ProjectList.vue';
+import Sidenav from '../../partials/Sidenav.vue';
+import HeaderDashboard from '../../partials/HeaderDashboard.vue';
 
-export default {
-    name: 'Dashboard',
+export default{
+    name: 'ProjectList',
     components:{
-        Sidenav,
         HeaderDashboard,
-        ProjectList
+        Sidenav
     }
 }
 </script>
@@ -19,21 +17,17 @@ export default {
         <Sidenav/>
         <div class="container-body">
             <div class="container py-3">
-                <h2>Ciao, Matteo</h2>
-                <p>Hai caricato tot progetti</p>
+                <h2>Lista progetti</h2>
                 <div class="box-stat">
                     <div class="row">
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
-@use '../../scss/general' as *;
-
+<style lang="scss" scope>
+@use '../../../scss/general' as *;
 
 </style>

@@ -1,0 +1,23 @@
+@use './variables' as*;
+
+ul{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+    color: $color-text;
+}
+
+.wrap-container {
+    display: flex;
+    height: calc(100vh - 50px);
+    width: 100%;
+}
+
+
+.container-body {
+    background-color: $background-dashboard;
+    width: calc(100% - 200px);
+    overflow-y: auto;
+}
