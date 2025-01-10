@@ -18,7 +18,7 @@ export default {
     <div class="wrap-container">
         <Sidenav/>
         <div class="container-body">
-            <div class="container py-3">
+            <div class="container py-4">
                 <h2>Ciao, Matteo</h2>
                 <p>Hai caricato tot progetti</p>
                 <div class="box-stat">

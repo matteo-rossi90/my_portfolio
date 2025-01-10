@@ -6,11 +6,11 @@ export default{
 
 <template>
     <div class="container">
-        <div class="form">
+        <form class="form">
             <input type="text">
             <input type="text">
             <button>Invia</button>
-        </div>
+        </form>
     </div>
 </template>
 
