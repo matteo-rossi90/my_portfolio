@@ -1,5 +1,7 @@
 @use './variables' as*;
 
+//proprietà generali
+
 ul{
     list-style-type: none;
     padding-left: 0;
@@ -10,15 +12,91 @@ a{
     color: $color-text;
 }
 
+//contenitore della sidenav e del corpo della dashboard
 .wrap-container {
     display: flex;
     height: calc(100vh - 50px);
     width: 100%;
 }
 
-
+//corpo della dashboard
 .container-body {
     background-color: $background-dashboard;
     width: calc(100% - 200px);
     overflow-y: auto;
 }
+
+//contenitore dei form di login e register
+.container-form{
+
+    padding-top: 4rem;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 60%;
+
+    .form{
+
+        padding: 1rem;
+        border-radius: 15px;
+        box-shadow: 1px 1px 10px 1px $shadow;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 60%;
+
+    }
+
+    .input-box{
+        padding: 1rem 0;
+
+        label{
+            margin-bottom: 0.6rem;
+        }
+
+    }
+
+    .box-btn{
+        margin-top: 2rem;
+
+    }
+
+    input{
+        border: 1px solid $color-text;
+    }
+
+    input,
+    button{
+        padding: 0.8rem 1rem;
+        width: 100%;
+        border-radius: 5px;
+
+
+    }
+
+    button{
+        border: transparent;
+        color: $color-light;
+
+    }
+
+    #btn-login{
+        background-color: $login-dark-blue;
+    }
+
+    #btn-register{
+        background-color: $register-tomato;
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
