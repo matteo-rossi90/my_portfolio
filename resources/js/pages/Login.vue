@@ -5,30 +5,46 @@ export default{
 </script>
 
 <template>
-    <div class="container">
+    <body class="background-form">
+        <div class="container">
 
-        <div class="container-form">
-            <form class="form">
-                <div class="input-box">
-                    <label for="name">Nome utente</label>
-                    <input type="text" id="name">
-                </div>
+            <div class="container-form" id="login">
 
-                <div class="input-box">
-                    <label for="password">Password</label>
-                    <input type="password" id="password">
-                </div>
 
-                <div class="box-btn">
-                    <button type="input" id="btn-login">Accedi</button>
-                </div>
-            </form>
+                <form class="form">
+
+                    <h4 id="form-title-login">Accedi</h4>
+
+                    <div class="input-box">
+                        <label for="name">Nome utente</label>
+                        <input type="text" id="name">
+                    </div>
+
+                    <div class="input-box">
+                        <label for="password">Password</label>
+                        <input type="password" id="password">
+                    </div>
+
+                    <div class="box-btn">
+                        <button type="input" id="btn-login">Accedi</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
 
-    </div>
+    </body>
 </template>
 
 <style lang="scss" scoped>
+@use '../../scss/general' as*;
 
+#login{
+    padding-top: 4rem;
+}
+
+#form-title-login{
+    margin-bottom: 3rem;
+}
 
 </style>

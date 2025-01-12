@@ -27,16 +27,29 @@ a{
 }
 
 //contenitore dei form di login e register
+
+body {
+
+    .background-form{
+        background-color: $background-dashboard;
+        height: 100%;
+    }
+
+
+}
+
 .container-form{
 
-    padding-top: 4rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin: 0 auto;
     width: 60%;
 
     .form{
 
+        background-color: white;
         padding: 1rem;
         border-radius: 15px;
         box-shadow: 1px 1px 10px 1px $shadow;
@@ -48,10 +61,10 @@ a{
     }
 
     .input-box{
-        padding: 1rem 0;
+        padding: 0.6rem 0;
 
         label{
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.4rem;
         }
 
     }
@@ -63,11 +76,12 @@ a{
 
     input{
         border: 1px solid $color-text;
+        display:block;
     }
 
     input,
     button{
-        padding: 0.8rem 1rem;
+        padding: 0.6rem 1rem;
         width: 100%;
         border-radius: 5px;
 
@@ -89,6 +103,21 @@ a{
     }
 
 
+}
+
+.form-title{
+    margin-bottom: 1rem;
+}
+
+.box-link {
+    display: flex;
+    gap: 10px;
+    margin: 0.6rem 0;
+}
+
+//gestione degli errori
+.errors{
+    color: tomato;
 }
 
 

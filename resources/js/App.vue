@@ -10,5 +10,8 @@ export default{
     </main>
 </template>
 
-<style>
+<style lang="scss">
+main{
+    height: 100vh;
+}
 </style>
