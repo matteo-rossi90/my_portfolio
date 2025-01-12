@@ -1,7 +1,33 @@
 <script>
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 export default{
-    name: 'HeaderDashboard'
+    name: 'HeaderDashboard',
+    data() {
+        return {
+            name: ''
+        }
+    },
+    mounted() {
+        axios
+        .get("/api/user")
+        .then((response) => {
+            this.name = response.data.name
+        })
+        .catch((err) =>{console.log(err)})
+    },
+    methods: {
+        logOut(){
+            axios
+            .post("/api/logout")
+            .then(() => {
+                this.$router.push({name: 'Home'})
+            })
+            .catch((err) =>{console.log(err)})
+        }
+    },
 }
 
 </script>
@@ -9,6 +35,7 @@ export default{
 <template>
     <header id="header-dashboard">
         <div class="container">
+            <a href="#" @click="logOut">Disconnetti</a>
         </div>
     </header>
 

@@ -23,9 +23,9 @@ export default{
     methods: {
         submit(){
             axios
-            .post('api/register', this.fields)
+            .post("/api/register", this.fields)
             .then((response) => {
-                console.log(response)
+                console.log(response.data)
                 this.$router.push({name: 'Dashboard'})
             })
             .catch((error) => {
