@@ -20,7 +20,7 @@ export default{
             axios
             .post("/api/login", this.fields)
             .then((response) => {
-                console.log(response.data)
+                console.log('login riuscito', response.data)
                 this.$router.push({name: 'Dashboard'})
             })
             .catch((error) => {
