@@ -1,12 +1,27 @@
 <script>
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
+
 export default {
-    name: 'Sidenav'
+    name: 'Sidenav',
+    methods: {
+        logOut(){
+            axios
+            .post("/api/logout")
+            .then(() => {
+                this.$router.push({name: 'Home'})
+            })
+            .catch((err) =>{console.log(err)})
+        }
+    },
+
 }
 </script>
 
 <template>
     <div class="container-sidenav">
-        <div class="d-flex flex-column align-items-center py-4">
+        <div class="d-flex flex-column align-items-center h-100 justify-content-between py-4">
             <ul>
                 <li>
                     <router-link :to="{name: 'Dashboard'}">
@@ -20,7 +35,15 @@ export default {
                         <span>Progetti</span>
                     </router-link>
                 </li>
+
             </ul>
+
+            <div id="log-out">
+                <a href="#" @click="logOut">
+                    <span><i class="bi bi-list-ul"></i></span>
+                    <span>Esci</span>
+                </a>
+            </div>
         </div>
 
     </div>
@@ -33,6 +56,7 @@ ul{
     width: 100%;
 }
 
+#log-out,
 li{
    padding: 0.8rem 2rem;
    display: flex;
