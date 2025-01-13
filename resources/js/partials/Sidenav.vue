@@ -40,7 +40,7 @@ export default {
 
             <div id="log-out">
                 <a href="#" @click="logOut">
-                    <span><i class="bi bi-list-ul"></i></span>
+                    <span><i class="bi bi-box-arrow-left"></i></span>
                     <span>Esci</span>
                 </a>
             </div>
