@@ -20,19 +20,19 @@ export default {
 </script>
 
 <template>
-    <div class="container-sidenav">
+    <aside class="container-sidenav">
         <div class="d-flex flex-column align-items-center h-100 justify-content-between py-4">
             <ul>
                 <li>
                     <router-link :to="{name: 'Dashboard'}">
                         <span><i class="bi bi-grid-1x2"></i></span>
-                        <span>Dashboard</span>
+                        <span class="text-link">Dashboard</span>
                     </router-link>
                 </li>
                 <li>
                     <router-link :to="{name: 'ProjectList'}">
                         <span><i class="bi bi-list-ul"></i></span>
-                        <span>Progetti</span>
+                        <span class="text-link">Progetti</span>
                     </router-link>
                 </li>
 
@@ -41,12 +41,12 @@ export default {
             <div id="log-out">
                 <a href="#" @click="logOut">
                     <span><i class="bi bi-box-arrow-left"></i></span>
-                    <span>Esci</span>
+                    <span class="text-link">Disconnetti</span>
                 </a>
             </div>
         </div>
 
-    </div>
+    </aside>
 </template>
 
 <style lang="scss" scoped>
@@ -58,14 +58,10 @@ ul{
 
 #log-out,
 li{
-   padding: 0.8rem 2rem;
+   padding: 0.8rem 2.5rem;
    display: flex;
    justify-content: center;
    width: 100%;
-
-   &:hover{
-     background-color: $sidenav-hover;
-   }
 
    a{
     display: flex;
@@ -76,14 +72,25 @@ li{
 
    .bi{
     font-size: 1.4rem;
-    font-weight: 600;
    }
+}
+
+li:hover{
+  background-color: $sidenav-hover;
+}
+
+#log-out:hover{
+    background-color: rgb(255, 188, 177);
 }
 
 
 .container-sidenav{
     height: 100%;
-    width: 200px;
+    width: 250px;
+}
+
+.text-link{
+    font-size: 1.1rem;
 }
 
 </style>
