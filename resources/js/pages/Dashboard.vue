@@ -30,10 +30,11 @@ export default {
 
 <template>
     <HeaderDashboard/>
+
     <div class="wrap-container">
         <Sidenav/>
         <div class="container-body">
-            <div class="container py-4">
+            <div class="container-fluid p-4">
                 <h2>Ciao, {{ name }}</h2>
                 <p>Riepilogo delle attività</p>
                 <div class="box-stat">
