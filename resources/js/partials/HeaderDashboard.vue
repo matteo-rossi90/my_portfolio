@@ -12,7 +12,7 @@ export default{
         <div class="container-fluid padding h-100">
             <div class="d-flex align-items-center justify-content-between h-100">
                 <div class="col-10">
-                    Logo
+                    Profilo
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-end">
                     <ul class="d-flex gap-3">

@@ -75,12 +75,25 @@ li{
    }
 }
 
-li:hover{
-  background-color: $sidenav-hover;
+li:hover,
+#log-out:hover{
+    transition: 0.3s;
 }
 
-#log-out:hover{
-    background-color: rgb(255, 188, 177);
+li:hover{
+  background-color: $sidenav-hover;
+
+  a{
+    color: blue;
+  }
+}
+
+#log-out:hover {
+    background-color: rgb(255, 214, 207);
+
+    a{
+        color: $register-tomato;
+    }
 }
 
 
