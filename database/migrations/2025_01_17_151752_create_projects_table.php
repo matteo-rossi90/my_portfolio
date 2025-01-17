@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('type_id')->nullable();
+            $table->foreign('type_id')
+                    ->references('id')
+                    ->on('types')
+                    ->cascadeOnDelete();
             $table->string('title', 100);
             $table->string('theme', 100);
             $table->string('company', 100);
