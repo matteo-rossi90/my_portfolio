@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('projects');
-            $table->foreign('projects')
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')
                     ->references('id')
-                    ->on('apartments')
+                    ->on('projects')
                     ->cascadeOnDelete();
             $table->string('IP_address')->nullable();
             $table->dateTime('date_view');
