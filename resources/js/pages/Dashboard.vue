@@ -23,7 +23,14 @@ export default {
         .then((response) => {
             this.name = response.data.name
         })
-        .catch((err) =>{console.log(err)})
+        .catch((error) =>{
+            if(error.response.status === 401){
+                this.$emit('updateSidebar');
+                localStorage.removeItem('authenitcated');
+                this.$router.push({ name: 'Login'})
+            }
+
+        })
     },
 }
 </script>

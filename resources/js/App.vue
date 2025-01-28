@@ -1,6 +1,16 @@
 <script>
 
 export default{
+    data() {
+        return {
+            loggedIn: false,
+        }
+    },
+    methods: {
+        updateSidebar(){
+            this.loggedIn = !this.loggedIn;
+        }
+    },
 }
 </script>
 
