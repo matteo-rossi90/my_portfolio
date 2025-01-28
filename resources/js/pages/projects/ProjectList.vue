@@ -79,6 +79,12 @@ export default{
                                             <td>{{ project.id }}</td>
                                             <td>{{ project.title }}</td>
                                             <td>{{ project.type.name }}</td>
+                                            <td>
+                                                <button class="btn btn-actions">
+                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                </button>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -96,5 +102,20 @@ export default{
 
 <style lang="scss" scope>
 @use '../../../scss/general' as *;
+@use '../../../scss/variables' as *;
+
+table{
+    font-size:0.9rem
+}
+
+.btn-actions{
+    &:hover{
+        background-color: $background-dashboard;
+    }
+}
+
+.bi{
+    cursor:pointer;
+}
 
 </style>
