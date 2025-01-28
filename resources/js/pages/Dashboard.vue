@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Sidenav from '../partials/Sidenav.vue';
 import HeaderDashboard from '../partials/HeaderDashboard.vue';
-import ProjectList from './partials/ProjectList.vue';
+import ProjectList from './projects/ProjectList.vue';
 
 export default {
     name: 'Dashboard',
@@ -25,8 +25,7 @@ export default {
         })
         .catch((error) =>{
             if(error.response.status === 401){
-                this.$emit('updateSidebar');
-                localStorage.removeItem('authenitcated');
+                localStorage.removeItem('authenticated');
                 this.$router.push({ name: 'Login'})
             }
 
@@ -114,21 +113,6 @@ export default {
 
 *{
     color: $color-text;
-}
-
-.card-dashboard{
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    background-color: $color-light;
-    border-radius: 15px;
-    padding: 2rem;
-
-    .text-box{
-        span{
-            font-size: 2rem;
-        }
-    }
 }
 
 .circle{

@@ -4,7 +4,7 @@ import Login from '../pages/Login.vue';
 import Home from '../pages/Home.vue';
 import Register from '../pages/Register.vue';
 import Dashboard from '../pages/Dashboard.vue';
-import ProjectList from '../pages/partials/ProjectList.vue';
+import ProjectList from '../pages/projects/ProjectList.vue';
 
 const routes = [
 
@@ -16,12 +16,14 @@ const routes = [
     {
         path: '/dashboard',
         name: 'Dashboard',
-        component: Dashboard
+        component: Dashboard,
+        meta: { requiresAuth: true}
     },
     {
         path: '/dashboard/progetti',
         name: 'ProjectList',
-        component: ProjectList
+        component: ProjectList,
+        meta: { requiresAuth: true }
     },
     {
         path: '/login',

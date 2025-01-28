@@ -121,6 +121,22 @@ body {
     color: tomato;
 }
 
+//gestione delle card nella dashboard
+.card-dashboard {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    background-color: $color-light;
+    border-radius: 15px;
+    padding: 2rem;
+
+    .text-box {
+        span {
+            font-size: 2rem;
+        }
+    }
+}
+
 
 
 

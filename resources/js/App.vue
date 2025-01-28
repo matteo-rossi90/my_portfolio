@@ -7,9 +7,9 @@ export default{
         }
     },
     methods: {
-        updateSidebar(){
-            this.loggedIn = !this.loggedIn;
-        }
+        // updateSidebar(){
+            // this.loggedIn = !this.loggedIn;
+        // }
     },
 }
 </script>

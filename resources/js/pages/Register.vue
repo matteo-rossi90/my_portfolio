@@ -51,8 +51,8 @@ export default{
                     this.errors.password = 'La password è un campo obbligatorio'
                 } else if (this.fields.password.length < 6) {
                     this.errors.password = 'La password deve contenere almeno 6 caratteri';
-                } else if(this.fields.password.length > 12){
-                    this.errors.password = 'La password non può contenere più di 12 caratteri'
+                } else if(this.fields.password.length > 20){
+                    this.errors.password = 'La password non può contenere più di 20 caratteri'
                 } else if(!/^[\_\*\-\+\!\?\,\:\;\.\xE0\xE8\xE9\xF9\xF2\xEC\x27]+$/.test(this.fields.password)){
                     this.errors.password = 'La password deve contenere almeno un simbolo tra: _ * – + ! ? , : ; . e lettere accentate'
                 }
