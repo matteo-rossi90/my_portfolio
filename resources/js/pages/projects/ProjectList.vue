@@ -133,11 +133,11 @@ export default{
                                             <td>{{ project.id }}</td>
                                             <td>{{ project.title }}</td>
                                             <td>{{ project.type.name }}</td>
-                                            <td>
+                                            <td class="menu-dropdown-dh">
                                                 <button class="btn btn-actions" >
                                                     <i class="bi bi-three-dots-vertical" @click="dropdownMenu(project.id, $event)"></i>
                                                 </button>
-                                                <div class="menu-dropdown-dh">
+
                                                     <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + project.id">
                                                         <ul>
                                                             <li>
@@ -154,7 +154,7 @@ export default{
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </div>
+
 
 
 
@@ -209,6 +209,7 @@ ul li{
     background-color: white;
     border-radius: 10px;
     width: 130px;
+    z-index: 900;
 
     ul li{
         display: flex;

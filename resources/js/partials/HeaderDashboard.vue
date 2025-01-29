@@ -8,8 +8,7 @@ import store from '../store/store';
 export default{
     name: 'HeaderDashboard',
     data() {
-        return {
-        }
+        return {}
     },
     setup() {
         onMounted(() => {
@@ -39,9 +38,12 @@ export default{
             <div class="d-flex align-items-center justify-content-between h-100">
                 <div class="col-10">
 
-                    <div class="d-flex gap-2">
+
+                    <router-link :to="{ name: 'Profile' }" class="d-flex gap-2">
                         <div class="circle-box">
+
                             <i class="bi bi-suitcase-lg"></i>
+
                         </div>
                         <ul>
                             <li>
@@ -51,7 +53,9 @@ export default{
                                 {{ store.email }}
                             </li>
                         </ul>
-                    </div>
+
+                    </router-link>
+
 
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-end">
@@ -83,7 +87,7 @@ export default{
     padding: 0 2.5rem;
 }
 
-.circle-box{
+.circle-box {
     display:flex;
     align-items: center;
     justify-content: center;

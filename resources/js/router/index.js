@@ -6,6 +6,7 @@ import Register from '../pages/Register.vue';
 import Dashboard from '../pages/Dashboard.vue';
 import ProjectList from '../pages/projects/ProjectList.vue';
 import CreateProject from '../pages/projects/CreateProject.vue';
+import Profile from '../pages/Profile.vue';
 
 const routes = [
 
@@ -19,6 +20,12 @@ const routes = [
         name: 'Dashboard',
         component: Dashboard,
         meta: { requiresAuth: true}
+    },
+    {
+        path: '/dashboard/profilo-utente',
+        name: 'Profile',
+        component: Profile,
+        meta: { requiresAuth: true }
     },
     {
         path: '/dashboard/progetti',

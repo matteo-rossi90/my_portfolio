@@ -12,11 +12,13 @@ export default{
             errors:{
                 email: '',
                 password: '',
-            }
+            },
+            isLoading:true
         }
     },
     methods: {
         submit(){
+            this.isLoading = true;
             axios
             .post("/api/login", this.fields)
             .then((response) => {
@@ -49,7 +51,16 @@ export default{
 
 
             })
-        }
+            .finally(() => {
+                this.isLoading = false;  // Nasconde il loader dopo la risposta
+            });
+        },
+
+    },
+    mounted() {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 2500)
 
     },
 }
@@ -59,7 +70,7 @@ export default{
     <body class="background-form">
         <div class="container">
 
-            <div class="container-form" id="login">
+            <div class="container-form" id="login" v-if="!isLoading">
 
                 <form @submit.prevent="submit" class="form">
 
@@ -80,6 +91,9 @@ export default{
                         <button type="input" id="btn-login">Accedi</button>
                     </div>
                 </form>
+            </div>
+            <div class="loading" v-else>
+                <div class="loader"></div>
             </div>
 
         </div>
