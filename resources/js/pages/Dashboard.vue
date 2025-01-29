@@ -14,13 +14,28 @@ export default {
     },
     data() {
         return {
-            name: ''
+            name: '',
+            projects:[]
+        }
+    },
+    methods:{
+        loadProjects(){
+            axios
+                .get("/api/dashboard/progetti")
+                .then((response) => {
+                    console.log(response.data)
+                    this.projects = response.data
+                })
+                .catch((error) =>{
+                    console.log(error)
+                })
         }
     },
     mounted() {
         axios
         .get("/api/user")
         .then((response) => {
+            this.loadProjects();
             this.name = response.data.name
         })
         .catch((error) =>{
@@ -54,7 +69,7 @@ export default {
                                 </div>
                                 <div class="text-box">
                                     <h5>Progetti</h5>
-                                    <span>10</span>
+                                    <span>{{ projects.length }}</span>
                                 </div>
                             </div>
                         </div>

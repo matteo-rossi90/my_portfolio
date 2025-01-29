@@ -11,7 +11,8 @@ export default{
     },
     data() {
         return {
-            projects:[]
+            projects:[],
+            activeDropdown: null
         }
     },
     mounted() {
@@ -31,6 +32,25 @@ export default{
 
     },
     methods: {
+        dropdownMenu(id){
+            const dropdown = document.getElementById(`dropdown-${id}`);
+
+            if (this.activeDropdown === id) {
+                dropdown.style.display = 'none';
+                this.activeDropdown = null;
+            } else {
+
+                if (this.activeDropdown !== null) {
+                    const prevDropdown = document.getElementById(`dropdown-${this.activeDropdown}`);
+                    if (prevDropdown) prevDropdown.style.display = 'none';
+                }
+
+                dropdown.style.display = 'block';
+                this.activeDropdown = id;
+            }
+
+            //console.log(id)
+        },
         imageUrl(path) {
             return `http://127.0.0.1:8000/${path}`; // URL completo dell'immagine
         },
@@ -57,8 +77,9 @@ export default{
         <div class="container-body">
             <div class="container-fluid p-4">
                 <h2>Lista progetti</h2>
+
                 <div class="box-stat">
-                    <div class="row">
+                    <div class="row py-2">
                         <div class="col-12 col-md-12">
                             <div class="card-dashboard">
 
@@ -80,9 +101,29 @@ export default{
                                             <td>{{ project.title }}</td>
                                             <td>{{ project.type.name }}</td>
                                             <td>
-                                                <button class="btn btn-actions">
-                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                <button class="btn btn-actions" >
+                                                    <i class="bi bi-three-dots-vertical" @click="dropdownMenu(project.id)"></i>
                                                 </button>
+                                                <div class="menu-dropdown-dh">
+                                                    <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + project.id">
+                                                        <ul>
+                                                            <li>
+                                                                <i class="bi bi-eye"></i>
+                                                                <span>Visualizza</span>
+                                                            </li>
+                                                            <li>
+                                                                <i class="bi bi-pencil"></i>
+                                                                <span>Modifica</span>
+                                                            </li>
+                                                            <li>
+                                                                <i class="bi bi-trash3"></i>
+                                                                <span>Elimina</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+
 
                                             </td>
                                         </tr>
@@ -108,14 +149,43 @@ table{
     font-size:0.9rem
 }
 
+td{
+    vertical-align: middle;
+}
+
 .btn-actions{
     &:hover{
         background-color: $background-dashboard;
     }
 }
 
-.bi{
+.bi,
+ul li{
     cursor:pointer;
+}
+
+.menu-dropdown-dh{
+    position:relative;
+}
+
+.content-menu-dh{
+    display:none;
+    position:absolute;
+    right: 60px;
+    border: 1px solid $shadow;
+    background-color: white;
+    border-radius: 10px;
+    width: 130px;
+
+    ul li{
+        display: flex;
+        gap: 10px;
+        padding: 0.4rem 1rem;
+
+        &:hover{
+            background-color: $background-dashboard;
+        }
+    }
 }
 
 </style>
