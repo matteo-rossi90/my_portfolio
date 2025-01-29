@@ -5,6 +5,7 @@ import Home from '../pages/Home.vue';
 import Register from '../pages/Register.vue';
 import Dashboard from '../pages/Dashboard.vue';
 import ProjectList from '../pages/projects/ProjectList.vue';
+import CreateProject from '../pages/projects/CreateProject.vue';
 
 const routes = [
 
@@ -23,6 +24,12 @@ const routes = [
         path: '/dashboard/progetti',
         name: 'ProjectList',
         component: ProjectList,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/dashboard/nuovo-progetto',
+        name: 'CreateProject',
+        component: CreateProject,
         meta: { requiresAuth: true }
     },
     {

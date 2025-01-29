@@ -29,10 +29,15 @@ export default{
                     this.$router.push({ name: 'Login' });
                 }
             });
-
+        document.addEventListener("click", this.closeDropdownOutside);
+    },
+    beforeUnmount() {
+        document.removeEventListener("click", this.closeDropdownOutside);
     },
     methods: {
-        dropdownMenu(id){
+        dropdownMenu(id, event){
+            event.stopPropagation();
+
             const dropdown = document.getElementById(`dropdown-${id}`);
 
             if (this.activeDropdown === id) {
@@ -51,6 +56,17 @@ export default{
 
             //console.log(id)
         },
+
+        closeDropdownOutside(event) {
+            if (this.activeDropdown !== null) {
+                const activeDropdownEl = document.getElementById(`dropdown-${this.activeDropdown}`);
+                if (activeDropdownEl && !activeDropdownEl.contains(event.target)) {
+                    activeDropdownEl.style.display = 'none';
+                    this.activeDropdown = null;
+                }
+            }
+        },
+
         imageUrl(path) {
             return `http://127.0.0.1:8000/${path}`; // URL completo dell'immagine
         },
@@ -76,7 +92,24 @@ export default{
         <Sidenav/>
         <div class="container-body">
             <div class="container-fluid p-4">
-                <h2>Lista progetti</h2>
+
+                    <div class="row py-2">
+                        <div class="col-12">
+                             <div class="card-dashboard justify-content-between">
+                                <div class="title-list">
+                                    <h2>Lista progetti</h2>
+                                    <p>Riepilogo delle attività</p>
+                                </div>
+                                <router-link :to="{ name: 'CreateProject' }" class="btn btn-new d-flex gap-2 align-items-center">
+                                    <i class="bi bi-plus-circle"></i>
+                                    <span>Aggiungi</span>
+                                </router-link>
+                            </div>
+                        </div>
+
+                    </div>
+
+
 
                 <div class="box-stat">
                     <div class="row py-2">
@@ -102,7 +135,7 @@ export default{
                                             <td>{{ project.type.name }}</td>
                                             <td>
                                                 <button class="btn btn-actions" >
-                                                    <i class="bi bi-three-dots-vertical" @click="dropdownMenu(project.id)"></i>
+                                                    <i class="bi bi-three-dots-vertical" @click="dropdownMenu(project.id, $event)"></i>
                                                 </button>
                                                 <div class="menu-dropdown-dh">
                                                     <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + project.id">

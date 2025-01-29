@@ -56,8 +56,18 @@ export default {
         <Sidenav/>
         <div class="container-body">
             <div class="container-fluid p-4">
-                <h2>Ciao, {{ name }}</h2>
-                <p>Riepilogo delle attività</p>
+                <div class="row py-2">
+
+                    <div class="col-12">
+                        <div class="card-dashboard">
+                            <div class="title-list">
+                                <h2>Ciao, {{ name }}</h2>
+                                <p>Riepilogo delle attività</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="box-stat">
 
                     <div class="row py-2">
