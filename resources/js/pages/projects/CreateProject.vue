@@ -10,19 +10,84 @@ export default {
         HeaderDashboard,
         Sidenav
     },
+    data() {
+        return {
+            fields: {
+            technologies: [],
+            type_id: "",
+        },
+            types: [],  // Lista dei tipi
+            //technologies: [],  // Lista delle tecnologie
+            errors:{}
+        }
+    },
+    methods: {
+        submit(){
+            let formData = new FormData();
+
+            // Aggiungi i dati del progetto
+            formData.append('title', this.fields.title);
+            formData.append('theme', this.fields.theme);
+            formData.append('company', this.fields.company);
+            formData.append('description', this.fields.description);
+            formData.append('start_date', this.fields.start_date);
+            formData.append('end_date', this.fields.end_date);
+
+            // Aggiungi l'immagine se esiste
+            if (this.fields.image) {
+                formData.append('image', this.fields.image);
+            }
+
+            axios.post('/api/dashboard/progetti', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                console.log('Progetto creato:', response.data);
+                this.$router.push({ name: 'ProjectList' });
+                this.fields = {}
+            })
+            .catch(error => {
+                if (error.response) {
+                    this.errors = error.response.data.errors;
+                }
+            });
+        },
+
+        handleFileUpload(event) {
+            this.fields.image = event.target.files[0];
+        },
+
+    },
     mounted() {
         axios
         .get('/api/user')
         .then(() => {
             this.loadProjects();
         })
-            .catch((error) => {
-                if (error.response && error.response.status === 401) {
-                    localStorage.removeItem('authenticated');
-                    this.$router.push({ name: 'Login' });
-                }
-            });
-        },
+        .catch((error) => {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem('authenticated');
+                this.$router.push({ name: 'Login' });
+            }
+        });
+
+        axios
+        .get('/api/dashboard/tipi')
+        .then(response => {
+            this.types = response.data; // Salva i tipi disponibili
+        })
+        .catch(error => console.log(error));
+
+        axios
+        .get('/api/dashboard/tecnologie')
+        .then(response => {
+            this.techs = response.data; // Salva le tecnologie disponibili
+        })
+        .catch(error => console.log(error));
+    },
 }
 </script>
 
@@ -53,23 +118,41 @@ export default {
                     <div class="col-12">
                         <div class="card-dashboard-form">
 
-                            <form action="#" class="row">
+                            <form @submit.prevent="submit" enctype="multipart/form-data" class="row">
 
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label for="#">Titolo</label>
-                                    <input type="text" placeholder="Inserisci il titolo">
+                                    <label for="title">Titolo</label>
+                                    <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    placeholder="Inserisci il titolo"
+                                    v-model="fields.title">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label for="#">Argomento</label>
-                                    <input type="text" placeholder="Inserisci argomento">
+                                    <label for="theme">Argomento</label>
+                                    <input
+                                    type="text"
+                                    id="theme"
+                                    name="theme"
+                                    placeholder="Inserisci argomento"
+                                    v-model="fields.theme">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="#">Ambito di sviluppo</label>
-                                    <input type="text" placeholder="Inserisci ambito di sviluppo">
+                                    <input
+                                    type="text"
+                                    id="company"
+                                    name="company"
+                                    placeholder="Inserisci ambito di sviluppo"
+                                    v-model="fields.company">
                                 </div>
                                 <div class="col-12 col-md-6 d-flex flex-column mb-3">
-                                    <label for="#">Tipologia</label>
-                                    <select name="#" id="#">
+                                    <label for="type_id" name="type_id">Tipologia</label>
+                                    <select name="type_id" id="type_id" v-model="fields.type_id">
+                                        <option v-for="type in types" :key="type.id" :value="type.id">
+                                            {{ type.name }}
+                                        </option>
                                         <option value="#">Seleziona</option>
                                     </select>
                                 </div>
@@ -79,17 +162,28 @@ export default {
                                     <span>HTML</span>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label for="#">Data d'inizio</label>
-                                    <input type="date">
+                                    <label for="start_date">Data d'inizio</label>
+                                    <input type="date"
+                                    id="end_date"
+                                    name="start_date"
+                                    v-model="fields.start_date">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label for="#">Data di fine</label>
-                                    <input type="date">
+                                    <label for="end_date">Data di fine</label>
+                                    <input
+                                    type="date"
+                                    id="end_date"
+                                    name="end_date"
+                                    v-model="fields.end_date">
                                 </div>
                                 <div class="col-12 col-md-6 d-flex flex-column mb-3">
                                     <label for="file-upload">Carica un'immagine</label>
                                     <div class="custom-file-upload">
-                                        <input type="file" id="file-upload" class="file-input">
+                                        <input
+                                        type="file"
+                                        id="file-upload"
+                                        class="file-input"
+                                        @change="handleFileUpload">
                                         <div class="upload-area">
                                             <i class="bi bi-cloud-upload"></i>
                                             <span>Trascina il file qui o clicca per caricare</span>
@@ -97,12 +191,16 @@ export default {
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex flex-column mb-3">
-                                    <label for="#">Descrizione</label>
-                                    <textarea name="" id="" rows="8"></textarea>
+                                    <label for="description">Descrizione</label>
+                                    <textarea
+                                    name="description"
+                                    id="description"
+                                    rows="8"
+                                    v-model="fields.description"></textarea>
                                 </div>
 
                                 <div class="col-12 col-2">
-                                    <button class="btn btn-new" type="submit">Invia</button>
+                                    <button class="btn btn-new" type="submit" @click="submit">Invia</button>
                                 </div>
 
                             </form>

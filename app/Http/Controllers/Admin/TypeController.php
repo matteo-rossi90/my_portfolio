@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Functions\Helper;
 use App\Http\Controllers\Controller;
-use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-            $projects = Project::with(['type', 'technologies'])->get();
-            return response()->json($projects);
-
+        $types = Type::all();
+        return response()->json($types);
     }
 
     /**
@@ -39,27 +37,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'theme' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-            'image' => 'nullable|image|max:2048'
-        ]);
-
-        // Salvataggio del progetto nel database
-        $project = new Project($validated);
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $project->image = $path;
-        }
-        $project->save();
-
-        return response()->json(['message' => 'Progetto creato con successo', 'project' => $project], 201);
-
+        //
     }
 
     /**

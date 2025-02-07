@@ -84,7 +84,7 @@ export default{
 }
 
 .padding{
-    padding: 0 2.5rem;
+    padding: 0 1.2rem;
 }
 
 .circle-box {

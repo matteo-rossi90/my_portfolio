@@ -1,38 +1,18 @@
 <script>
 import axios from 'axios';
-import Sidenav from '../../partials/Sidenav.vue';
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
+import Sidenav from '../../partials/Sidenav.vue';
 
-export default{
-    name: 'ProjectList',
+export default {
+    name: 'TypeList',
     components:{
         HeaderDashboard,
         Sidenav
     },
     data() {
         return {
-            projects:[],
-            activeDropdown: null
+            types:[]
         }
-    },
-    mounted() {
-        axios
-            .get('/api/user')
-            .then(() => {
-
-                this.loadProjects();
-            })
-            .catch((error) => {
-                if (error.response.status === 401) {
-
-                    localStorage.removeItem('authenticated');
-                    this.$router.push({ name: 'Login' });
-                }
-            });
-        document.addEventListener("click", this.closeDropdownOutside);
-    },
-    beforeUnmount() {
-        document.removeEventListener("click", this.closeDropdownOutside);
     },
     methods: {
         dropdownMenu(id, event){
@@ -67,26 +47,38 @@ export default{
             }
         },
 
-        imageUrl(path) {
-            return `http://127.0.0.1:8000/${path}`; // URL completo dell'immagine
-        },
-
-        loadProjects(){
+        loadTypes(){
             axios
-                .get("/api/dashboard/progetti")
+                .get("/api/dashboard/tipi")
                 .then((response) => {
                     console.log(response.data)
-                    this.projects = response.data
+                    this.types = response.data
                 })
                 .catch((error) =>{
                     console.log(error)
                 })
         }
     },
+    mounted() {
+        axios
+            .get('/api/user')
+            .then(() => {
+                this.loadTypes();
+            })
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    localStorage.removeItem('authenticated');
+                    this.$router.push({ name: 'Login' });
+                }
+            });
+        document.addEventListener("click", this.closeDropdownOutside);
+    },
+
 }
 </script>
 
 <template>
+
     <HeaderDashboard/>
     <div class="wrap-container">
         <Sidenav/>
@@ -97,13 +89,13 @@ export default{
                         <div class="col-12">
                              <div class="card-dashboard justify-content-between">
                                 <div class="title-list">
-                                    <h2>Lista progetti</h2>
+                                    <h2>Lista tipi</h2>
                                     <p>Riepilogo delle attività</p>
                                 </div>
-                                <router-link :to="{ name: 'CreateProject' }" class="btn btn-new d-flex gap-2 align-items-center">
-                                    <i class="bi bi-plus-circle"></i>
-                                    <span>Aggiungi</span>
-                                </router-link>
+                                <!-- <router-link :to="{ name: 'CreateProject' }" class="btn btn-new d-flex gap-2 align-items-center"> -->
+                                    <!-- <i class="bi bi-plus-circle"></i> -->
+                                    <!-- <span>Aggiungi</span> -->
+                                <!-- </router-link> -->
                             </div>
                         </div>
 
@@ -120,25 +112,23 @@ export default{
                                     <thead>
                                         <tr>
                                             <th scope="col">#ID</th>
-                                            <th scope="col">Titolo</th>
-                                            <th scope="col">Tipologie</th>
+                                            <th scope="col">Nome</th>
                                             <th scope="col">Azioni</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="project in projects" :key="project.id">
+                                        <tr v-for="type in types" :key="type.id">
                                             <!-- <td> -->
                                                 <!-- <img :src="imageUrl(project.img)" alt=""> -->
                                             <!-- </td> -->
-                                            <td>{{ project.id }}</td>
-                                            <td>{{ project.title }}</td>
-                                            <td>{{ project.type.name }}</td>
+                                            <td>{{ type.id }}</td>
+                                            <td>{{ type.name }}</td>
                                             <td class="menu-dropdown-dh">
                                                 <button class="btn btn-actions" >
-                                                    <i class="bi bi-three-dots-vertical" @click="dropdownMenu(project.id, $event)"></i>
+                                                    <i class="bi bi-three-dots-vertical" @click="dropdownMenu(type.id, $event)"></i>
                                                 </button>
 
-                                                    <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + project.id">
+                                                    <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + type.id">
                                                         <ul>
                                                             <li>
                                                                 <a href="#">
@@ -179,12 +169,16 @@ export default{
             </div>
         </div>
     </div>
+
+
 </template>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
+
 @use '../../../scss/list' as*;
 @use '../../../scss/general' as*;
 @use '../../../scss/variables' as*;
+
 
 
 </style>

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechnologyController;
+use App\Http\Controllers\Admin\TypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -32,6 +34,12 @@ Route::middleware('auth:sanctum')->post('logout', [AuthenticatedSessionControlle
 // });
 
 Route::resource('dashboard/progetti', ProjectController::class);
+
+Route::resource('dashboard/tipi', TypeController::class);
+
+Route::resource('dashboard/tecnologie', TechnologyController::class);
+
+//Route::middleware('auth:sanctum')->post('dashboard/progetti/nuovo-progetto', [ProjectController::class, 'store']);
 
 Route::post('register', [RegisteredUserController::class, 'store' ]);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);

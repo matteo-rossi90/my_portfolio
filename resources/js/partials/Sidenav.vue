@@ -32,7 +32,7 @@ export default {
                 <li>
                     <router-link :to="{name: 'Dashboard'}">
                         <span><i class="bi bi-grid-1x2"></i></span>
-                        <span class="text-link">Dashboard</span>
+                        <span class="text-link">Info</span>
                     </router-link>
                 </li>
                 <li>
@@ -41,13 +41,25 @@ export default {
                         <span class="text-link">Progetti</span>
                     </router-link>
                 </li>
+                <li>
+                    <router-link :to="{name: 'TypeList'}">
+                        <span><i class="bi bi-tags"></i></span>
+                        <span class="text-link">Tipi</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{name: 'TechnologiesList'}">
+                        <span><i class="bi bi-gear"></i></span>
+                        <span class="text-link">Tecnologie</span>
+                    </router-link>
+                </li>
 
             </ul>
 
             <div id="log-out">
                 <a href="#" @click="logOut">
                     <span><i class="bi bi-box-arrow-left"></i></span>
-                    <span class="text-link">Disconnetti</span>
+                    <span class="text-link">Esci</span>
                 </a>
             </div>
         </div>
@@ -64,52 +76,54 @@ ul{
 
 #log-out,
 li{
-   padding: 0.8rem 2.5rem;
+   padding: 0.2rem 0.6rem;
    display: flex;
    justify-content: center;
    width: 100%;
 
    a{
     display: flex;
+    flex-direction: column;
     align-items:center;
-    gap: 15px;
+    // gap: 15px;
     width:100%;
+    padding: 0.6rem;
    }
 
    .bi{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
    }
 }
 
-li:hover,
-#log-out:hover{
+li a:hover,
+#log-out a:hover{
     transition: 0.3s;
+    border-radius: 10px;
 }
 
-li:hover{
-  background-color: $sidenav-hover;
 
-  a{
+
+li a:hover{
+    background-color: $sidenav-hover;
     color: blue;
-  }
 }
 
-#log-out:hover {
-    background-color: rgb(255, 214, 207);
 
-    a{
-        color: $register-tomato;
-    }
+#log-out a:hover {
+
+    background-color: rgb(255, 228, 223);
+    color: $register-tomato;
+
 }
 
 
 .container-sidenav{
     height: 100%;
-    width: 250px;
+    width: 90px;
 }
 
 .text-link{
-    font-size: 1.1rem;
+    font-size: small;
 }
 
 </style>
