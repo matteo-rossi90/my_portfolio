@@ -16,8 +16,8 @@ export default {
             technologies: [],
             type_id: "",
         },
-            types: [],  // Lista dei tipi
-            //technologies: [],  // Lista delle tecnologie
+            types: [],
+            technologies: [],
             errors:{}
         }
     },
@@ -84,7 +84,7 @@ export default {
         axios
         .get('/api/dashboard/tecnologie')
         .then(response => {
-            this.techs = response.data; // Salva le tecnologie disponibili
+            this.technologies = response.data; // Salva le tecnologie disponibili
         })
         .catch(error => console.log(error));
     },
@@ -156,10 +156,13 @@ export default {
                                         <option value="#">Seleziona</option>
                                     </select>
                                 </div>
-                                <label for="#">Tecnologie</label>
-                                <div class="col-12 d-flex gap-2 mb-3">
-                                    <input type="radio">
-                                    <span>HTML</span>
+                                <label for="technologies">Tecnologie</label>
+                                <div class="col-12 d-flex gap-4 mb-3">
+                                    <label v-for="tech in technologies" :key="tech.id" class="d-flex align-items-center gap-2">
+                                        <input type="checkbox" :value="tech.id" v-model="fields.technologies">
+                                        <span>{{ tech.name }}</span>
+                                    </label>
+
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="start_date">Data d'inizio</label>
