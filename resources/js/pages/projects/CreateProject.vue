@@ -12,7 +12,13 @@ export default {
     },
     data() {
         return {
-            fields: {
+            projects: {
+                title: "",
+                theme: "",
+                company: "",
+                description: "",
+                start_date: "",
+                end_date: "",
                 technologies: [],
                 type_id: "",
             },
@@ -26,18 +32,18 @@ export default {
             let formData = new FormData();
 
             // Aggiungi i dati del progetto
-            formData.append('title', this.fields.title);
-            formData.append('theme', this.fields.theme);
-            formData.append('company', this.fields.company);
-            formData.append('description', this.fields.description);
-            formData.append('start_date', this.fields.start_date);
-            formData.append('end_date', this.fields.end_date);
-            formData.append('type_id', this.fields.type_id);
-            //formData.append('technologies', this.fields.project.technologies); // problema da risolvere
+            formData.append('projects', JSON.stringify(this.projects));
+            // formData.append('theme', this.projects.theme);
+            // formData.append('company', this.projects.company);
+            // formData.append('description', this.projects.description);
+            // formData.append('start_date', this.projects.start_date);
+            // formData.append('end_date', this.projects.end_date);
+            // formData.append('type_id', this.projects.type_id);
+            //formData.append('technologies', this.projects.project.technologies); // problema da risolvere
 
             // Aggiungi l'immagine se esiste
-            if (this.fields.image) {
-                formData.append('image', this.fields.image);
+            if (this.projects.image) {
+                formData.append('image', this.projects.image);
             }
 
             axios.post('/api/dashboard/nuovo-progetto', formData, {
@@ -49,7 +55,7 @@ export default {
             .then(response => {
                 console.log('Progetto creato:', response.data);
                 this.$router.push({ name: 'ProjectList' });
-                this.fields = {}
+                this.projects = {}
             })
             .catch(error => {
                 if (error.response) {
@@ -58,19 +64,19 @@ export default {
             });
         },
         addTechs(idTechnologies) {
-            if (this.project.technologies.includes(idTechnologies)) {
+            if (this.projects.technologies.includes(idTechnologies)) {
                 // lo tolgo
-                let index = this.project.technologies.indexOf(idTechnologies);
-                this.project.technologies.splice(index, 1);
+                let index = this.projects.technologies.indexOf(idTechnologies);
+                this.projects.technologies.splice(index, 1);
             } else {
                 // lo inserisco
-                this.project.technologies.push(idTechnologies);
+                this.projects.technologies.push(idTechnologies);
             }
-            console.log(this.project.technologies);
+            console.log(this.projects.technologies);
             },
 
         handleFileUpload(event) {
-            this.fields.image = event.target.files[0];
+            this.projects.image = event.target.files[0];
         },
 
     },
@@ -140,7 +146,7 @@ export default {
                                     id="title"
                                     name="title"
                                     placeholder="Inserisci il titolo"
-                                    v-model="fields.title">
+                                    v-model="projects.title">
                                 </div>
                                 <div class="col-12 col-md-6 mb-4">
                                     <label for="theme">Argomento</label>
@@ -149,7 +155,7 @@ export default {
                                     id="theme"
                                     name="theme"
                                     placeholder="Inserisci argomento"
-                                    v-model="fields.theme">
+                                    v-model="projects.theme">
                                 </div>
                                 <div class="col-12 col-md-6 mb-4">
                                     <label for="#">Ambito di sviluppo</label>
@@ -158,11 +164,11 @@ export default {
                                     id="company"
                                     name="company"
                                     placeholder="Inserisci ambito di sviluppo"
-                                    v-model="fields.company">
+                                    v-model="projects.company">
                                 </div>
                                 <div class="col-12 col-md-6 d-flex flex-column mb-4">
                                     <label for="type_id" name="type_id">Tipologia</label>
-                                    <select name="type_id" id="type_id" v-model="fields.type_id">
+                                    <select name="type_id" id="type_id" v-model="projects.type_id">
                                         <option v-for="type in types" :key="type.id" :value="type.id">
                                             {{ type.name }}
                                         </option>
@@ -182,7 +188,7 @@ export default {
                                     <input type="date"
                                     id="end_date"
                                     name="start_date"
-                                    v-model="fields.start_date">
+                                    v-model="projects.start_date">
                                 </div>
                                 <div class="col-12 col-md-6 mb-4">
                                     <label for="end_date">Data di fine</label>
@@ -190,7 +196,7 @@ export default {
                                     type="date"
                                     id="end_date"
                                     name="end_date"
-                                    v-model="fields.end_date">
+                                    v-model="projects.end_date">
                                 </div>
                                 <div class="col-12 col-md-6 d-flex flex-column mb-4">
                                     <label for="file-upload">Carica un'immagine</label>
@@ -212,7 +218,7 @@ export default {
                                     name="description"
                                     id="description"
                                     rows="8"
-                                    v-model="fields.description"></textarea>
+                                    v-model="projects.description"></textarea>
                                 </div>
 
                                 <div class="col-12 col-2">

@@ -41,17 +41,17 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'type_id' => 'nullable|exists:types,id',
-            //'technologies' => 'nullable|exists:technologies,id',
-            'theme' => 'nullable|string',
-            'company' => 'nullable|string',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
-            'description' => 'nullable|string',
-        ]);
+        $data = json_decode($request->input('projects'), true);
+        // $data = $request->validate([
+            // 'title' => 'required|string|max:255',
+            // 'type_id' => 'nullable|exists:types,id',
+            // //'technologies' => 'nullable|exists:technologies,id',
+            // 'theme' => 'nullable|string',
+            // 'company' => 'nullable|string',
+            // 'start_date' => 'nullable|date',
+            // 'end_date' => 'nullable|date',
+            // 'description' => 'nullable|string',
+        // ]);
 
         // Se type_id è mancante o non valido, assegna un valore di default
         if (!isset($data['type_id']) || !Type::find($data['type_id'])) {
@@ -63,11 +63,11 @@ class ProjectController extends Controller
 
         $project = Project::create($data);
 
-        if (!empty($data['technologies'])) {
-            $technologyIds = Technology::whereIn('name', $data['technologies'])->pluck('id')->toArray();
-            $project->technologies()->attach($technologyIds);
-        }
-        //$project->technologies()->attach($data['technologies']);
+        // if (!empty($data['technologies'])) {
+            // $technologyIds = Technology::whereIn('name', $data['technologies'])->pluck('id')->toArray();
+            // $project->technologies()->attach($technologyIds);
+        // }
+        $project->technologies()->attach($data['technologies']);
 
         return response()->json($project, 201);
 
