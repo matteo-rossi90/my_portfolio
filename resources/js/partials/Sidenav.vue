@@ -23,12 +23,12 @@ export default {
     <aside class="container-sidenav">
         <div class="d-flex flex-column align-items-center h-100 justify-content-between py-4">
             <ul>
-                <li>
-                    <router-link :to="{name: 'Home'}">
-                        <span><i class="bi bi-house"></i></span>
-                        <span class="text-link">Home</span>
-                    </router-link>
-                </li>
+                <!-- <li> -->
+                    <!-- <router-link :to="{name: 'Home'}"> -->
+                        <!-- <span><i class="bi bi-house"></i></span> -->
+                        <!-- <span class="text-link">Home</span> -->
+                    <!-- </router-link> -->
+                <!-- </li> -->
                 <li>
                     <router-link :to="{name: 'Dashboard'}">
                         <span><i class="bi bi-grid-1x2"></i></span>

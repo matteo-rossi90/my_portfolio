@@ -39,7 +39,7 @@ Route::resource('dashboard/tipi', TypeController::class);
 
 Route::resource('dashboard/tecnologie', TechnologyController::class);
 
-//Route::middleware('auth:sanctum')->post('dashboard/progetti/nuovo-progetto', [ProjectController::class, 'store']);
+Route::post('dashboard/nuovo-progetto', [ProjectController::class, 'store']);
 
 Route::post('register', [RegisteredUserController::class, 'store' ]);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);

@@ -59,9 +59,15 @@ export default{
 
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-end">
-                    <ul class="d-flex gap-3">
-                        <li>item</li>
-                        <li>item</li>
+                    <ul class="d-flex gap-4">
+                        <li>
+                            <a href="#">
+                                <i class="bi bi-chat"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="bi bi-sun"></i>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -13,9 +13,9 @@ export default {
     data() {
         return {
             fields: {
-            technologies: [],
-            type_id: "",
-        },
+                technologies: [],
+                type_id: "",
+            },
             types: [],
             technologies: [],
             errors:{}
@@ -32,13 +32,15 @@ export default {
             formData.append('description', this.fields.description);
             formData.append('start_date', this.fields.start_date);
             formData.append('end_date', this.fields.end_date);
+            formData.append('type_id', this.fields.type_id);
+            //formData.append('technologies', this.fields.project.technologies); // problema da risolvere
 
             // Aggiungi l'immagine se esiste
             if (this.fields.image) {
                 formData.append('image', this.fields.image);
             }
 
-            axios.post('/api/dashboard/progetti', formData, {
+            axios.post('/api/dashboard/nuovo-progetto', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -55,6 +57,17 @@ export default {
                 }
             });
         },
+        addTechs(idTechnologies) {
+            if (this.project.technologies.includes(idTechnologies)) {
+                // lo tolgo
+                let index = this.project.technologies.indexOf(idTechnologies);
+                this.project.technologies.splice(index, 1);
+            } else {
+                // lo inserisco
+                this.project.technologies.push(idTechnologies);
+            }
+            console.log(this.project.technologies);
+            },
 
         handleFileUpload(event) {
             this.fields.image = event.target.files[0];
@@ -120,7 +133,7 @@ export default {
 
                             <form @submit.prevent="submit" enctype="multipart/form-data" class="row">
 
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-6 mb-4">
                                     <label for="title">Titolo</label>
                                     <input
                                     type="text"
@@ -129,7 +142,7 @@ export default {
                                     placeholder="Inserisci il titolo"
                                     v-model="fields.title">
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-6 mb-4">
                                     <label for="theme">Argomento</label>
                                     <input
                                     type="text"
@@ -138,7 +151,7 @@ export default {
                                     placeholder="Inserisci argomento"
                                     v-model="fields.theme">
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-6 mb-4">
                                     <label for="#">Ambito di sviluppo</label>
                                     <input
                                     type="text"
@@ -147,7 +160,7 @@ export default {
                                     placeholder="Inserisci ambito di sviluppo"
                                     v-model="fields.company">
                                 </div>
-                                <div class="col-12 col-md-6 d-flex flex-column mb-3">
+                                <div class="col-12 col-md-6 d-flex flex-column mb-4">
                                     <label for="type_id" name="type_id">Tipologia</label>
                                     <select name="type_id" id="type_id" v-model="fields.type_id">
                                         <option v-for="type in types" :key="type.id" :value="type.id">
@@ -157,21 +170,21 @@ export default {
                                     </select>
                                 </div>
                                 <label for="technologies">Tecnologie</label>
-                                <div class="col-12 d-flex gap-4 mb-3">
+                                <div class="col-12 d-flex gap-4 mb-4">
                                     <label v-for="tech in technologies" :key="tech.id" class="d-flex align-items-center gap-2">
-                                        <input type="checkbox" :value="tech.id" v-model="fields.technologies">
+                                        <input type="checkbox" :value="tech.id" @click="addTechs(tech.id)">
                                         <span>{{ tech.name }}</span>
                                     </label>
 
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-6 mb-4">
                                     <label for="start_date">Data d'inizio</label>
                                     <input type="date"
                                     id="end_date"
                                     name="start_date"
                                     v-model="fields.start_date">
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-6 mb-4">
                                     <label for="end_date">Data di fine</label>
                                     <input
                                     type="date"
@@ -179,7 +192,7 @@ export default {
                                     name="end_date"
                                     v-model="fields.end_date">
                                 </div>
-                                <div class="col-12 col-md-6 d-flex flex-column mb-3">
+                                <div class="col-12 col-md-6 d-flex flex-column mb-4">
                                     <label for="file-upload">Carica un'immagine</label>
                                     <div class="custom-file-upload">
                                         <input
@@ -193,7 +206,7 @@ export default {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 d-flex flex-column mb-3">
+                                <div class="col-12 d-flex flex-column mb-4">
                                     <label for="description">Descrizione</label>
                                     <textarea
                                     name="description"
@@ -203,7 +216,7 @@ export default {
                                 </div>
 
                                 <div class="col-12 col-2">
-                                    <button class="btn btn-new" type="submit" @click="submit">Invia</button>
+                                    <button class="btn btn-new" type="submit">Invia</button>
                                 </div>
 
                             </form>

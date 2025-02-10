@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -16,7 +18,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-            $projects = Project::with(['type', 'technologies'])->get();
+            $projects = Project::with(['type', 'technologies'])->orderby('id', 'desc')->get();
             return response()->json($projects);
 
     }
@@ -39,26 +41,35 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        $validated = $request->validate([
+
+        $data = $request->validate([
             'title' => 'required|string|max:255',
-            'theme' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
+            'type_id' => 'nullable|exists:types,id',
+            //'technologies' => 'nullable|exists:technologies,id',
+            'theme' => 'nullable|string',
+            'company' => 'nullable|string',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
             'description' => 'nullable|string',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-            'image' => 'nullable|image|max:2048'
         ]);
 
-        // Salvataggio del progetto nel database
-        $project = new Project($validated);
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $project->image = $path;
+        // Se type_id è mancante o non valido, assegna un valore di default
+        if (!isset($data['type_id']) || !Type::find($data['type_id'])) {
+            $data['type_id'] = null;
         }
-        $project->save();
 
-        return response()->json(['message' => 'Progetto creato con successo', 'project' => $project], 201);
+        // Genera lo slug
+        $data['slug'] = Helper::generateSlug($data['title'], Project::class);
+
+        $project = Project::create($data);
+
+        if (!empty($data['technologies'])) {
+            $technologyIds = Technology::whereIn('name', $data['technologies'])->pluck('id')->toArray();
+            $project->technologies()->attach($technologyIds);
+        }
+        //$project->technologies()->attach($data['technologies']);
+
+        return response()->json($project, 201);
 
     }
 

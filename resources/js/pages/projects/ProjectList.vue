@@ -132,7 +132,8 @@ export default{
                                             <!-- </td> -->
                                             <td>{{ project.id }}</td>
                                             <td>{{ project.title }}</td>
-                                            <td>{{ project.type.name }}</td>
+                                            <td v-if="project.type">{{ project.type.name }}</td>
+                                            <td v-else>Non specificato</td>
                                             <td class="menu-dropdown-dh">
                                                 <button class="btn btn-actions" >
                                                     <i class="bi bi-three-dots-vertical" @click="dropdownMenu(project.id, $event)"></i>
