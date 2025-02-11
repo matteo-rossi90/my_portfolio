@@ -21,6 +21,7 @@ export default {
                 end_date: "",
                 technologies: [],
                 type_id: "",
+                img: ""
             },
             types: [],
             technologies: [],
@@ -33,17 +34,10 @@ export default {
 
             // Aggiungi i dati del progetto
             formData.append('projects', JSON.stringify(this.projects));
-            // formData.append('theme', this.projects.theme);
-            // formData.append('company', this.projects.company);
-            // formData.append('description', this.projects.description);
-            // formData.append('start_date', this.projects.start_date);
-            // formData.append('end_date', this.projects.end_date);
-            // formData.append('type_id', this.projects.type_id);
-            //formData.append('technologies', this.projects.project.technologies); // problema da risolvere
 
             // Aggiungi l'immagine se esiste
-            if (this.projects.image) {
-                formData.append('image', this.projects.image);
+            if (this.projects.img) {
+                formData.append('img', this.projects.img);
             }
 
             axios.post('/api/dashboard/nuovo-progetto', formData, {
@@ -60,6 +54,7 @@ export default {
             .catch(error => {
                 if (error.response) {
                     this.errors = error.response.data.errors;
+                    this.validateForm()
                 }
             });
         },
@@ -76,8 +71,47 @@ export default {
             },
 
         handleFileUpload(event) {
-            this.projects.image = event.target.files[0];
+            this.projects.img = event.target.files[0];
         },
+
+        validateForm(){
+            this.errors = {};
+
+            //validazione titolo
+            if(!this.projects.title && this.projects.title.length === 0){
+                this.errors.title = 'Il titolo è obbligatorio'
+            }else if(this.projects.title.length > 100){
+                this.errors.title = 'Il titolo non può avere più di 100 caratteri'
+            }else if(this.projects.title.length < 5){
+                this.errors.title = 'Il titolo non può avere meno di 5 caratteri'
+            }
+
+            //validazione argomento
+            if(!this.projects.theme){
+                this.errors.theme = "L'argomento è un campo obbligatorio"
+            }
+
+            if(this.projects.theme.length > 100){
+                this.errors.theme = "L'argomento non può avere più di 100 caratteri"
+            }
+
+            //validazione ambito lavorativo
+            if(!this.projects.company){
+                this.errors.company = "L'ambito lavorativo è un campo obbligatorio"
+            }
+
+            //validazione tecnologie
+            if(this.projects.technologies.length === 0){
+                this.errors.technologies = "Scegliere almeno una delle tecnologie proposte"
+            }
+
+            //validazione data inizio
+            if (!this.projects.start_date) {
+                this.errors.start_date = "La data d'inizio è un campo obbligatorio";
+            }
+
+
+        }
 
     },
     mounted() {
@@ -140,55 +174,79 @@ export default {
                             <form @submit.prevent="submit" enctype="multipart/form-data" class="row">
 
                                 <div class="col-12 col-md-6 mb-4">
-                                    <label for="title">Titolo</label>
+                                    <label for="title">Titolo*</label>
                                     <input
                                     type="text"
                                     id="title"
                                     name="title"
                                     placeholder="Inserisci il titolo"
                                     v-model="projects.title">
+
+                                    <small v-if="errors.title" class="errors">
+                                        {{ errors.title }}
+                                    </small>
                                 </div>
                                 <div class="col-12 col-md-6 mb-4">
-                                    <label for="theme">Argomento</label>
+                                    <label for="theme">Argomento*</label>
                                     <input
                                     type="text"
                                     id="theme"
                                     name="theme"
                                     placeholder="Inserisci argomento"
                                     v-model="projects.theme">
+
+                                    <small v-if="errors.theme" class="errors">
+                                        {{ errors.theme }}
+                                    </small>
+
                                 </div>
                                 <div class="col-12 col-md-6 mb-4">
-                                    <label for="#">Ambito di sviluppo</label>
+                                    <label for="#">Ambito di sviluppo*</label>
                                     <input
                                     type="text"
                                     id="company"
                                     name="company"
                                     placeholder="Inserisci ambito di sviluppo"
                                     v-model="projects.company">
+
+                                    <small v-if="errors.company" class="errors">
+                                        {{ errors.company }}
+                                    </small>
+
                                 </div>
                                 <div class="col-12 col-md-6 d-flex flex-column mb-4">
                                     <label for="type_id" name="type_id">Tipologia</label>
                                     <select name="type_id" id="type_id" v-model="projects.type_id">
+                                        <option value="#">Seleziona</option>
                                         <option v-for="type in types" :key="type.id" :value="type.id">
                                             {{ type.name }}
                                         </option>
-                                        <option value="#">Seleziona</option>
                                     </select>
+
                                 </div>
-                                <label for="technologies">Tecnologie</label>
+                                <label for="technologies">Tecnologie*</label>
+
                                 <div class="col-12 d-flex gap-4 mb-4">
                                     <label v-for="tech in technologies" :key="tech.id" class="d-flex align-items-center gap-2">
                                         <input type="checkbox" :value="tech.id" @click="addTechs(tech.id)">
                                         <span>{{ tech.name }}</span>
                                     </label>
 
+                                    <small v-if="errors.technologies" class="errors">
+                                        {{ errors.technologies }}
+                                    </small>
+
                                 </div>
                                 <div class="col-12 col-md-6 mb-4">
-                                    <label for="start_date">Data d'inizio</label>
+                                    <label for="start_date">Data d'inizio*</label>
                                     <input type="date"
                                     id="end_date"
                                     name="start_date"
                                     v-model="projects.start_date">
+
+                                     <small v-if="errors.start_date" class="errors">
+                                        {{ errors.start_date }}
+                                    </small>
                                 </div>
                                 <div class="col-12 col-md-6 mb-4">
                                     <label for="end_date">Data di fine</label>

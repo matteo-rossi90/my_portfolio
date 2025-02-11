@@ -31,13 +31,13 @@ export default {
                 <!-- </li> -->
                 <li>
                     <router-link :to="{name: 'Dashboard'}">
-                        <span><i class="bi bi-grid-1x2"></i></span>
+                        <span><i class="bi bi-columns"></i></span>
                         <span class="text-link">Info</span>
                     </router-link>
                 </li>
                 <li>
                     <router-link :to="{name: 'ProjectList'}">
-                        <span><i class="bi bi-list-ul"></i></span>
+                        <span><i class="bi bi-code-slash"></i></span>
                         <span class="text-link">Progetti</span>
                     </router-link>
                 </li>
@@ -69,6 +69,14 @@ export default {
 
 <style lang="scss" scoped>
 @use '../../scss/variables' as*;
+
+*{
+    color: white;
+}
+
+aside{
+    background-color: rgb(39, 39, 39);
+}
 
 ul{
     width: 100%;
@@ -105,14 +113,12 @@ li a:hover,
 
 li a:hover{
     background-color: $sidenav-hover;
-    color: blue;
 }
 
 
 #log-out a:hover {
 
-    background-color: rgb(255, 228, 223);
-    color: $register-tomato;
+    background-color: $sidenav-hover;
 
 }
 
