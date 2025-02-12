@@ -8,6 +8,7 @@ import ProjectList from '../pages/projects/ProjectList.vue';
 import TypeList from '../pages/types/TypeList.vue';
 import TechnologiesList from '../pages/technologies/TechnologiesList.vue';
 import CreateProject from '../pages/projects/CreateProject.vue';
+import ShowProject from '../pages/projects/ShowProject.vue';
 import Profile from '../pages/Profile.vue';
 
 const routes = [
@@ -33,6 +34,12 @@ const routes = [
         path: '/dashboard/progetti',
         name: 'ProjectList',
         component: ProjectList,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/dashboard/progetti/:id',
+        name: 'ShowProject',
+        component: ShowProject,
         meta: { requiresAuth: true }
     },
     {

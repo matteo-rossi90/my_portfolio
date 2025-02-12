@@ -35,6 +35,8 @@ Route::middleware('auth:sanctum')->post('logout', [AuthenticatedSessionControlle
 
 Route::resource('dashboard/progetti', ProjectController::class);
 
+Route::get('/dashboard/progetti/{id}', [ProjectController::class, 'show']);
+
 Route::resource('dashboard/tipi', TypeController::class);
 
 Route::resource('dashboard/tecnologie', TechnologyController::class);

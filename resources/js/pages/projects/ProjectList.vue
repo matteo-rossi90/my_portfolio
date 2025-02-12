@@ -142,10 +142,15 @@ export default{
                                                     <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + project.id">
                                                         <ul>
                                                             <li>
-                                                                <a href="#">
+                                                                <router-link :to="{
+                                                                    name: 'ShowProject',
+                                                                    params:{
+                                                                        id: project.id
+                                                                        }
+                                                                    }">
                                                                     <i class="bi bi-eye"></i>
                                                                     <span>Visualizza</span>
-                                                                </a>
+                                                                </router-link>
                                                             </li>
                                                             <li>
                                                                 <a href="#">
