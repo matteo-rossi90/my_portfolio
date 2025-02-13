@@ -87,26 +87,58 @@ export default {
                     <div class="col-12">
                         <div class="card-dashboard-form">
                             <div class="row py-3">
-                                <div class="col-12 col-md-6">
-                                    <ul class="list">
-                                        <li><strong>Argomento:</strong> <span>{{ project.theme }}</span></li>
-                                        <li><strong>Ambito di sviluppo/azienda:</strong> <span>{{ project.company }}</span></li>
-                                        <li><strong>Tipo:</strong><span>{{ project.type.name ? project.type.name : 'Non specificato' }}</span></li>
+                                <div class="col-12 col-md-6 d-flex">
+
+                                    <ul class="title-list">
+                                        <li>
+                                            <strong>Argomento:</strong>
+                                        </li>
+                                        <li>
+                                            <strong>Sviluppato in:</strong>
+                                        </li>
+                                        <li>
+                                            <strong>Tipo:</strong>
+                                        </li>
                                         <li>
                                             <strong>Tecnologie:</strong>
-                                            <small class="d-flex gap-3">
-                                                <span class="techs-badge" v-for="tech in project.technologies" :key="tech.id">
-                                                     {{ tech.name }}
-                                                </span>
-                                            </small>
-                                        </li>
-                                        <li>
-                                            <strong>Descrizione:</strong>
-                                            <span>{{ project.description ? project.description : 'Non presente'}}</span>
                                         </li>
                                     </ul>
-                                </div>
 
+
+                                    <ul class="show">
+                                        <li>
+                                            <span>{{ project.theme }}</span>
+                                        </li>
+                                        <li>
+                                            <span>{{ project.company }}</span>
+                                        </li>
+                                        <li>
+                                            <span>{{ project.type.name ? project.type.name : 'Non specificato'  }}</span>
+                                        </li>
+                                        <li>
+                                            <small class="d-flex gap-3">
+                                                <span class="techs-badge" v-for="tech in project.technologies" :key="tech.id">
+                                                    {{ tech.name }}
+                                                </span>
+                                            </small>
+
+                                        </li>
+                                    </ul>
+
+
+
+
+
+                                </div>
+                                <div class="col-12 d-flex">
+                                    <div class="title-description">
+                                        <strong>Descrizione:</strong>
+                                    </div>
+                                    <div class="show-description">
+                                        <p>{{ project.description }}</p>
+                                    </div>
+
+                                </div>
                             </div>
 
 
@@ -127,11 +159,11 @@ export default {
 
 <style lang="scss" scoped>
 
-.list{
-    li{
-        display:flex;
-        gap: 1.3rem;
+
+    ul li{
+
         padding: 1rem 0;
+
 
         .techs-badge{
             border-radius:50px;
@@ -141,11 +173,24 @@ export default {
             color: green;
         }
     }
-}
 
-strong{
-    width: 35%;
-}
+    .title-list{
+        width: 30%;
+    }
+
+    .title-description{
+        width: 15%
+    }
+
+    .show{
+        width: 70%;
+    }
+
+    .show-description{
+        width: 85%;
+    }
+
+
 
 
 

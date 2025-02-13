@@ -132,12 +132,6 @@ export default {
                                                         <ul>
                                                             <li>
                                                                 <a href="#">
-                                                                    <i class="bi bi-eye"></i>
-                                                                    <span>Visualizza</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
                                                                     <i class="bi bi-pencil"></i>
                                                                     <span>Modifica</span>
                                                                 </a>

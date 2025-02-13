@@ -129,7 +129,7 @@ li a:hover{
 }
 
 .text-link{
-    font-size: small;
+    font-size: 0.7rem;
 }
 
 </style>
