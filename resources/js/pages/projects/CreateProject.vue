@@ -3,12 +3,14 @@ import axios from 'axios';
 
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
 import Sidenav from '../../partials/Sidenav.vue';
+import Loader from '../../partials/Loader.vue';
 
 export default {
     name:'CreateProject',
     components:{
         HeaderDashboard,
-        Sidenav
+        Sidenav,
+        Loader
     },
     data() {
         return {
@@ -25,11 +27,13 @@ export default {
             },
             types: [],
             technologies: [],
-            errors:{}
+            errors:{},
+            isLoading: true
         }
     },
     methods: {
         submit(){
+            this.isLoading = true;
             let formData = new FormData();
 
             // Aggiungi i dati del progetto
@@ -75,6 +79,9 @@ export default {
         },
 
         validateForm(){
+            setTimeout(() => {
+                this.isLoading = false;
+            }, 1000)
             this.errors = {};
 
             //validazione titolo
@@ -115,6 +122,10 @@ export default {
 
     },
     mounted() {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 1000)
+
         axios
         .get('/api/user')
         .then(() => {
@@ -149,7 +160,7 @@ export default {
     <div class="wrap-container">
         <Sidenav/>
          <div class="container-body">
-            <div class="container-fluid p-4">
+            <div class="container-fluid p-4" v-if="!isLoading">
 
                 <div class="row">
                     <div class="col-12">
@@ -290,6 +301,9 @@ export default {
                     </div>
                 </div>
 
+            </div>
+            <div class="container-fluid" v-else>
+                <Loader/>
             </div>
         </div>
     </div>

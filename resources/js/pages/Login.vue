@@ -1,8 +1,12 @@
 <script>
 import axios from 'axios';
+import Loader from '../partials/Loader.vue';
 
 export default{
     name: 'Login',
+    components:{
+        Loader
+    },
     data() {
         return {
             fields:{
@@ -92,8 +96,9 @@ export default{
                     </div>
                 </form>
             </div>
-            <div class="loading" v-else>
-                <div class="loader"></div>
+
+            <div class="container-form" v-else>
+                <Loader/>
             </div>
 
         </div>

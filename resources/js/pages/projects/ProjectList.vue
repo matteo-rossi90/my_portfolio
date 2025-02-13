@@ -2,17 +2,20 @@
 import axios from 'axios';
 import Sidenav from '../../partials/Sidenav.vue';
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
+import Loader from '../../partials/Loader.vue';
 
 export default{
     name: 'ProjectList',
     components:{
         HeaderDashboard,
-        Sidenav
+        Sidenav,
+        Loader
     },
     data() {
         return {
             projects:[],
-            activeDropdown: null
+            activeDropdown: null,
+            isLoading: true
         }
     },
     mounted() {
@@ -21,6 +24,9 @@ export default{
             .then(() => {
 
                 this.loadProjects();
+                setTimeout(() => {
+                    this.isLoading = false;
+                }, 1000)
             })
             .catch((error) => {
                 if (error.response.status === 401) {
@@ -91,7 +97,7 @@ export default{
     <div class="wrap-container">
         <Sidenav/>
         <div class="container-body">
-            <div class="container-fluid p-4">
+            <div class="container-fluid p-4" v-if="!isLoading">
 
                     <div class="row py-2">
                         <div class="col-12">
@@ -182,6 +188,10 @@ export default{
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="container-fluid" v-else>
+                <Loader/>
             </div>
         </div>
     </div>

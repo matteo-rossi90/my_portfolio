@@ -3,19 +3,22 @@ import axios from 'axios';
 
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
 import Sidenav from '../../partials/Sidenav.vue';
+import Loader from '../../partials/Loader.vue';
 
 export default {
     name: 'ShowProject',
     components:{
         HeaderDashboard,
-        Sidenav
+        Sidenav,
+        Loader
     },
     data() {
         return {
             project: {
                 type:"",
                 technologies:[]
-            }
+            },
+            isLoading: true
         }
     },
     methods: {
@@ -40,6 +43,9 @@ export default {
             .get('/api/user')
             .then(() => {
                 this.singleProject();
+                setTimeout(() => {
+                    this.isLoading = false;
+                }, 1500)
             })
             .catch((error) => {
                 if (error.response.status === 401) {
@@ -59,14 +65,14 @@ export default {
     <div class="wrap-container">
         <Sidenav/>
          <div class="container-body">
-            <div class="container-fluid p-4">
+            <div class="container-fluid p-4" v-if="!isLoading">
 
                 <div class="row">
                     <div class="col-12">
                         <div class="card-dashboard justify-content-between">
                             <div class="title-list">
                                 <h2>{{ project.title }}</h2>
-                                <p>Qui puoi leggere le varie caratteristiche</p>
+                                <p>Qui puoi leggere le varie caratteristiche del progetto</p>
                             </div>
                             <router-link :to="{ name:'ProjectList'}" class="d-flex gap-2 btn btn-back">
                                 <i class="bi bi-arrow-left-circle"></i>
@@ -109,6 +115,9 @@ export default {
                     </div>
                 </div>
 
+            </div>
+            <div class="container-fluid" v-else>
+                <Loader/>
             </div>
         </div>
     </div>
