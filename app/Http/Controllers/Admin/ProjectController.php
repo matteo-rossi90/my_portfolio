@@ -58,6 +58,10 @@ class ProjectController extends Controller
             $data['type_id'] = null;
         }
 
+        if (!isset($data['end_date']) || !Project::find($data['end_date'])) {
+            $data['end_date'] = null;
+        }
+
         // Genera lo slug
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
 

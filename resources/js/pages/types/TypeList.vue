@@ -2,16 +2,23 @@
 import axios from 'axios';
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
 import Sidenav from '../../partials/Sidenav.vue';
+import Loader from '../../partials/Loader.vue';
 
 export default {
     name: 'TypeList',
     components:{
         HeaderDashboard,
-        Sidenav
+        Sidenav,
+        Loader
     },
     data() {
         return {
-            types:[]
+            types:[],
+            newType:{
+                name:""
+            },
+            selectedType: {},
+            isLoading: true
         }
     },
     methods: {
@@ -57,12 +64,60 @@ export default {
                 .catch((error) =>{
                     console.log(error)
                 })
+        },
+        getType(){
+
+            axios
+                .post('/api/dashboard/tipi', this.newType, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                console.log('Nuovo tipo:', response.data);
+                this.$router.push({ name: 'TypeList' });
+                this.types.unshift(response.data)
+                this.newType = { name: ""}
+            })
+            .catch(error => {
+                if (error.response) {
+                    this.errors = error.response.data.errors;
+                    //this.validateForm()
+                }
+            });
+        },
+        selectDeletion(type){
+            console.log('Tipo selezionato', type)
+            this.selectedType = type;
+        },
+        deleteType(){
+
+            if (!this.selectedType) return;
+
+            axios
+            .delete(`/api/dashboard/tipi/${this.selectedType.id}`)
+            .then((response) => {
+                console.log(response.data.message); // Messaggio di conferma
+                // Rimuove il tipo eliminato dall'array locale senza ricaricare la pagina
+                this.types = this.types.filter(item => item.id !== this.selectedType.id);
+                // Reset della variabile selezionata
+                this.selectedType = null;
+            })
+            .catch((error) => {
+                console.error('Errore durante la cancellazione:', error);
+            });
         }
     },
     mounted() {
         axios
             .get('/api/user')
             .then(() => {
+
+                setTimeout(() => {
+                    this.isLoading = false;
+                }, 1000);
+
                 this.loadTypes();
             })
             .catch((error) => {
@@ -83,7 +138,7 @@ export default {
     <div class="wrap-container">
         <Sidenav/>
         <div class="container-body">
-            <div class="container-fluid p-4">
+            <div class="container-fluid p-4" v-if="!isLoading">
 
                     <div class="row py-2">
                         <div class="col-12">
@@ -92,10 +147,36 @@ export default {
                                     <h2>Lista tipi</h2>
                                     <p>Riepilogo delle attività</p>
                                 </div>
-                                <!-- <router-link :to="{ name: 'CreateProject' }" class="btn btn-new d-flex gap-2 align-items-center"> -->
-                                    <!-- <i class="bi bi-plus-circle"></i> -->
-                                    <!-- <span>Aggiungi</span> -->
-                                <!-- </router-link> -->
+                                <button class="btn btn-new d-flex gap-2 align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <i class="bi bi-plus-circle"></i>
+                                    <span>Aggiungi</span>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi un nuovo tipo</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form @submit.prevent="getType" enctype="multipart/form-data" class="row">
+                                            <label for="name" id="name">Nome*</label>
+                                            <input type="text" name="name" id="name" v-model="newType.name">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
+                                        <button type="button" class="btn btn-new" data-bs-dismiss="modal" @click="getType">Aggiungi</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+
+
+
+
                             </div>
                         </div>
 
@@ -137,10 +218,16 @@ export default {
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn-delete"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#staticBackdrop2"
+                                                                    @click="selectDeletion(type)"
+                                                                    >
                                                                     <i class="bi bi-trash3"></i>
                                                                     <span>Elimina</span>
-                                                                </a>
+                                                                </button>
 
                                                             </li>
                                                         </ul>
@@ -154,12 +241,35 @@ export default {
                                     </tbody>
                                 </table>
 
+                                <!-- modale per cancellare la tipologia -->
+                                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel2">Vuoi eliminare questa tipologia?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            La tipologia <strong>{{ selectedType?.name }}</strong> verrà eliminata. Vuoi davvero procedere?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
+                                            <button type="button" class="btn-cancel" data-bs-dismiss="modal" @click="deleteType">Elimina</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="container-fluid" v-else>
+                <Loader/>
             </div>
         </div>
     </div>

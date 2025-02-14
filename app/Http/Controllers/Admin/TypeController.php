@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $types = Type::orderby('id', 'desc')->get();
         return response()->json($types);
     }
 
@@ -37,7 +38,12 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $data['slug'] = Helper::generateSlug($data['name'], Type::class);
+        $type = Type::create($data);
+
+        return response()->json($type, 201);
     }
 
     /**
@@ -82,6 +88,11 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type = Type::find($id);
+        if ($type) {
+            $type->delete();
+            return response()->json(['message' => 'Tipo eliminato con successo'], 201);
+        }
+        return response()->json(['message' => 'Tipo non trovato'], 404);
     }
 }

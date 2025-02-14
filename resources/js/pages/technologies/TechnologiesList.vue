@@ -92,10 +92,33 @@ export default {
                                     <h2>Tecnologie usate</h2>
                                     <p>Riepilogo delle attività</p>
                                 </div>
-                                <!-- <router-link :to="{ name: 'CreateProject' }" class="btn btn-new d-flex gap-2 align-items-center"> -->
-                                    <!-- <i class="bi bi-plus-circle"></i> -->
-                                    <!-- <span>Aggiungi</span> -->
-                                <!-- </router-link> -->
+                                <button class="btn btn-new d-flex gap-2 align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <i class="bi bi-plus-circle"></i>
+                                    <span>Aggiungi</span>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi una nuova tecnologia</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="">
+                                            <label for="">Nome*</label>
+                                            <input type="text">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
+                                        <button type="button" class="btn btn-new" data-bs-dismiss="modal">Aggiungi</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+
                             </div>
                         </div>
 

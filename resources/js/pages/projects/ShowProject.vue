@@ -120,7 +120,7 @@ export default {
                                             <span>{{ project.start_date }}</span>
                                         </li>
                                         <li>
-                                            <span>{{ project.end_date }}</span>
+                                            <span>{{ project.end_date ? project.end_date : '<Non specificato>' }}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -145,9 +145,9 @@ export default {
                                         </li>
                                         <li>
                                             <small class="d-flex gap-3 flex-wrap">
-                                                <span class="techs-badge" v-for="tech in project.technologies" :key="tech.id">
+                                                <small class="techs-badge" v-for="tech in project.technologies" :key="tech.id">
                                                     {{ tech.name }}
-                                                </span>
+                                                </small>
                                             </small>
 
                                         </li>
