@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+
 import Sidenav from '../../partials/Sidenav.vue';
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
 import Loader from '../../partials/Loader.vue';
@@ -15,7 +16,8 @@ export default{
         return {
             projects:[],
             activeDropdown: null,
-            isLoading: true
+            isLoading: true,
+            selectedProject: {}
         }
     },
     mounted() {
@@ -24,6 +26,7 @@ export default{
             .then(() => {
 
                 this.loadProjects();
+
                 setTimeout(() => {
                     this.isLoading = false;
                 }, 1000)
@@ -41,6 +44,31 @@ export default{
         document.removeEventListener("click", this.closeDropdownOutside);
     },
     methods: {
+        selectDeletion(item){
+            console.log("Progetto selezionato per eliminazione:", item);
+            this.selectedProject = item;
+
+
+        },
+        deleteProject(){
+
+            if (!this.selectedProject) return;
+
+            axios
+            .delete(`/api/dashboard/progetti/${this.selectedProject.id}`)
+            .then((response) => {
+                console.log(response.data.message); // Messaggio di conferma
+
+                // Rimuove il progetto eliminato dall'array locale senza ricaricare la pagina
+                this.projects = this.projects.filter(project => project.id !== this.selectedProject.id);
+
+                // Reset della variabile selezionata
+                this.selectedProject = null;
+            })
+            .catch((error) => {
+                console.error('Errore durante la cancellazione:', error);
+            });
+        },
         dropdownMenu(id, event){
             event.stopPropagation();
 
@@ -89,6 +117,11 @@ export default{
                 })
         }
     },
+    computed:{
+        isEmpty(){
+            return this.projects.length;
+        }
+    }
 }
 </script>
 
@@ -120,7 +153,7 @@ export default{
                 <div class="box-stat">
                     <div class="row py-2">
                         <div class="col-12 col-md-12">
-                            <div class="card-dashboard">
+                            <div class="card-dashboard" v-if="isEmpty">
 
                                 <table class="table">
                                     <thead>
@@ -165,25 +198,55 @@ export default{
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn-delete"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#staticBackdrop"
+                                                                    @click="selectDeletion(project)"
+                                                                    >
                                                                     <i class="bi bi-trash3"></i>
                                                                     <span>Elimina</span>
-                                                                </a>
+                                                                </button>
 
                                                             </li>
+
+
+
                                                         </ul>
+
                                                     </div>
-
-
-
 
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
 
+                                <!-- modale -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Vuoi eliminare il progetto?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Il progetto <strong>{{ selectedProject?.title }}</strong> verrà eliminato. Vuoi davvero procedere?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
+                                            <button type="button" class="btn-cancel" data-bs-dismiss="modal" @click="deleteProject">Elimina</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
+
+                            </div>
+
+                            <div v-else>
+                                Non hai ancora caricato progetti
                             </div>
                         </div>
                     </div>

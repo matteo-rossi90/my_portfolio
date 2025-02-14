@@ -1,4 +1,6 @@
-// import './bootstrap';
+//import './bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 import { createApp } from 'vue';
 import App from './App.vue';

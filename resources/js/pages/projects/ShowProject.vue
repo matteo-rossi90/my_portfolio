@@ -70,7 +70,7 @@ export default {
                 <div class="row">
                     <div class="col-12">
                         <div class="card-dashboard justify-content-between">
-                            <div class="title-list">
+                            <div class="title-project">
                                 <h2>{{ project.title }}</h2>
                                 <p>Qui puoi leggere le varie caratteristiche del progetto</p>
                             </div>
@@ -87,9 +87,14 @@ export default {
                     <div class="col-12">
                         <div class="card-dashboard-form">
                             <div class="row py-3">
-                                <div class="col-12 col-md-6 d-flex">
 
-                                    <ul class="title-list">
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="box-image">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 d-flex mb-3">
+                                    <ul class="title-list ms-3">
                                         <li>
                                             <strong>Argomento:</strong>
                                         </li>
@@ -97,13 +102,12 @@ export default {
                                             <strong>Sviluppato in:</strong>
                                         </li>
                                         <li>
-                                            <strong>Tipo:</strong>
+                                            <strong>Data inizio:</strong>
                                         </li>
                                         <li>
-                                            <strong>Tecnologie:</strong>
+                                            <strong>Data fine:</strong>
                                         </li>
                                     </ul>
-
 
                                     <ul class="show">
                                         <li>
@@ -113,10 +117,34 @@ export default {
                                             <span>{{ project.company }}</span>
                                         </li>
                                         <li>
-                                            <span>{{ project.type.name ? project.type.name : 'Non specificato'  }}</span>
+                                            <span>{{ project.start_date }}</span>
                                         </li>
                                         <li>
-                                            <small class="d-flex gap-3">
+                                            <span>{{ project.end_date }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <hr>
+
+                                <div class="col-12 d-flex mb-3">
+
+                                    <ul class="title-description">
+                                        <li>
+                                            <strong>Tipo:</strong>
+                                        </li>
+                                        <li>
+                                            <strong>Tecnologie:</strong>
+                                        </li>
+                                    </ul>
+
+
+                                    <ul class="show-description">
+                                        <li>
+                                            <span>{{ project.type.name ? project.type.name : '<Non specificato>'  }}</span>
+                                        </li>
+                                        <li>
+                                            <small class="d-flex gap-3 flex-wrap">
                                                 <span class="techs-badge" v-for="tech in project.technologies" :key="tech.id">
                                                     {{ tech.name }}
                                                 </span>
@@ -126,16 +154,16 @@ export default {
                                     </ul>
 
 
-
-
-
                                 </div>
+
+                                <hr>
+
                                 <div class="col-12 d-flex">
                                     <div class="title-description">
                                         <strong>Descrizione:</strong>
                                     </div>
                                     <div class="show-description">
-                                        <p>{{ project.description }}</p>
+                                        <p>{{ project.description ? project.description : '<Nessuna descrizione disponibile>' }}</p>
                                     </div>
 
                                 </div>
@@ -190,7 +218,13 @@ export default {
         width: 85%;
     }
 
-
+    .box-image{
+        padding: 1rem 0;
+        background-color: yellow;
+        border-radius: 10px;
+        min-width: 100%;
+        height: 450px;
+    }
 
 
 
