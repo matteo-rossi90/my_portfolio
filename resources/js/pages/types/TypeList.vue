@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { Modal } from 'bootstrap';
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
 import Sidenav from '../../partials/Sidenav.vue';
 import Loader from '../../partials/Loader.vue';
@@ -18,7 +19,10 @@ export default {
                 name:""
             },
             selectedType: {},
-            isLoading: true
+            isLoading: true,
+            errors:{
+                name:""
+            }
         }
     },
     methods: {
@@ -65,7 +69,26 @@ export default {
                     console.log(error)
                 })
         },
+        validateType(){
+
+            this.errors = {}
+
+            if(!this.newType.name && this.newType.name.length === 0){
+                this.errors.name = 'Il nome è un campo obbligatorio'
+            }else if(this.newType.name.length > 100){
+                this.errors.name = 'Il tipo non può avere più di 100 caratteri'
+            }else if(this.newType.name.length < 5){
+                this.errors.name = 'Il tipo non può avere meno di 5 caratteri'
+            }
+
+            return Object.keys(this.errors).length === 0;
+        },
         getType(){
+
+            if (!this.validateType()) {
+                return;
+            }
+
             this.isLoading = true;
 
             axios
@@ -83,11 +106,14 @@ export default {
                  setTimeout(() => {
                     this.isLoading = false
                 }, 1000);
+
+                this.closeModal()
             })
             .catch(error => {
-                if (error.response) {
+                if (error.response && error.response.data.errors) {
                     this.errors = error.response.data.errors;
-                    //this.validateForm()
+                } else {
+                    console.error('Errore durante la richiesta:', error);
                 }
             });
         },
@@ -116,6 +142,13 @@ export default {
             .catch((error) => {
                 console.error('Errore durante la cancellazione:', error);
             });
+        },
+        closeModal() {
+            //chiusura manuale del modale
+            const modal = Modal.getInstance(document.getElementById('staticBackdrop'));
+            if (modal) modal.hide();
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+
         }
     },
     mounted() {
@@ -173,11 +206,15 @@ export default {
                                         <form @submit.prevent="getType" enctype="multipart/form-data" class="row">
                                             <label for="name" id="name">Nome*</label>
                                             <input type="text" name="name" id="name" v-model="newType.name">
+
+                                            <small v-if="errors.name" class="errors">
+                                                {{ errors.name }}
+                                            </small>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
-                                        <button type="button" class="btn btn-new" data-bs-dismiss="modal" @click="getType">Aggiungi</button>
+                                        <button type="button" class="btn btn-new" @click="getType">Aggiungi</button>
                                     </div>
                                     </div>
                                 </div>
