@@ -81,8 +81,20 @@ export default {
 
             return Object.keys(this.errors).length === 0;
         },
+        validateUpdate(){
 
+            this.errors = {}
+
+            if(!this.selectedTech.name && this.selectedTech.name.length === 0){
+                this.errors.name = 'Il nome è un campo obbligatorio'
+            }else if(this.selectedTech.name.length > 100){
+                this.errors.name = 'Il tipo non può avere più di 100 caratteri'
+            }
+
+            return Object.keys(this.errors).length === 0;
+        },
         getTech(){
+
             if (!this.validateTech()) {
                 return;
             }
@@ -135,7 +147,7 @@ export default {
                     // Rimuove la tecnologia eliminata dall'array locale senza ricaricare la pagina
                     this.technologies = this.technologies.filter(item => item.id !== this.selectedTech.id);
                     // Reset della variabile selezionata
-                    this.selectedTech = null;
+                    //this.selectedTech = null;
 
                      setTimeout(() => {
                         this.isLoading = false
@@ -146,12 +158,56 @@ export default {
                 });
 
         },
+        selectTech(tech){
+            this.selectedTech = { ...tech }
+            console.log(tech)
+        },
+        editTech() {
+
+             if (!this.validateUpdate()) {
+                return;
+            }
+
+            this.isLoading = true;
+
+            axios
+                .put(`/api/dashboard/tecnologie/${this.selectedTech.id}`, this.selectedTech, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+
+                    // Trova e aggiorna l'elemento nell'array
+                    const index = this.technologies.findIndex(item => item.id === this.selectedTech.id);
+                    if (index !== -1) {
+                        this.technologies[index] = {...response.data};
+                    }
+
+                    this.closeModal();
+                    //this.selectedTech = {}; // Reset
+
+                    console.log(this.selectedTech)
+                    console.log('Tecnologia aggiornata:', response.data);
+                    console.log('Dopo la modifica:', this.technologies);
+                })
+                .catch(error => {
+                    console.error('Errore durante l\'aggiornamento:', error);
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 1000);
+                });
+        },
+
         closeModal() {
             //chiusura manuale del modale
             const modal = Modal.getInstance(document.getElementById('staticBackdrop'));
             if (modal) modal.hide();
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-        }
+        },
 
     },
     mounted() {
@@ -256,10 +312,17 @@ export default {
                                                     <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + tech.id">
                                                         <ul>
                                                             <li>
-                                                                <a href="#">
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn-delete"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#staticBackdrop3"
+                                                                    @click="selectTech(tech)"
+                                                                    >
                                                                     <i class="bi bi-pencil"></i>
                                                                     <span>Modifica</span>
-                                                                </a>
+                                                                </button>
+
                                                             </li>
                                                             <li>
                                                                 <button
@@ -305,6 +368,33 @@ export default {
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- modale per aggiornare la tecnologia -->
+                                <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel3">Aggiorna la tecnologia selezionata</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form @submit.prevent="editTech" enctype="multipart/form-data" class="row">
+                                                <label for="name" id="name">Nome*</label>
+                                                <input type="text" name="name" id="name" v-model="selectedTech.name">
+
+                                                <small v-if="errors.name" class="errors">
+                                                    {{ errors.name }}
+                                                </small>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
+                                            <button type="button" class="btn-cancel" @click="editTech">Aggiorna</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
 

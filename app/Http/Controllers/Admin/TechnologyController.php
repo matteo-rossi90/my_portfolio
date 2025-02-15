@@ -76,7 +76,24 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $request->validate([
+        // 'name' => 'required|string|max:100|min:5',
+        // ]);
+        $data = $request->all();
+        $technology = Technology::find($id);
+
+        if ($data['name'] != $technology->name) {
+            $data['slug'] = Helper::generateSlug($technology['name'], Technology::class);
+        }
+
+        if (!$technology) {
+            return response()->json(['error' => 'Tipo non trovato'], 404);
+        }
+
+        $technology->update([
+            'name' => $request->name,
+            'slug' => $request->slug
+        ]);
     }
 
     /**

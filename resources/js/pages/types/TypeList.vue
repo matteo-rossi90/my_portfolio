@@ -146,7 +146,7 @@ export default {
                 // Rimuove il tipo eliminato dall'array locale senza ricaricare la pagina
                 this.types = this.types.filter(item => item.id !== this.selectedType.id);
                 // Reset della variabile selezionata
-                this.selectedType = null;
+                // this.selectedType = null;
 
                 setTimeout(() => {
                     this.isLoading = false
