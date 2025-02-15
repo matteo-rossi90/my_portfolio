@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
@@ -77,7 +78,32 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $request->validate([
+            // 'name' => 'required|string|max:100|min:5',
+        // ]);
+        $data = $request->all();
+        $type = Type::find($id);
+
+        if ($data['name'] != $type->name) {
+            $data['slug'] = Helper::generateSlug($type['name'], Type::class);
+        }
+
+        if (!$type) {
+            return response()->json(['error' => 'Tipo non trovato'], 404);
+        }
+
+        $type->update([
+            'name' => $request->name,
+            'slug' => $request->slug
+        ]);
+
+        return response()->json($type);
+
+
+
+
+
+
     }
 
     /**

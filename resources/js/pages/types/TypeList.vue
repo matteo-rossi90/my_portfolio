@@ -83,6 +83,19 @@ export default {
 
             return Object.keys(this.errors).length === 0;
         },
+        validateUpdate(){
+
+            this.errors = {}
+
+            if(!this.selectedType.name && this.selectedType.name.length === 0){
+                this.errors.name = 'Il nome è un campo obbligatorio'
+            }else if(this.selectedType.name.length > 100){
+                this.errors.name = 'Il tipo non può avere più di 100 caratteri'
+            }else if(this.selectedType.name.length < 5){
+                this.errors.name = 'Il tipo non può avere meno di 5 caratteri'
+            }
+            return Object.keys(this.errors).length === 0;
+        },
         getType(){
 
             if (!this.validateType()) {
@@ -142,6 +155,48 @@ export default {
             .catch((error) => {
                 console.error('Errore durante la cancellazione:', error);
             });
+        },
+        selectEdit(type){
+            this.selectedType = { ...type }
+            console.log(type)
+        },
+        editType() {
+
+             if (!this.validateUpdate()) {
+                return;
+            }
+
+            this.isLoading = true;
+
+            axios
+                .put(`/api/dashboard/tipi/${this.selectedType.id}`, this.selectedType, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+
+                    // Trova e aggiorna l'elemento nell'array
+                    const index = this.types.findIndex(item => item.id === this.selectedType.id);
+                    if (index !== -1) {
+                        this.types[index] = {...response.data};
+                    }
+
+                    this.closeModal();
+                    this.selectedType = {}; // Reset
+
+                    console.log(this.selectedType)
+                    console.log('Tipo aggiornato:', response.data);
+                })
+                .catch(error => {
+                    console.error('Errore durante l\'aggiornamento:', error);
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 1000);
+                });
         },
         closeModal() {
             //chiusura manuale del modale
@@ -258,10 +313,17 @@ export default {
                                                     <div class="content-menu-dh py-2 shadow-sm" :id="'dropdown-' + type.id">
                                                         <ul>
                                                             <li>
-                                                                <a href="#">
+                                                               <button
+                                                                    type="button"
+                                                                    class="btn-delete"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#staticBackdrop3"
+                                                                    @click="selectEdit(type)"
+                                                                    >
                                                                     <i class="bi bi-pencil"></i>
                                                                     <span>Modifica</span>
-                                                                </a>
+                                                                </button>
+
                                                             </li>
                                                             <li>
                                                                 <button
@@ -278,8 +340,6 @@ export default {
                                                             </li>
                                                         </ul>
                                                     </div>
-
-
 
 
                                             </td>
@@ -301,6 +361,32 @@ export default {
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
                                             <button type="button" class="btn-cancel" data-bs-dismiss="modal" @click="deleteType">Elimina</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- modale per aggiornare la tipologia -->
+                                <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel3">Aggiorna la tipologia selezionata</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form @submit.prevent="editType" enctype="multipart/form-data" class="row">
+                                                <label for="name" id="name">Nome*</label>
+                                                <input type="text" name="name" id="name" v-model="selectedType.name">
+
+                                                <small v-if="errors.name" class="errors">
+                                                    {{ errors.name }}
+                                                </small>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
+                                            <button type="button" class="btn-cancel" @click="editType">Aggiorna</button>
                                         </div>
                                         </div>
                                     </div>

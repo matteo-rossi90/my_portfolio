@@ -40,6 +40,7 @@ Route::get('/dashboard/progetti/{id}', [ProjectController::class, 'show']);
 
 Route::resource('dashboard/tipi', TypeController::class);
 Route::post('dashboard/tipi', [TypeController::class, 'store']);
+Route::put('dashboard/tipi/{id}', [TypeController::class, 'update']);
 
 Route::resource('dashboard/tecnologie', TechnologyController::class);
 Route::post('dashboard/tecnologie', [TechnologyController::class, 'store']);

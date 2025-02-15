@@ -222,7 +222,7 @@ export default{
                                     </tbody>
                                 </table>
 
-                                <!-- modale -->
+                                <!-- modale per eliminare il progetto -->
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -245,8 +245,19 @@ export default{
 
                             </div>
 
-                            <div v-else>
-                                Non hai ancora caricato progetti
+                            <!-- se non ci sono progetti -->
+                            <div class="card-dashboard" v-else>
+                                <div class="d-flex justify-content-center flex-column align-items-center w-100">
+                                    <div class="circle-box d-flex align-items-center justify-content-center mb-2">
+                                        <i class="bi bi-journal-text"></i>
+                                    </div>
+                                    <div class="mb-3 text-center">
+                                        <p>Non hai ancora caricato progetti.</p>
+                                        <p>Clicca sul tasto "Aggiungi" in alto per compilare i campi necessari e aggiungere un progetto</p>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
