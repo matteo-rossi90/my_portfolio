@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        $technologies = Technology::all();
+        $technologies = Technology::orderby('id', 'desc')->get();
         return response()->json($technologies);
     }
 
@@ -37,7 +38,11 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Helper::generateSlug($data['name'], Technology::class);
+        $technology = Technology::create($data);
+        return response()->json($technology, 201);
+
     }
 
     /**
@@ -82,6 +87,11 @@ class TechnologyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $technology = Technology::find($id);
+        if ($technology) {
+            $technology->delete();
+            return response()->json(['message' => 'Tecnologia eliminata con successo'], 201);
+        }
+        return response()->json(['message' => 'Tecnologia non trovata'], 404);
     }
 }

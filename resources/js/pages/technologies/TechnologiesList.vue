@@ -2,16 +2,23 @@
 import axios from 'axios';
 import HeaderDashboard from '../../partials/HeaderDashboard.vue';
 import Sidenav from '../../partials/Sidenav.vue';
+import Loader from '../../partials/Loader.vue';
 
 export default {
     name: 'TypeList',
     components:{
         HeaderDashboard,
-        Sidenav
+        Sidenav,
+        Loader
     },
     data() {
         return {
-            technologies:[]
+            technologies:[],
+            newTech:{
+                name:""
+            },
+            selectedTech:{},
+            isLoading: true
         }
     },
     methods: {
@@ -57,12 +64,74 @@ export default {
                 .catch((error) =>{
                     console.log(error)
                 })
+        },
+        getTech(){
+            this.isLoading = true;
+
+            axios
+                .post('/api/dashboard/tecnologie', this.newTech, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                console.log('Nuovo tipo:', response.data);
+                this.$router.push({ name: 'TechnologiesList' });
+                this.technologies.unshift(response.data)
+                this.newTech = { name: ""}
+
+                setTimeout(() => {
+                    this.isLoading = false
+                }, 1000);
+            })
+            .catch(error => {
+                if (error.response) {
+                    this.errors = error.response.data.errors;
+                    //this.validateForm()
+                }
+            });
+
+        },
+
+        selectDeletion(tech){
+            console.log('Tecnologia selezionato', tech)
+            this.selectedTech = tech;
+        },
+        deleteTech(){
+
+            this.isLoading = true
+
+
+            if (!this.selectedTech) return;
+
+            axios
+                .delete(`/api/dashboard/tecnologie/${this.selectedTech.id}`)
+                .then((response) => {
+                    console.log(response.data.message); // Messaggio di conferma
+                    // Rimuove la tecnologia eliminata dall'array locale senza ricaricare la pagina
+                    this.technologies = this.technologies.filter(item => item.id !== this.selectedTech.id);
+                    // Reset della variabile selezionata
+                    this.selectedTech = null;
+
+                     setTimeout(() => {
+                        this.isLoading = false
+                    }, 1000);
+                })
+                .catch((error) => {
+                    console.error('Errore durante la cancellazione:', error);
+                });
+
         }
+
     },
     mounted() {
         axios
             .get('/api/user')
             .then(() => {
+                setTimeout(() => {
+                    this.isLoading = false
+                }, 1000);
                 this.loadTechnologies();
             })
             .catch((error) => {
@@ -83,7 +152,7 @@ export default {
     <div class="wrap-container">
         <Sidenav/>
         <div class="container-body">
-            <div class="container-fluid p-4">
+            <div class="container-fluid p-4" v-if="!isLoading">
 
                     <div class="row py-2">
                         <div class="col-12">
@@ -106,14 +175,14 @@ export default {
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="">
-                                            <label for="">Nome*</label>
-                                            <input type="text">
+                                       <form @submit.prevent="getTech" enctype="multipart/form-data" class="row">
+                                            <label for="name" id="name">Nome*</label>
+                                            <input type="text" name="name" id="name" v-model="newTech.name">
                                         </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
-                                        <button type="button" class="btn btn-new" data-bs-dismiss="modal">Aggiungi</button>
+                                        <button type="button" class="btn btn-new" data-bs-dismiss="modal" @click="getTech">Aggiungi</button>
                                     </div>
                                     </div>
                                 </div>
@@ -160,10 +229,18 @@ export default {
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn-delete"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#staticBackdrop2"
+                                                                    @click="selectDeletion(tech)"
+                                                                    >
                                                                     <i class="bi bi-trash3"></i>
                                                                     <span>Elimina</span>
-                                                                </a>
+                                                                </button>
+
+
 
                                                             </li>
                                                         </ul>
@@ -177,6 +254,25 @@ export default {
                                     </tbody>
                                 </table>
 
+                                <!-- modale per cancellare la tecnologia -->
+                                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel2">Vuoi eliminare questa tipologia?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            La tipologia <strong>{{ selectedTech?.name }}</strong> verrà eliminata. Vuoi davvero procedere?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annulla</button>
+                                            <button type="button" class="btn-cancel" data-bs-dismiss="modal" @click="deleteTech">Elimina</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
                             </div>
@@ -184,6 +280,11 @@ export default {
                     </div>
                 </div>
             </div>
+
+            <div class="container-fluid" v-else>
+                <Loader/>
+            </div>
+
         </div>
     </div>
 

@@ -66,6 +66,7 @@ export default {
                 })
         },
         getType(){
+            this.isLoading = true;
 
             axios
                 .post('/api/dashboard/tipi', this.newType, {
@@ -79,6 +80,9 @@ export default {
                 this.$router.push({ name: 'TypeList' });
                 this.types.unshift(response.data)
                 this.newType = { name: ""}
+                 setTimeout(() => {
+                    this.isLoading = false
+                }, 1000);
             })
             .catch(error => {
                 if (error.response) {
@@ -92,6 +96,7 @@ export default {
             this.selectedType = type;
         },
         deleteType(){
+            this.isLoading = true;
 
             if (!this.selectedType) return;
 
@@ -103,6 +108,10 @@ export default {
                 this.types = this.types.filter(item => item.id !== this.selectedType.id);
                 // Reset della variabile selezionata
                 this.selectedType = null;
+
+                setTimeout(() => {
+                    this.isLoading = false
+                }, 1000);
             })
             .catch((error) => {
                 console.error('Errore durante la cancellazione:', error);

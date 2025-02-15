@@ -42,6 +42,7 @@ Route::resource('dashboard/tipi', TypeController::class);
 Route::post('dashboard/tipi', [TypeController::class, 'store']);
 
 Route::resource('dashboard/tecnologie', TechnologyController::class);
+Route::post('dashboard/tecnologie', [TechnologyController::class, 'store']);
 
 Route::post('dashboard/nuovo-progetto', [ProjectController::class, 'store']);
 
