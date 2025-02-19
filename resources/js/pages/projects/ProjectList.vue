@@ -248,7 +248,7 @@ export default{
                             <!-- se non ci sono progetti -->
                             <div class="card-dashboard" v-else>
                                 <div class="d-flex justify-content-center flex-column align-items-center w-100">
-                                    <div class="circle-box d-flex align-items-center justify-content-center mb-2">
+                                    <div class="circle-box d-flex align-items-center justify-content-center mb-2" id="circle-project">
                                         <i class="bi bi-journal-text"></i>
                                     </div>
                                     <div class="mb-3 text-center">
@@ -275,6 +275,15 @@ export default{
 @use '../../../scss/list' as*;
 @use '../../../scss/general' as*;
 @use '../../../scss/variables' as*;
+
+#circle-project{
+    background-color: rgb(222, 255, 255);
+}
+
+.bi-journal-text{
+    font-size: 6rem;
+    color:rgb(0, 208, 208)
+}
 
 
 </style>

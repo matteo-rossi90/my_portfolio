@@ -237,8 +237,8 @@ export default {
                                 </div>
                                 <label for="technologies">Tecnologie*</label>
 
-                                <div class="col-12 d-flex gap-4 mb-4">
-                                    <label v-for="tech in technologies" :key="tech.id" class="d-flex align-items-center gap-2">
+                                <div class="col-12 gap-4 mb-4 d-flex flex-wrap">
+                                    <label v-for="tech in technologies" :key="tech.id" class="d-flex gap-2">
                                         <input type="checkbox" :value="tech.id" @click="addTechs(tech.id)">
                                         <span>{{ tech.name }}</span>
                                     </label>

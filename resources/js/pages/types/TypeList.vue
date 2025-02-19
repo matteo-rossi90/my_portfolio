@@ -225,6 +225,11 @@ export default {
             });
         document.addEventListener("click", this.closeDropdownOutside);
     },
+    computed:{
+        isEmpty(){
+            return this.types.length;
+        }
+    }
 
 }
 </script>
@@ -290,7 +295,7 @@ export default {
                 <div class="box-stat">
                     <div class="row py-2">
                         <div class="col-12 col-md-12">
-                            <div class="card-dashboard">
+                            <div class="card-dashboard" v-if="isEmpty">
 
                                 <table class="table">
                                     <thead>
@@ -399,6 +404,22 @@ export default {
 
 
                             </div>
+
+                            <!-- se non ci sono tipi presenti -->
+                            <div class="card-dashboard" v-else>
+                                <div class="d-flex justify-content-center flex-column align-items-center w-100">
+                                    <div class="circle-box d-flex align-items-center justify-content-center mb-2" id="circle-type">
+                                        <i class="bi bi-tags"></i>
+                                    </div>
+                                    <div class="mb-3 text-center">
+                                        <p>Non hai ancora caricato tipologie.</p>
+                                        <p>Clicca sul tasto "Aggiungi" in alto per aggiungere un tipo</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -432,6 +453,15 @@ label{
 
 .padding{
     padding: 0 0.8rem;
+}
+
+#circle-type{
+    background-color: rgb(218, 237, 255);
+}
+
+.bi-tags{
+    font-size: 6rem;
+    color: rgb(114, 184, 255);
 }
 
 

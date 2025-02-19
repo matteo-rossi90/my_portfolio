@@ -234,6 +234,11 @@ export default {
             });
         document.addEventListener("click", this.closeDropdownOutside);
     },
+    computed:{
+        isEmpty(){
+            return this.technologies.length;
+        }
+    }
 
 }
 </script>
@@ -296,7 +301,7 @@ export default {
                 <div class="box-stat">
                     <div class="row py-2">
                         <div class="col-12 col-md-12">
-                            <div class="card-dashboard">
+                            <div class="card-dashboard" v-if="isEmpty">
 
                                 <table class="table">
                                     <thead>
@@ -410,6 +415,22 @@ export default {
 
 
                             </div>
+
+                            <!-- se non ci sono tecnologie presenti -->
+                            <div class="card-dashboard" v-else>
+                                <div class="d-flex justify-content-center flex-column align-items-center w-100">
+                                    <div class="circle-box d-flex align-items-center justify-content-center mb-2" id="circle-techs">
+                                        <i class="bi bi-gear"></i>
+                                    </div>
+                                    <div class="mb-3 text-center">
+                                        <p>Non hai ancora caricato tecnologie.</p>
+                                        <p>Clicca sul tasto "Aggiungi" in alto per aggiungere una tecnologia</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -444,6 +465,15 @@ label{
 
 .padding{
     padding: 0 0.8rem;
+}
+
+#circle-techs{
+    background-color: rgb(253, 231, 255);
+}
+
+.bi-gear{
+    font-size: 6rem;
+    color: rgb(237, 137, 255);
 }
 
 
