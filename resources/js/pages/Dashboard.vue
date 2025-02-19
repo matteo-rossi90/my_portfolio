@@ -78,7 +78,7 @@ export default {
 
                     <div class="row py-2">
 
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-12 col-sm-6 col-md-6">
                             <div class="card-dashboard">
                                 <div class="circle" id="projects">
                                     <i class="bi bi-archive"></i>
@@ -90,7 +90,7 @@ export default {
                             </div>
                         </div>
 
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-12 col-sm-6 col-md-6">
                             <div class="card-dashboard">
                                 <div class="circle" id="views">
                                     <i class="bi bi-eye"></i>
@@ -102,17 +102,17 @@ export default {
                             </div>
                         </div>
 
-                        <div class="col-12 col-sm-12 col-md-4">
-                            <div class="card-dashboard">
-                                <div class="circle" id="messages">
-                                    <i class="bi bi-envelope"></i>
-                                </div>
-                                <div class="text-box">
-                                    <h5>Messaggi</h5>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- <div class="col-12 col-sm-12 col-md-4"> -->
+                            <!-- <div class="card-dashboard"> -->
+                                <!-- <div class="circle" id="messages"> -->
+                                    <!-- <i class="bi bi-envelope"></i> -->
+                                <!-- </div> -->
+                                <!-- <div class="text-box"> -->
+                                    <!-- <h5>Messaggi</h5> -->
+                                    <!-- <span>10</span> -->
+                                <!-- </div> -->
+                            <!-- </div> -->
+                        <!-- </div> -->
 
 
                     </div>

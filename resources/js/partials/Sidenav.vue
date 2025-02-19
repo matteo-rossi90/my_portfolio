@@ -21,14 +21,14 @@ export default {
 
 <template>
     <aside class="container-sidenav">
-        <div class="d-flex flex-column align-items-center h-100 justify-content-between py-4">
+        <div class="d-flex flex-column align-items-center h-100 justify-content-between">
+            <div id="logo">
+                <router-link :to="{name: 'Home'}">
+                    <!-- <span><i class="bi bi-house"></i></span> -->
+                    <img src="../../../public/img/Logo dark.png" alt="">
+                </router-link>
+            </div>
             <ul>
-                <!-- <li> -->
-                    <!-- <router-link :to="{name: 'Home'}"> -->
-                        <!-- <span><i class="bi bi-house"></i></span> -->
-                        <!-- <span class="text-link">Home</span> -->
-                    <!-- </router-link> -->
-                <!-- </li> -->
                 <li>
                     <router-link :to="{name: 'Dashboard'}">
                         <span><i class="bi bi-columns"></i></span>
@@ -72,6 +72,11 @@ export default {
 
 *{
     color: white;
+}
+
+#logo img{
+    height: 60px;
+    width: 60px;
 }
 
 aside{
@@ -124,6 +129,7 @@ li a:hover{
 
 
 .container-sidenav{
+    padding: 0.8rem 0;
     height: 100%;
     width: 90px;
 }

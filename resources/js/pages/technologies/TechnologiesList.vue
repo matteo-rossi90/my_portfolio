@@ -208,6 +208,13 @@ export default {
             if (modal) modal.hide();
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
         },
+        // closeModal3() {
+            // //chiusura manuale del modale
+            // const modal = Modal.getInstance(document.getElementById('staticBackdrop3'));
+            // if (modal) modal.hide();
+            // document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        // },
+
 
     },
     mounted() {
@@ -262,7 +269,9 @@ export default {
                                     <div class="modal-body">
                                        <form @submit.prevent="getTech" enctype="multipart/form-data" class="row">
                                             <label for="name" id="name">Nome*</label>
-                                            <input type="text" name="name" id="name" v-model="newTech.name">
+                                            <div class="padding">
+                                                <input type="text" name="name" id="name" v-model="newTech.name">
+                                            </div>
 
                                             <small v-if="errors.name" class="errors">
                                                 {{ errors.name }}
@@ -380,7 +389,9 @@ export default {
                                         <div class="modal-body">
                                             <form @submit.prevent="editTech" enctype="multipart/form-data" class="row">
                                                 <label for="name" id="name">Nome*</label>
-                                                <input type="text" name="name" id="name" v-model="selectedTech.name">
+                                                <div class="padding">
+                                                    <input type="text" name="name" id="name" v-model="selectedTech.name">
+                                                </div>
 
                                                 <small v-if="errors.name" class="errors">
                                                     {{ errors.name }}
@@ -420,7 +431,20 @@ export default {
 @use '../../../scss/general' as*;
 @use '../../../scss/variables' as*;
 
+input{
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 5px;
+    border: 1px solid $color-text;
+}
 
+label{
+    margin-bottom: 0.4rem;
+}
+
+.padding{
+    padding: 0 0.8rem;
+}
 
 
 </style>
