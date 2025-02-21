@@ -290,7 +290,7 @@ export default {
                                     name="end_date"
                                     v-model="projects.end_date">
                                 </div>
-                                <div class="col-12 col-md-3 d-flex flex-column mb-4">
+                                <div class="col-12 d-flex flex-column mb-4">
                                     <label for="file-upload">Carica un'immagine</label>
                                     <div class="custom-file-upload">
                                         <input
@@ -356,6 +356,9 @@ label{
     display: inline-block;
     width: 100%;
     text-align: center;
+    width: 200px;
+    /* max-width: 100%; */
+    height: 200px;
 }
 
 .file-input {
@@ -371,13 +374,22 @@ label{
 
 .upload-area {
     border: 2px dashed $color-text;
-    padding: 20px;
+    // padding: 20px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: 0.3s;
+    height: 100%;
+
+}
+
+.upload-area .img-preview{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .upload-area:hover {
@@ -394,11 +406,5 @@ label{
     color: $color-text;
 }
 
-.img-preview {
-    max-width: 100%;
-    max-height: 200px;
-    margin-top: 10px;
-    border-radius: 8px;
-}
 
 </style>
