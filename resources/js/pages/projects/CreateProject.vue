@@ -37,7 +37,20 @@ export default {
             let formData = new FormData();
 
             // Aggiungi i dati del progetto
-            formData.append('projects', JSON.stringify(this.projects));
+            // formData.append('projects', JSON.stringify(this.projects));
+
+            formData.append('title', this.projects.title);
+            formData.append('theme', this.projects.theme);
+            formData.append('company', this.projects.company);
+            formData.append('description', this.projects.description);
+            formData.append('start_date', this.projects.start_date);
+            formData.append('end_date', this.projects.end_date);
+            formData.append('type_id', this.projects.type_id);
+
+            // Aggiungi le tecnologie come array
+            this.projects.technologies.forEach(tech => {
+                formData.append('technologies[]', tech);
+            });
 
             // Aggiungi l'immagine se esiste
             if (this.projects.img) {
@@ -75,7 +88,17 @@ export default {
             },
 
         handleFileUpload(event) {
-            this.projects.img = event.target.files[0];
+            // this.projects.img = event.target.files[0];
+            const file = event.target.files[0];
+            if (file) {
+                this.projects.img = file;
+
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    this.projects.imgPreview = reader.result;
+                };
+            }
         },
 
         validateForm(){
@@ -267,7 +290,7 @@ export default {
                                     name="end_date"
                                     v-model="projects.end_date">
                                 </div>
-                                <div class="col-12 col-md-6 d-flex flex-column mb-4">
+                                <div class="col-12 col-md-3 d-flex flex-column mb-4">
                                     <label for="file-upload">Carica un'immagine</label>
                                     <div class="custom-file-upload">
                                         <input
@@ -276,8 +299,9 @@ export default {
                                         class="file-input"
                                         @change="handleFileUpload">
                                         <div class="upload-area">
-                                            <i class="bi bi-cloud-upload"></i>
-                                            <span>Trascina il file qui o clicca per caricare</span>
+                                            <i class="bi bi-cloud-upload" v-if="!projects.imgPreview"></i>
+                                            <span v-if="!projects.imgPreview">Trascina il file qui o clicca per caricare</span>
+                                            <img v-if="projects.imgPreview" :src="projects.imgPreview" alt="Anteprima immagine" class="img-preview">
                                         </div>
                                     </div>
                                 </div>
@@ -368,6 +392,13 @@ label{
 
 .upload-area span {
     color: $color-text;
+}
+
+.img-preview {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 8px;
 }
 
 </style>

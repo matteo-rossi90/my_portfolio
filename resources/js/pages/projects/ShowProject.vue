@@ -91,6 +91,8 @@ export default {
 
                                 <div class="col-12 col-md-12 col-lg-6 mb-4">
                                     <div class="box-image">
+                                        <img :src="'/storage/' + project.img" v-if="project.img" alt="Anteprima immagine">
+                                        <img src="../../../../public/img/Logo dark.png" v-else>
                                     </div>
                                 </div>
 
@@ -254,11 +256,19 @@ export default {
     }
 
     .box-image{
+        display:flex;
         padding: 1rem 0;
-        background-color: yellow;
-        border-radius: 10px;
-        min-width: 100%;
-        height: 450px;
+        //background-color: yellow;
+        width: 40rem;
+        height: 30rem;
+        aspect-ratio: 1/9;
+
+        img{
+            border-radius: 10px;
+            object-fit: cover;
+            width: 100%;
+            max-height: 100%;
+        }
     }
 
 

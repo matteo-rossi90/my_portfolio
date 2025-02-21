@@ -41,37 +41,70 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data = json_decode($request->input('projects'), true);
+        // $data = json_decode($request->input('projects'), true);
         // $data = $request->validate([
-            // 'title' => 'required|string|max:255',
-            // 'type_id' => 'nullable|exists:types,id',
-            // //'technologies' => 'nullable|exists:technologies,id',
-            // 'theme' => 'nullable|string',
-            // 'company' => 'nullable|string',
-            // 'start_date' => 'nullable|date',
-            // 'end_date' => 'nullable|date',
-            // 'description' => 'nullable|string',
+        // 'title' => 'required|string|max:255',
+        // 'type_id' => 'nullable|exists:types,id',
+        // //'technologies' => 'nullable|exists:technologies,id',
+        // 'theme' => 'nullable|string',
+        // 'company' => 'nullable|string',
+        // 'start_date' => 'nullable|date',
+        // 'end_date' => 'nullable|date',
+        // 'description' => 'nullable|string',
         // ]);
 
         // Se type_id è mancante o non valido, assegna un valore di default
-        if (!isset($data['type_id']) || !Type::find($data['type_id'])) {
-            $data['type_id'] = null;
-        }
+        // if (!isset($data['type_id']) || !Type::find($data['type_id'])) {
+        // $data['type_id'] = null;
+        // }
 
-        if (!isset($data['end_date']) || !Project::find($data['end_date'])) {
-            $data['end_date'] = null;
-        }
+        // if (!isset($data['end_date']) || !Project::find($data['end_date'])) {
+        // $data['end_date'] = null;
+        // }
 
         // Genera lo slug
-        $data['slug'] = Helper::generateSlug($data['title'], Project::class);
+        // $data['slug'] = Helper::generateSlug($data['title'], Project::class);
 
-        $project = Project::create($data);
+        // $project = Project::create($data);
 
         // if (!empty($data['technologies'])) {
-            // $technologyIds = Technology::whereIn('name', $data['technologies'])->pluck('id')->toArray();
-            // $project->technologies()->attach($technologyIds);
+        // $technologyIds = Technology::whereIn('name', $data['technologies'])->pluck('id')->toArray();
+        // $project->technologies()->attach($technologyIds);
         // }
-        $project->technologies()->attach($data['technologies']);
+        // $project->technologies()->attach($data['technologies']);
+
+        // Validazione dei dati, inclusa l'immagine
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'theme' => 'nullable|string',
+            'company' => 'nullable|string',
+            'description' => 'nullable|string',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'array',
+            'technologies.*' => 'exists:technologies,id',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Controllo immagine
+        ]);
+
+        // Creazione del progetto
+        $data = $request->all();
+
+        // Se è presente un'immagine, salvarla nella cartella storage/app/public/projects/
+        if ($request->hasFile('img')) {
+            $imagePath = $request->file('img')->store('projects', 'public');
+            $data['img'] = $imagePath;
+        }
+
+        // Creazione del progetto
+        $data['slug'] = Helper::generateSlug($data['title'], Project::class);
+        $project = Project::create($data);
+
+        // Associazione delle tecnologie
+        if (!empty($request->technologies)) {
+            $project->technologies()->attach($request->technologies);
+        }
+
 
         return response()->json($project, 201);
 
