@@ -15,6 +15,7 @@ export default {
     data() {
         return {
             project: {
+                views:[],
                 type:"",
                 technologies:[]
             },
@@ -88,70 +89,93 @@ export default {
                         <div class="card-dashboard-form">
                             <div class="row py-3">
 
-                                <div class="col-12 col-md-6 mb-4">
+                                <div class="col-12 col-md-12 col-lg-6 mb-4">
                                     <div class="box-image">
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 d-flex mb-3">
-                                    <ul class="title-list ms-3">
-                                        <li>
-                                            <strong>Argomento:</strong>
-                                        </li>
-                                        <li>
-                                            <strong>Sviluppato in:</strong>
-                                        </li>
-                                        <li>
-                                            <strong>Data inizio:</strong>
-                                        </li>
-                                        <li>
-                                            <strong>Data fine:</strong>
-                                        </li>
-                                    </ul>
+                                <div class="col-sm-12 col-md-12 col-lg-6 d-flex mb-3">
+                                    <div class="col">
+                                        <ul class="ms-3">
+                                            <li>
+                                                <i class="bi bi-bookmark"></i>
+                                                <strong>Argomento:</strong>
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-suitcase-lg"></i>
+                                                <strong>Sviluppato in:</strong>
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-calendar"></i>
+                                                <strong>Data inizio:</strong>
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-calendar-check"></i>
+                                                <strong>Data fine:</strong>
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-eye"></i>
+                                                <strong>Visite:</strong>
+                                            </li>
+                                        </ul>
 
-                                    <ul class="show">
-                                        <li>
-                                            <span>{{ project.theme }}</span>
-                                        </li>
-                                        <li>
-                                            <span>{{ project.company }}</span>
-                                        </li>
-                                        <li>
-                                            <span>{{ project.start_date }}</span>
-                                        </li>
-                                        <li>
-                                            <span>{{ project.end_date ? project.end_date : '<Non specificato>' }}</span>
-                                        </li>
-                                    </ul>
+                                    </div>
+
+                                    <div class="col-8">
+                                        <ul>
+                                            <li>
+                                                <span>{{ project.theme }}</span>
+                                            </li>
+                                            <li>
+                                                <span>{{ project.company }}</span>
+                                            </li>
+                                            <li>
+                                                <span>{{ project.start_date }}</span>
+                                            </li>
+                                            <li>
+                                                <span>{{ project.end_date ? project.end_date : '<Non specificato>' }}</span>
+                                            </li>
+                                            <li>
+                                                <span></span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
                                 </div>
 
                                 <hr>
 
                                 <div class="col-12 d-flex mb-3">
 
-                                    <ul class="title-description">
-                                        <li>
-                                            <strong>Tipo:</strong>
-                                        </li>
-                                        <li>
-                                            <strong>Tecnologie:</strong>
-                                        </li>
-                                    </ul>
+                                    <div class="col">
+                                        <ul>
+                                            <li>
+                                                <i class="bi bi-tags"></i>
+                                                <strong>Tipo:</strong>
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-gear"></i>
+                                                <strong>Tecnologie:</strong>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-
-                                    <ul class="show-description">
-                                        <li>
-                                            <span>{{ project.type.name ? project.type.name : '<Non specificato>'  }}</span>
-                                        </li>
-                                        <li>
-                                            <small class="d-flex gap-3 flex-wrap">
-                                                <small class="techs-badge" v-for="tech in project.technologies" :key="tech.id">
-                                                    {{ tech.name }}
+                                    <div class="col-10">
+                                        <ul>
+                                            <li>
+                                                <span>{{ project.type.name ? project.type.name : '<Non specificato>'  }}</span>
+                                            </li>
+                                            <li>
+                                                <small class="d-flex gap-3 flex-wrap">
+                                                    <small class="techs-badge" v-for="tech in project.technologies" :key="tech.id">
+                                                        {{ tech.name }}
+                                                    </small>
                                                 </small>
-                                            </small>
 
-                                        </li>
-                                    </ul>
+                                            </li>
+                                        </ul>
+
+                                    </div>
 
 
                                 </div>
@@ -159,11 +183,17 @@ export default {
                                 <hr>
 
                                 <div class="col-12 d-flex">
-                                    <div class="title-description">
-                                        <strong>Descrizione:</strong>
+                                    <div class="col">
+                                        <div class="description">
+                                            <i class="bi bi-journal-richtext"></i>
+                                            <strong>Descrizione:</strong>
+                                        </div>
                                     </div>
-                                    <div class="show-description">
-                                        <p>{{ project.description ? project.description : '<Nessuna descrizione disponibile>' }}</p>
+                                    <div class="col-10">
+                                        <div>
+                                            <p>{{ project.description ? project.description : '<Nessuna descrizione disponibile>' }}</p>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -187,9 +217,14 @@ export default {
 
 <style lang="scss" scoped>
 
+    ul li,
+    .description{
+        display: flex;
+        gap: 0.6rem;
+        align-items:center;
+    }
 
     ul li{
-
         padding: 1rem 0;
 
 
@@ -202,17 +237,17 @@ export default {
         }
     }
 
-    .title-list{
-        width: 30%;
-    }
+    // .title-list{
+        // width: 100%;
+    // }
 
-    .title-description{
+     .title-description{
         width: 15%
-    }
+     }
 
-    .show{
-        width: 70%;
-    }
+    // .show{
+        // width: 70%;
+    // }
 
     .show-description{
         width: 85%;

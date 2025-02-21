@@ -43,10 +43,10 @@ export default{
                         <!-- <i class="bi bi-suitcase-lg"></i> -->
                         <span>M</span>
                     </div>
-                    <ul>
-                        <li>
-                            {{ store.name }}
-                        </li>
+                    <ul class="d-flex flex-column align-items-center justify-content-center">
+                        <!-- <li> -->
+                            <!-- {{ store.name }} -->
+                        <!-- </li> -->
                         <li>
                             {{ store.email }}
                         </li>

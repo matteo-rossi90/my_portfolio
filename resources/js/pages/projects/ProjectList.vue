@@ -15,6 +15,7 @@ export default{
     data() {
         return {
             projects:[],
+            views:[],
             activeDropdown: null,
             isLoading: true,
             selectedProject: {}
@@ -115,6 +116,8 @@ export default{
                 .catch((error) =>{
                     console.log(error)
                 })
+        },
+        loadViews(){
         }
     },
     computed:{
@@ -161,6 +164,7 @@ export default{
                                             <th scope="col">#ID</th>
                                             <th scope="col">Titolo</th>
                                             <th scope="col">Tipologie</th>
+                                            <th scope="col">Visite</th>
                                             <th scope="col">Azioni</th>
                                         </tr>
                                     </thead>
@@ -173,6 +177,7 @@ export default{
                                             <td>{{ project.title }}</td>
                                             <td v-if="project.type">{{ project.type.name }}</td>
                                             <td v-else>Non specificato</td>
+                                            <td>{{ project.views.length ? project.views.length : '-' }}</td>
                                             <td class="menu-dropdown-dh">
                                                 <button class="btn btn-actions" >
                                                     <i class="bi bi-three-dots-vertical" @click="dropdownMenu(project.id, $event)"></i>
