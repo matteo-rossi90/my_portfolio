@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\ViewController;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,7 +48,8 @@ Route::post('dashboard/tecnologie', [TechnologyController::class, 'store']);
 Route::put('dashboard/tecnologie/{id}', [TechnologyController::class, 'update']);
 
 Route::post('dashboard/nuovo-progetto', [ProjectController::class, 'store']);
-
+Route::get('dashboard/visite', [ViewController::class, 'view']);
+Route::get('dashboard/visite-totali', [ViewController::class, 'totalViews']);
 
 Route::post('register', [RegisteredUserController::class, 'store' ]);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);

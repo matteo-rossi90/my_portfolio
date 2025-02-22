@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { Chart } from 'chart.js';
 
 import Sidenav from '../partials/Sidenav.vue';
 import HeaderDashboard from '../partials/HeaderDashboard.vue';
@@ -20,7 +21,8 @@ export default {
             projects:[],
             types:[],
             techs:[],
-            technologies: [],
+            views:[],
+            totalViews:{},
             isLoading:true
         }
     },
@@ -44,6 +46,9 @@ export default {
                     this.types = response.data;
 
                 })
+                .catch((error) =>{
+                    console.log(error)
+                })
         },
         loadTechs(){
             axios
@@ -53,7 +58,23 @@ export default {
                     this.techs = response.data;
 
                 })
+                .catch((error) =>{
+                    console.log(error)
+                })
+        },
+        loadViews(){
+            axios
+                .get('/api/dashboard/visite-totali')
+                .then((res) => {
+                    console.log(res.data)
+                    this.totalViews = res.data;
+                })
+                .catch((error) =>{
+                    console.log(error)
+                })
         }
+
+
 
     },
     mounted() {
@@ -63,6 +84,7 @@ export default {
             this.loadProjects();
             this.loadTypes();
             this.loadTechs();
+            this.loadViews();
             this.name = response.data.name
             setTimeout(() => {
                 this.isLoading = false;
@@ -143,8 +165,12 @@ export default {
 
                     <div class="row py-2">
                         <div class="col-12 col-md-8">
-                            <div class="card-stats">
+                            <div class="card-stats d-flex gap-2 justify-content-between">
                                 <h5>Visite mensili</h5>
+                                <div class="views-total">
+                                    <i class="bi bi-eye"></i>
+                                    <span>{{ totalViews }}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-md">
@@ -216,6 +242,11 @@ export default {
     background-color: $color-light;
     height: 600px;
     border-radius: 15px;
+}
+
+.views-total{
+    display: flex;
+    gap: 0.6rem;
 }
 
 

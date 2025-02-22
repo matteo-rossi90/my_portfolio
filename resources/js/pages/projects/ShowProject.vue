@@ -19,8 +19,41 @@ export default {
                 type:"",
                 technologies:[]
             },
-            isLoading: true
+            isLoading: true,
+            listItems:[
+                {
+                    name: "Argomento",
+                    icon: "bi bi-bookmark"
+                },
+                {
+                    name: "Ambito",
+                    icon: "bi bi-suitcase-lg"
+                },
+                {
+                    name: "Data inizio",
+                    icon: "bi bi-calendar"
+                },
+                {
+                    name: "Data fine",
+                    icon: "bi bi-calendar-check"
+                },
+                {
+                    name: "Visite",
+                    icon: "bi bi-eye"
+                }
+            ],
+            listChar:[
+                {
+                    name: "Tipo",
+                    icon: "bi bi-tags"
+                },
+                {
+                    name: "Tecnologie",
+                    icon: "bi bi-gear"
+                }
+            ]
         }
+
     },
     methods: {
         singleProject(){
@@ -99,25 +132,9 @@ export default {
                                 <div class="col-sm-12 col-md-12 col-lg-6 d-flex mb-3">
                                     <div class="col">
                                         <ul class="ms-3">
-                                            <li>
-                                                <i class="bi bi-bookmark"></i>
-                                                <strong>Argomento:</strong>
-                                            </li>
-                                            <li>
-                                                <i class="bi bi-suitcase-lg"></i>
-                                                <strong>Sviluppato in:</strong>
-                                            </li>
-                                            <li>
-                                                <i class="bi bi-calendar"></i>
-                                                <strong>Data inizio:</strong>
-                                            </li>
-                                            <li>
-                                                <i class="bi bi-calendar-check"></i>
-                                                <strong>Data fine:</strong>
-                                            </li>
-                                            <li>
-                                                <i class="bi bi-eye"></i>
-                                                <strong>Visite:</strong>
+                                            <li v-for="(item, index) in listItems" :key="index">
+                                                <i :class="item.icon"></i>
+                                                <strong>{{ item.name }}</strong>
                                             </li>
                                         </ul>
 
@@ -151,13 +168,9 @@ export default {
 
                                     <div class="col">
                                         <ul>
-                                            <li>
-                                                <i class="bi bi-tags"></i>
-                                                <strong>Tipo:</strong>
-                                            </li>
-                                            <li>
-                                                <i class="bi bi-gear"></i>
-                                                <strong>Tecnologie:</strong>
+                                            <li v-for="(char, index) in listChar" :key="index">
+                                                <i :class="char.icon"></i>
+                                                <strong>{{ char.name }}</strong>
                                             </li>
                                         </ul>
                                     </div>
@@ -188,7 +201,7 @@ export default {
                                     <div class="col">
                                         <div class="description">
                                             <i class="bi bi-journal-richtext"></i>
-                                            <strong>Descrizione:</strong>
+                                            <strong>Descrizione</strong>
                                         </div>
                                     </div>
                                     <div class="col-10">
