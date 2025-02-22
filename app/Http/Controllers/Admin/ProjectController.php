@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -118,7 +119,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::with(['type', 'technologies'])->find($id);
+        $project = Project::with(['type', 'technologies', 'views'])->find($id);
         return response()->json($project);
     }
 
@@ -161,5 +162,16 @@ class ProjectController extends Controller
         }
 
         return response()->json(['message' => 'Progetto non trovato'], 404);
+    }
+
+    public function projectsPerType()
+    {
+        $projects = DB::table('projects')
+            ->join('types', 'projects.type_id', '=', 'types.id')
+            ->select('types.name as type_name', DB::raw('COUNT(*) as count'))
+            ->groupBy('type_name')
+            ->get();
+
+        return response()->json($projects, 200);
     }
 }

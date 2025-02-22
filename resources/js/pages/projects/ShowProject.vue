@@ -155,7 +155,7 @@ export default {
                                                 <span>{{ project.end_date ? project.end_date : '<Non specificato>' }}</span>
                                             </li>
                                             <li>
-                                                <span></span>
+                                                <span>{{ project.views.length ? project.views.length : '<Nessuna>' }}</span>
                                             </li>
                                         </ul>
 

@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 import Sidenav from '../partials/Sidenav.vue';
 import HeaderDashboard from '../partials/HeaderDashboard.vue';
@@ -23,6 +23,8 @@ export default {
             techs:[],
             views:[],
             totalViews:{},
+            projectsByType: [],
+            chartProjects: null,
             isLoading:true
         }
     },
@@ -72,10 +74,84 @@ export default {
                 .catch((error) =>{
                     console.log(error)
                 })
+        },
+        loadProjectsPerType() {
+            if (this.chartProjects) this.chartProjects.destroy();
+
+            axios.get('/api/dashboard/progetti-per-tipo')
+                .then((res) => {
+                    this.projectsByType = res.data;
+                    this.renderProjectsChart();
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        },
+        renderProjectsChart() {
+            // Distruggi il grafico esistente se c'è
+            if (this.chartProjects) {
+                this.chartProjects.destroy();
+                this.chartProjects = null;
+            }
+
+            // Se il canvas non esiste o è nascosto, non fare nulla
+            const canvas = document.getElementById('projectsChart');
+            if (!canvas || canvas.offsetParent === null) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            this.chartProjects = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: this.projectsByType.map(p => p.type_name),
+                    datasets: [{
+                        data: this.projectsByType.map(p => p.count),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)'
+                        ],
+                        borderColor: 'rgba(255, 255, 255, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    // aspectRatio: 2,
+                    cutout: '60%',
+                    animation: {
+                        duration: 1000, // Durata dell'animazione
+                        easing: 'easeInOutCirc', // Easing predefinito (puoi provarne diversi)
+                        animateRotate: true, // Abilita la rotazione
+                        animateScale: true,  // Abilita la scalatura
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        },
+        handleResize() {
+            // Cancella il timeout precedente per evitare troppe esecuzioni
+            if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
+
+            // Aspetta 500ms prima di ridisegnare il grafico
+            this.resizeTimeout = setTimeout(() => {
+                if (this.chartProjects) this.chartProjects.destroy();
+                this.renderProjectsChart();
+            }, 500);
         }
 
-
-
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+        if (this.chartProjects) this.chartProjects.destroy();
     },
     mounted() {
         axios
@@ -85,10 +161,17 @@ export default {
             this.loadTypes();
             this.loadTechs();
             this.loadViews();
+            this.loadProjectsPerType();
             this.name = response.data.name
+
+            this.$nextTick(() =>{
+                this.renderProjectsChart();
+                window.addEventListener('resize', this.handleResize);
+            })
+
             setTimeout(() => {
                 this.isLoading = false;
-            }, 1000)
+            }, 2500)
         })
         .catch((error) =>{
             if(error.response.status === 401){
@@ -164,7 +247,7 @@ export default {
                     </div>
 
                     <div class="row py-2">
-                        <div class="col-12 col-md-8">
+                        <div class="col-12 col-md-7">
                             <div class="card-stats d-flex gap-2 justify-content-between">
                                 <h5>Visite mensili</h5>
                                 <div class="views-total">
@@ -176,6 +259,7 @@ export default {
                         <div class="col-12 col-md">
                             <div class="card-stats">
                                 <h5>Progetti per tipi</h5>
+                                <canvas id="projectsChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -240,13 +324,19 @@ export default {
 .card-stats{
     padding: 2rem;
     background-color: $color-light;
-    height: 600px;
+    // height: 600px;
     border-radius: 15px;
 }
 
 .views-total{
     display: flex;
     gap: 0.6rem;
+}
+
+canvas{
+    max-height: 500px;
+    max-width: 500px;
+    display: block;
 }
 
 

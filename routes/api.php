@@ -50,6 +50,7 @@ Route::put('dashboard/tecnologie/{id}', [TechnologyController::class, 'update'])
 Route::post('dashboard/nuovo-progetto', [ProjectController::class, 'store']);
 Route::get('dashboard/visite', [ViewController::class, 'view']);
 Route::get('dashboard/visite-totali', [ViewController::class, 'totalViews']);
+Route::get('dashboard/progetti-per-tipo', [ProjectController::class, 'projectsPerType']);
 
 Route::post('register', [RegisteredUserController::class, 'store' ]);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);

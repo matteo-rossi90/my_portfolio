@@ -117,8 +117,6 @@ export default{
                     console.log(error)
                 })
         },
-        loadViews(){
-        }
     },
     computed:{
         isEmpty(){
