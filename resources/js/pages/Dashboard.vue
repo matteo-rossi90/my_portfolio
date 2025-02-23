@@ -24,7 +24,9 @@ export default {
             views:[],
             totalViews:{},
             projectsByType: [],
+            projectsByMonths: [],
             chartProjects: null,
+            chartViews: null,
             isLoading:true
         }
     },
@@ -87,12 +89,21 @@ export default {
                     console.error(error);
                 })
         },
+        loadProjectsViews(){
+            if (this.chartViews) this.chartViews.destroy();
+
+            axios.get('/api/dashboard/visite-mensili')
+                .then((res) => {
+                    this.projectsByMonths = res.data;
+                    this.renderViewsChart();
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        },
         renderProjectsChart() {
-            // Distruggi il grafico esistente se c'è
-            if (this.chartProjects) {
-                this.chartProjects.destroy();
-                this.chartProjects = null;
-            }
+
+            if(!this.projectsByType.length) return;
 
             // Se il canvas non esiste o è nascosto, non fare nulla
             const canvas = document.getElementById('projectsChart');
@@ -100,6 +111,11 @@ export default {
 
             const ctx = canvas.getContext('2d');
             if (!ctx) return;
+
+            if (this.chartProjects) {
+                this.chartProjects.destroy();
+                this.chartProjects = null;
+            }
 
             this.chartProjects = new Chart(ctx, {
                 type: 'doughnut',
@@ -123,54 +139,144 @@ export default {
                     maintainAspectRatio: false,
                     // aspectRatio: 2,
                     cutout: '60%',
-                    animation: {
-                        duration: 1000, // Durata dell'animazione
-                        easing: 'easeInOutCirc', // Easing predefinito (puoi provarne diversi)
-                        animateRotate: true, // Abilita la rotazione
-                        animateScale: true,  // Abilita la scalatura
-                    },
+                    // animation: {
+                        // duration: 1000, // Durata dell'animazione
+                        // easing: 'easeInOut', // Easing predefinito (puoi provarne diversi)
+                        // animateRotate: true, // Abilita la rotazione
+                        // animateScale: true,  // Abilita la scalatura
+                    // },
                     plugins: {
                         legend: {
                             position: 'bottom'
                         }
-                    }
+                    },
+                    resizeDelay: 500
                 }
             });
         },
+        renderViewsChart(){
+            if (!this.projectsByMonths.length) return;
+
+            // Se il canvas non esiste o è nascosto, non fare nulla
+            const canvas = document.getElementById('viewChart');
+            if (!canvas || canvas.offsetParent === null) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            // Distruggi il grafico esistente se c'è
+            if (this.chartViews) {
+                this.chartViews.destroy();
+                this.chartViews = null;
+            }
+
+            this.chartViews = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: this.projectsByMonths.map(v => `${v.month}/${v.year}`),
+                    datasets: [{
+                        label: 'Visite mensili per mese',
+                        data: this.projectsByMonths.map(v => v.view_count),
+                        backgroundColor: [
+                            'dodgerblue',
+                        ],
+                        borderColor: 'dodgerblue',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    },
+                    // aspectRatio: 2,
+                    cutout: '60%',
+                    // animation: {
+                        // duration: 1000, // Durata dell'animazione
+                        // easing: 'linear', // Easing predefinito (puoi provarne diversi)
+                    // },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    resizeDelay: 500
+                }
+            });
+
+        },
         handleResize() {
-            // Cancella il timeout precedente per evitare troppe esecuzioni
             if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
 
-            // Aspetta 500ms prima di ridisegnare il grafico
             this.resizeTimeout = setTimeout(() => {
-                if (this.chartProjects) this.chartProjects.destroy();
-                this.renderProjectsChart();
+                // Verifica se il canvas esiste prima di distruggere il grafico
+                const projectsCanvas = document.getElementById('projectsChart');
+                const viewsCanvas = document.getElementById('viewChart');
+
+                if (this.chartProjects && projectsCanvas) {
+                    this.chartProjects.destroy();
+                    this.chartProjects = null;
+                }
+
+                if (this.chartViews && viewsCanvas) {
+                    this.chartViews.destroy();
+                    this.chartViews = null;
+                }
+
+                this.$nextTick(() => {
+                    if (projectsCanvas) this.renderProjectsChart();
+                    if (viewsCanvas) this.renderViewsChart();
+                });
+
             }, 500);
+
+            // if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
+
+            // this.resizeTimeout = setTimeout(() => {
+            //     if (this.chartProjects) this.chartProjects.update();
+            //     if (this.chartViews) this.chartViews.update();
+            // }, 500);
         }
 
     },
     beforeUnmount() {
         window.removeEventListener('resize', this.handleResize);
-        if (this.chartProjects) this.chartProjects.destroy();
+        if (this.chartProjects){
+            this.chartProjects.destroy()
+        }
+
+        if(this.chartViews){
+            this.chartViews.destroy()
+        }
     },
     mounted() {
         axios
         .get("/api/user")
         .then((response) => {
-            this.loadProjects();
-            this.loadTypes();
-            this.loadTechs();
-            this.loadViews();
-            this.loadProjectsPerType();
+
             this.name = response.data.name
 
-            this.$nextTick(() =>{
-                this.renderProjectsChart();
-                window.addEventListener('resize', this.handleResize);
-            })
+            Promise.all([
+                this.loadProjects(),
+                this.loadTypes(),
+                this.loadTechs(),
+                this.loadViews(),
+                this.loadProjectsPerType(),
+                this.loadProjectsViews()
+            ]).then(() => {
+                this.$nextTick(() => {
+                    this.renderProjectsChart();
+                    this.renderViewsChart();
+                    window.addEventListener('resize', this.handleResize);
+                });
+            });
 
             setTimeout(() => {
                 this.isLoading = false;
+                this.$nextTick(() => {
+                    this.renderProjectsChart();
+                    this.renderViewsChart();
+                });
             }, 2500)
         })
         .catch((error) =>{
@@ -247,16 +353,19 @@ export default {
                     </div>
 
                     <div class="row py-2">
-                        <div class="col-12 col-md-7">
-                            <div class="card-stats d-flex gap-2 justify-content-between">
-                                <h5>Visite mensili</h5>
-                                <div class="views-total">
-                                    <i class="bi bi-eye"></i>
-                                    <span>{{ totalViews }}</span>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-7">
+                            <div class="card-stats">
+                                <div class=" d-flex gap-2 justify-content-between">
+                                    <h5>Visite mensili</h5>
+                                    <div class="views-total">
+                                        <i class="bi bi-eye"></i>
+                                        <span>{{ totalViews }}</span>
+                                    </div>
                                 </div>
+                                <canvas id="viewChart"></canvas>
                             </div>
                         </div>
-                        <div class="col-12 col-md">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-5">
                             <div class="card-stats">
                                 <h5>Progetti per tipi</h5>
                                 <canvas id="projectsChart"></canvas>
@@ -334,8 +443,9 @@ export default {
 }
 
 canvas{
+    padding-top: 1rem;
     max-height: 500px;
-    max-width: 500px;
+    max-width: 750px;
     display: block;
 }
 

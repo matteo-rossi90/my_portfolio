@@ -18,11 +18,11 @@ class ViewSeeder extends Seeder
     {
         $projects = Project::all();
         $totalProjects = $projects->count();
-        $start = strtotime("2024-01-01 00:00:00");
-        $end = strtotime("2025-10-28 17:45:33");
+        $start = strtotime("2023-01-01 00:00:00");
+        $end = strtotime("2025-02-20 17:45:33");
 
         for ($i = 0; $i < $totalProjects; $i++) {
-            for ($j = 0; $j < 40; $j++) {
+            for ($j = 0; $j < 30; $j++) {
                 $new_view = new View();
                 $currentProject = $projects[$i];
 
