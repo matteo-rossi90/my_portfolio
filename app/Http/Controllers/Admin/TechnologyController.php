@@ -16,7 +16,7 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        $technologies = Technology::orderby('id', 'desc')->get();
+        $technologies = Technology::orderby('id', 'desc')->paginate(5);
         return response()->json($technologies);
     }
 

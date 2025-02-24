@@ -175,7 +175,7 @@ export default {
                 data: {
                     labels: this.projectsByMonths.map(v => `${v.month}/${v.year}`),
                     datasets: [{
-                        label: 'Visite mensili per mese',
+                        label: 'Visite per mese',
                         data: this.projectsByMonths.map(v => v.view_count),
                         backgroundColor: [
                             'dodgerblue',

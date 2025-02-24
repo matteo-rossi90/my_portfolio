@@ -145,14 +145,20 @@ button{
 }
 
 //gestione delle card nella dashboard
-.card-dashboard{
+.card-dashboard,
+.card-table{
     display: flex;
     align-items: center;
     gap: 3rem;
 }
 
+.card-table{
+    flex-direction:column;
+}
+
 .card-dashboard-form,
-.card-dashboard{
+.card-dashboard,
+.card-table{
     background-color: $color-light;
     border-radius: 15px;
     padding: 2rem;
@@ -211,6 +217,12 @@ button{
     height: 200px;
     padding: 1rem;
     border-radius: 50%;
+}
+
+//gestione paginazione
+
+.active{
+    background-color: dodgerblue;
 }
 
 

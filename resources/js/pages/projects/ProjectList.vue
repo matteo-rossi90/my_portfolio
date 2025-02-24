@@ -18,7 +18,9 @@ export default{
             views:[],
             activeDropdown: null,
             isLoading: true,
-            selectedProject: {}
+            selectedProject: {},
+            pagination: {},
+            currentPage : 1,
         }
     },
     mounted() {
@@ -106,17 +108,28 @@ export default{
             return `http://127.0.0.1:8000/${path}`; // URL completo dell'immagine
         },
 
-        loadProjects(){
+        loadProjects(page = 1){
             axios
-                .get("/api/dashboard/progetti")
+                .get(`/api/dashboard/progetti?page=${page}`)
                 .then((response) => {
                     console.log(response.data)
-                    this.projects = response.data
+                    this.projects = response.data.data
+                    this.pagination = {
+                        current_page: response.data.current_page,
+                        last_page: response.data.last_page,
+                        per_page: response.data.per_page,
+                        total: response.data.total
+                    };
                 })
                 .catch((error) =>{
                     console.log(error)
                 })
         },
+        changePage(page) {
+            if (page !== this.pagination.current_page && page > 0 && page <= this.pagination.last_page) {
+                this.loadProjects(page);
+            }
+        }
     },
     computed:{
         isEmpty(){
@@ -154,7 +167,7 @@ export default{
                 <div class="box-stat">
                     <div class="row py-2">
                         <div class="col-12 col-md-12">
-                            <div class="card-dashboard" v-if="isEmpty">
+                            <div class="card-table" v-if="isEmpty">
 
                                 <table class="table">
                                     <thead>
@@ -224,6 +237,23 @@ export default{
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <!-- paginazione -->
+                                <nav>
+                                    <ul class="pagination">
+                                        <li class="page-item" :class="{ disabled: pagination.current_page === 1 }">
+                                            <button class="page-link" @click="changePage(pagination.current_page - 1)"><</button>
+                                        </li>
+
+                                        <li class="page-item" v-for="page in pagination.last_page" :key="page" :class="{ active: page === pagination.current_page }">
+                                            <button class="page-link" @click="changePage(page)">{{ page }}</button>
+                                        </li>
+
+                                        <li class="page-item" :class="{ disabled: pagination.current_page === pagination.last_page }">
+                                            <button class="page-link" @click="changePage(pagination.current_page + 1)">></button>
+                                        </li>
+                                    </ul>
+                                </nav>
 
                                 <!-- modale per eliminare il progetto -->
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

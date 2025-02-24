@@ -22,7 +22,9 @@ export default {
             isLoading: true,
             errors:{
                 name:""
-            }
+            },
+            pagination: {},
+            currentPage: 1
         }
     },
     methods: {
@@ -58,12 +60,18 @@ export default {
             }
         },
 
-        loadTechnologies(){
+        loadTechnologies(page = 1){
             axios
-                .get("/api/dashboard/tecnologie")
+                .get(`/api/dashboard/tecnologie?page=${page}`)
                 .then((response) => {
-                    console.log(response.data)
-                    this.technologies = response.data
+                    console.log(response.data.data)
+                    this.technologies = response.data.data
+                    this.pagination = {
+                        current_page: response.data.current_page,
+                        last_page: response.data.last_page,
+                        per_page: response.data.per_page,
+                        total: response.data.total
+                    };
                 })
                 .catch((error) =>{
                     console.log(error)
@@ -109,9 +117,9 @@ export default {
                 }
             })
             .then(response => {
-                console.log('Nuovo tipo:', response.data);
+                console.log('Nuovo tipo:', response.data.data);
                 this.$router.push({ name: 'TechnologiesList' });
-                this.technologies.unshift(response.data)
+                this.technologies.unshift(response.data.data)
                 this.newTech = { name: ""}
 
                 setTimeout(() => {
@@ -189,7 +197,7 @@ export default {
                     //this.selectedTech = {}; // Reset
 
                     console.log(this.selectedTech)
-                    console.log('Tecnologia aggiornata:', response.data);
+                    console.log('Tecnologia aggiornata:', response.data.data);
                     console.log('Dopo la modifica:', this.technologies);
                 })
                 .catch(error => {
@@ -208,6 +216,12 @@ export default {
             if (modal) modal.hide();
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
         },
+        changePage(page) {
+            if (page !== this.pagination.current_page && page > 0 && page <= this.pagination.last_page) {
+                this.loadTechnologies(page);
+            }
+        },
+
         // closeModal3() {
             // //chiusura manuale del modale
             // const modal = Modal.getInstance(document.getElementById('staticBackdrop3'));
@@ -301,7 +315,7 @@ export default {
                 <div class="box-stat">
                     <div class="row py-2">
                         <div class="col-12 col-md-12">
-                            <div class="card-dashboard" v-if="isEmpty">
+                            <div class="card-table" v-if="isEmpty">
 
                                 <table class="table">
                                     <thead>
@@ -363,6 +377,24 @@ export default {
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <!-- paginazione -->
+                                <nav>
+                                    <ul class="pagination">
+                                        <li class="page-item" :class="{ disabled: pagination.current_page === 1 }">
+                                            <button class="page-link" @click="changePage(pagination.current_page - 1)"><</button>
+                                        </li>
+
+                                        <li class="page-item" v-for="page in pagination.last_page" :key="page" :class="{ active: page === pagination.current_page }">
+                                            <button class="page-link" @click="changePage(page)">{{ page }}</button>
+                                        </li>
+
+                                        <li class="page-item" :class="{ disabled: pagination.current_page === pagination.last_page }">
+                                            <button class="page-link" @click="changePage(pagination.current_page + 1)">></button>
+                                        </li>
+                                    </ul>
+                                </nav>
+
 
                                 <!-- modale per cancellare la tecnologia -->
                                 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
