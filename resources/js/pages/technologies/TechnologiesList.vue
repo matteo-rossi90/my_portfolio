@@ -23,8 +23,8 @@ export default {
             errors:{
                 name:""
             },
-            pagination: {},
-            currentPage: 1
+            // pagination: {},
+            // currentPage: 1
         }
     },
     methods: {
@@ -64,14 +64,14 @@ export default {
             axios
                 .get(`/api/dashboard/tecnologie?page=${page}`)
                 .then((response) => {
-                    console.log(response.data.data)
-                    this.technologies = response.data.data
-                    this.pagination = {
-                        current_page: response.data.current_page,
-                        last_page: response.data.last_page,
-                        per_page: response.data.per_page,
-                        total: response.data.total
-                    };
+                    console.log(response.data)
+                    this.technologies = response.data
+                    // this.pagination = {
+                        // current_page: response.data.current_page,
+                        // last_page: response.data.last_page,
+                        // per_page: response.data.per_page,
+                        // total: response.data.total
+                    // };
                 })
                 .catch((error) =>{
                     console.log(error)
@@ -216,11 +216,11 @@ export default {
             if (modal) modal.hide();
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
         },
-        changePage(page) {
-            if (page !== this.pagination.current_page && page > 0 && page <= this.pagination.last_page) {
-                this.loadTechnologies(page);
-            }
-        },
+        // changePage(page) {
+            // if (page !== this.pagination.current_page && page > 0 && page <= this.pagination.last_page) {
+                // this.loadTechnologies(page);
+            // }
+        // },
 
         // closeModal3() {
             // //chiusura manuale del modale
@@ -379,7 +379,7 @@ export default {
                                 </table>
 
                                 <!-- paginazione -->
-                                <nav>
+                                <!-- <nav>
                                     <ul class="pagination">
                                         <li class="page-item" :class="{ disabled: pagination.current_page === 1 }">
                                             <button class="page-link" @click="changePage(pagination.current_page - 1)"><</button>
@@ -393,7 +393,7 @@ export default {
                                             <button class="page-link" @click="changePage(pagination.current_page + 1)">></button>
                                         </li>
                                     </ul>
-                                </nav>
+                                </nav> -->
 
 
                                 <!-- modale per cancellare la tecnologia -->

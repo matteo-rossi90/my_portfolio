@@ -27,7 +27,8 @@ export default {
             projectsByMonths: [],
             chartProjects: null,
             chartViews: null,
-            isLoading:true
+            isNull: false,
+            isLoading: true
         }
     },
     methods:{
@@ -362,13 +363,29 @@ export default {
                                         <span>{{ totalViews }}</span>
                                     </div>
                                 </div>
-                                <canvas id="viewChart"></canvas>
+
+                                <!-- se il grafico delle visite è visibile -->
+                                <canvas id="viewChart" v-if="!isNull"></canvas>
+
+                                <!-- se non è visibile -->
+                                <div class="d-flex justify-content-center align-items-center flex-column" v-else>
+                                    <i class="bi bi-bar-chart-line-fill"></i>
+                                    <span>Nessun grafico disponibile</span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-5">
                             <div class="card-stats">
                                 <h5>Progetti per tipi</h5>
-                                <canvas id="projectsChart"></canvas>
+
+                                <!-- se il grafico delle visite è visibile -->
+                                <canvas id="projectsChart" v-if="!isNull"></canvas>
+
+                                <!-- se non è visibile -->
+                                <div class="d-flex justify-content-center align-items-center flex-column" v-else>
+                                    <i class="bi bi-pie-chart-fill"></i>
+                                    <span>Nessun grafico disponibile</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -447,6 +464,12 @@ canvas{
     max-height: 500px;
     max-width: 750px;
     display: block;
+}
+
+.bi-bar-chart-line-fill,
+.bi-pie-chart-fill{
+    color: $shadow;
+    font-size: 4rem;
 }
 
 

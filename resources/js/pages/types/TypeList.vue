@@ -23,8 +23,8 @@ export default {
             errors:{
                 name:""
             },
-            pagination: {},
-            currentPage: 1
+            // pagination: {},
+            // currentPage: 1
         }
     },
     methods: {
@@ -60,18 +60,18 @@ export default {
             }
         },
 
-        loadTypes(page = 1){
+        loadTypes(){
             axios
-                .get(`/api/dashboard/tipi?page=${page}`)
+                .get("/api/dashboard/tipi")
                 .then((response) => {
-                    console.log(response.data.data)
-                    this.types = response.data.data
-                    this.pagination = {
-                        current_page: response.data.current_page,
-                        last_page: response.data.last_page,
-                        per_page: response.data.per_page,
-                        total: response.data.total
-                    };
+                    console.log(response.data)
+                    this.types = response.data
+                    // this.pagination = {
+                        // current_page: response.data.current_page,
+                        // last_page: response.data.last_page,
+                        // per_page: response.data.per_page,
+                        // total: response.data.total
+                    // };
 
 
                 })
@@ -122,9 +122,9 @@ export default {
                 }
             })
             .then(response => {
-                console.log('Nuovo tipo:', response.data.data);
+                console.log('Nuovo tipo:', response.data);
                 this.$router.push({ name: 'TypeList' });
-                this.types.unshift(response.data.data)
+                this.types.unshift(response.data)
                 this.newType = { name: ""}
                  setTimeout(() => {
                     this.isLoading = false
@@ -215,11 +215,11 @@ export default {
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
 
         },
-        changePage(page) {
-            if (page !== this.pagination.current_page && page > 0 && page <= this.pagination.last_page) {
-                this.loadTypes(page);
-            }
-        }
+        // changePage(page) {
+            // if (page !== this.pagination.current_page && page > 0 && page <= this.pagination.last_page) {
+                // this.loadTypes(page);
+            // }
+        // }
     },
     mounted() {
         axios
@@ -370,7 +370,7 @@ export default {
                                 </table>
 
                                 <!-- paginazione -->
-                                <nav>
+                                <!-- <nav>
                                     <ul class="pagination">
                                         <li class="page-item" :class="{ disabled: pagination.current_page === 1 }">
                                             <button class="page-link" @click="changePage(pagination.current_page - 1)"><</button>
@@ -384,7 +384,7 @@ export default {
                                             <button class="page-link" @click="changePage(pagination.current_page + 1)">></button>
                                         </li>
                                     </ul>
-                                </nav>
+                                </nav> -->
 
 
                                 <!-- modale per cancellare la tipologia -->

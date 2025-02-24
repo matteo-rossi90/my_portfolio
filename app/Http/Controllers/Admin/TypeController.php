@@ -17,7 +17,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::orderby('id', 'desc')->paginate(10);
+        $types = Type::orderby('id', 'desc')->get();
         return response()->json($types);
     }
 
