@@ -158,10 +158,12 @@ button{
 
 .card-dashboard-form,
 .card-dashboard,
-.card-table{
+.card-table,
+.card-stats{
     background-color: $color-light;
     border-radius: 15px;
     padding: 2rem;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
 
     .text-box {
         span {

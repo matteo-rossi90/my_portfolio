@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
+use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -119,7 +120,25 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::with(['type', 'technologies', 'views'])->find($id);
+        $project = Project::with(['type', 'technologies', 'views'])->findOrFail($id);
+
+
+        $viewsByMonth = View::select(
+            DB::raw("YEAR(date_view) as year"),
+            DB::raw("MONTH(date_view) as month"),
+            DB::raw("COUNT(*) as view_count")
+        )
+            ->where('project_id', $id) // Filtra per progetto specifico
+            ->groupBy(DB::raw("YEAR(date_view)"), DB::raw("MONTH(date_view)"))
+            ->orderBy(DB::raw("YEAR(date_view)"), 'asc')
+            ->orderBy(DB::raw("MONTH(date_view)"), 'asc')
+            ->get();
+
+        // Aggiungi le visite aggregate all'oggetto progetto
+        $project->views_by_month = $viewsByMonth;
+
+
+
         return response()->json($project);
     }
 
