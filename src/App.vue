@@ -1,11 +1,23 @@
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
+
+export default{
+  components:{
+    Header,
+    Footer
+  }
+}
+
+
 </script>
 
 <template>
-  <div>
+  <Header/>
+  <main>
     <h1>Ciao</h1>
-  </div>
+  </main>
+  <Footer/>
 </template>
 
 <style lang="scss">
