@@ -5,9 +5,16 @@ export default {
 </script>
 
 <template>
-    <h2>Header</h2>
+    <ul class="list">
+        <li><router-link :to="{name: 'Home'}">Home</router-link></li>
+    </ul>
 </template>
 
 <style lang="scss" scoped>
+
+.list{
+    display: flex;
+    justify-content: space-between;
+}
     
 </style>

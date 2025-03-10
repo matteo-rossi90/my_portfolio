@@ -3,6 +3,7 @@ import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 
 export default{
+  name: 'App',
   components:{
     Header,
     Footer
@@ -15,7 +16,7 @@ export default{
 <template>
   <Header/>
   <main>
-    <h1>Ciao</h1>
+    <router-view></router-view>
   </main>
   <Footer/>
 </template>
