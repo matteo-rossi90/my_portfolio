@@ -54,9 +54,35 @@ export default {
     </section>
 
     <!-- competenze -->
-    <section>
+    <section id="background-knowledge">
         <div class="content-container">
-            sezione competenze stack/softskill
+
+            <!-- titolo -->
+            <div class="row text-center">
+                <div class="box">
+                    <div class="circle-box" id="icon-skill">
+                        <img src="https://img.icons8.com/fluency/48/crown.png" alt="crown"/>
+                    </div>
+                </div>
+                <h2>Le mie competenze</h2>
+            </div>
+            
+            <!--  -->
+            <div class="row">
+                <div class="col-12 col-lg-6 margin-bottom" id="hard-skill">
+                    <div class="card-box">
+                        <h3 class="text-center">Hard skill</h3>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 margin-top" id="soft-skill">
+                    <div class="card-box">
+                        <h3 class="text-center">Soft skill</h3>
+
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </section>
 
@@ -72,6 +98,7 @@ export default {
 
 <style lang="scss">
 
+//proprietà dell'introduzione
 .img-wrap{
     height: 600px;
     width: 600px;
@@ -155,6 +182,41 @@ aside{
         }
     }
          
+}
+
+//proprietà delle competenze
+
+#background-knowledge{
+    background:rgb(244, 248, 250);
+}
+
+.card-box{
+    background: white;
+    border-radius: 10px;
+    padding: 0.8rem;
+    height: 500px;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.circle-box{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 100%;
+
+    img{
+        width: 85px;
+    }
+}
+
+#icon-skill{
+    background: #C2DDFF;
 }
 
          

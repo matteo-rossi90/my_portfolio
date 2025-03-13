@@ -46,16 +46,33 @@ ul {
     align-items: center;
 }
 
+h3,
+h2,
 h1{
     font-family: $title-font;
     font-weight: bold;
+}
+
+h1{
     font-size: 4rem;
     margin-bottom: 2rem;
+}
+
+h2{
+    margin-bottom: 3rem;
 }
 
 .text-standard{
     font-size: $font-standard;
     font-family: $title-text;
+}
+
+.margin-bottom{
+    margin-bottom: 3.5rem;
+}
+
+.margin-top {
+    margin-top: 3.5rem;
 }
 
 
