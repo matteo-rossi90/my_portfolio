@@ -10,8 +10,6 @@ export default {
         return {
             rocketImg: rocketStatic,
             store
-
-
         };
     },
     methods: {
@@ -110,10 +108,18 @@ export default {
                 </div>
 
                 <!-- immagine hard-skill -->
-                <div class="col-12 col-lg-6 margin-top">
+                <div class="col-12 col-lg-6">
                     
                     <div class="type-wrap">
-                        <h3 class="text-center">Hard skills</h3>
+                        <div class="blob">
+                            <img class="rotate" src="../../public/blob.svg" alt="">
+                            <img id="gear" class="img-skill" src="https://img.icons8.com/dusk/100/gear.png" alt="">
+                        </div>
+                    
+                        
+                        <h2 class="text-center">Hard skills</h2>
+                        <p class="text-standard">Stack tecnologico maturato nel corso del tempo e sempre in aggiornamento</p>
+                        
                     </div>
                     
                 </div>
@@ -123,10 +129,17 @@ export default {
             <div class="row">
 
                 <!-- immagine soft-skill -->
-                <div class="col-12 col-lg-6 margin-top">
+                <div class="col-12 col-lg-6">
 
                     <div class="type-wrap">
-                        <h3 class="text-center">Soft skills</h3>
+
+                        <div class="blob">
+                            <img class="rotate" src="../../public/blob.svg" alt="">
+                            <img id="heart" class="img-skill" src="https://img.icons8.com/dusk/100/like--v2.png" alt="">
+                        </div>
+                        
+                        <h2 class="text-center">Soft skills</h2>
+                        <p class="text-standard">Competenze trasversali necessarie per il mondo del lavoro</p>
                     </div>
 
                 </div>
@@ -137,21 +150,9 @@ export default {
 
                         <div class="icon-wrapper">
 
-                            <div class="card-skill">
-                                <img src="../assets/vue.svg" alt="Vue">
-                                <h6>Teamworking</h6>
-                            </div>
-                            <div class="card-skill">
-                                <img src="../assets/vue.svg" alt="Vue">
-                                <h6>Organizzazione</h6>
-                            </div>
-                            <div class="card-skill">
-                                <img src="../assets/vue.svg" alt="Vue">
-                                <h6>Cura nel dettaglio</h6>
-                            </div>
-                            <div class="card-skill">
-                                <img src="../assets/vue.svg" alt="Vue">
-                                <h6>Gestione delle priorità</h6>
+                            <div class="card-skill" v-for="(s, index) in store.softSkill" :key="index">
+                                <img :src="s.icon" alt="Vue">
+                                <h6>{{ s.name }}</h6>
                             </div>
 
                         </div>
@@ -301,7 +302,46 @@ aside{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction:column;
     height: 100%;
+
+    p{
+        width: 80%;
+    }
+}
+
+.blob{
+    position: relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 300px;
+
+    .img-skill{
+        position:absolute;
+        z-index: 1000;
+        height: 100px;
+        width: 100px;
+    }
+
+    img{
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+#gear,
+#heart{
+    transform-origin: center;
+}
+
+#gear:hover{
+    animation: gear 2s infinite;
+}
+
+#heart:hover{
+    animation: heart 2s infinite;
 }
 
 .icon-wrapper{
@@ -327,6 +367,42 @@ aside{
             aspect-ratio: 1/1;
         }
     }
+}
+
+//animazioni
+
+//animazione del blob
+.rotate {  
+    animation-name: ani-rotate;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+  }
+ 
+  @keyframes ani-rotate {
+    0%{ transform: rotate(0); }
+    100%{ transform: rotate(360deg); }  
+  }
+
+//animazione gear
+
+@keyframes gear{
+    0%{ transform: rotate(0);}
+    50%{transform: rotate(180deg);}
+    100%{transform: rotate(360deg);}
+}
+
+//animazione cuore
+
+@keyframes heart{
+    0%{ transform: scale(1);}
+    30%{transform: scale(1.2);}
+    60%{transform: scale(1);}
+    90%{transform: scale(1.2);}
+    100%{transform: scale(1);}
 }
 
          

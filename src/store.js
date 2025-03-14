@@ -46,23 +46,23 @@ export const store = reactive({
     softSkill: [
         {
             name: 'Lavoro di gruppo',
-            icon: ''
+            icon: 'https://img.icons8.com/dusk/100/chat.png'
         },
         {
             name: 'Gestione delle priorità',
-            icon: ''
+            icon: 'https://img.icons8.com/dusk/100/high-priority.png'
         },
         {
             name: 'Attenzione al dettaglio',
-            icon: ''
+            icon: 'https://img.icons8.com/dusk/100/search--v1.png'
         },
         {
-            name: 'Disponibilità',
-            icon: ''
+            name: 'Flessibilità',
+            icon: 'https://img.icons8.com/dusk/100/sorting-arrows-horizontal.png'
         },
         {
             name: 'Organizzazione',
-            icon: ''
+            icon: 'https://img.icons8.com/dusk/100/folder-invoices.png'
         }
     ],
     
