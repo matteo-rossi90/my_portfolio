@@ -1,6 +1,24 @@
 <script>
+import rocketStatic from '../assets/rocket1.png';
+import rocketGif from '../assets/rocket2.gif';
+
+import { store } from '../store';
+
 export default {
-    name: 'Home'
+    name: 'Home',
+    data() {
+        return {
+            rocketImg: rocketStatic,
+            store
+
+
+        };
+    },
+    methods: {
+        changeRocket(isHover) {
+            this.rocketImg = isHover ? rocketGif : rocketStatic;
+        }
+    }
 }
 </script>
 
@@ -61,27 +79,87 @@ export default {
             <div class="row text-center">
                 <div class="box">
                     <div class="circle-box" id="icon-skill">
-                        <img src="https://img.icons8.com/fluency/48/crown.png" alt="crown"/>
+                        <img :src="rocketImg" 
+                        alt="rocket"
+                        @mouseover="changeRocket(true)" 
+                        @mouseleave="changeRocket(false)"
+                        />
                     </div>
                 </div>
                 <h2>Le mie competenze</h2>
             </div>
             
-            <!--  -->
             <div class="row">
+                
+                <!-- stack tecnologico -->
                 <div class="col-12 col-lg-6 margin-bottom" id="hard-skill">
+                    
+                    
                     <div class="card-box">
-                        <h3 class="text-center">Hard skill</h3>
+
+                        <div class="icon-wrapper">
+
+                            <div class="card-skill" v-for="(h, index) in store.hardSkill" :key="index">
+                                <img :src="h.icon" :alt="h.name">
+                                <h6>{{ h.name }}</h6>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 margin-top" id="soft-skill">
-                    <div class="card-box">
-                        <h3 class="text-center">Soft skill</h3>
-
+                <!-- immagine hard-skill -->
+                <div class="col-12 col-lg-6 margin-top">
+                    
+                    <div class="type-wrap">
+                        <h3 class="text-center">Hard skills</h3>
                     </div>
+                    
                 </div>
                 
+            </div>
+
+            <div class="row">
+
+                <!-- immagine soft-skill -->
+                <div class="col-12 col-lg-6 margin-top">
+
+                    <div class="type-wrap">
+                        <h3 class="text-center">Soft skills</h3>
+                    </div>
+
+                </div>
+                
+                <div class="col-12 col-lg-6 margin-top">
+                    
+                    <div class="card-box">
+
+                        <div class="icon-wrapper">
+
+                            <div class="card-skill">
+                                <img src="../assets/vue.svg" alt="Vue">
+                                <h6>Teamworking</h6>
+                            </div>
+                            <div class="card-skill">
+                                <img src="../assets/vue.svg" alt="Vue">
+                                <h6>Organizzazione</h6>
+                            </div>
+                            <div class="card-skill">
+                                <img src="../assets/vue.svg" alt="Vue">
+                                <h6>Cura nel dettaglio</h6>
+                            </div>
+                            <div class="card-skill">
+                                <img src="../assets/vue.svg" alt="Vue">
+                                <h6>Gestione delle priorità</h6>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </section>
@@ -194,7 +272,7 @@ aside{
     background: white;
     border-radius: 10px;
     padding: 0.8rem;
-    height: 500px;
+    // height: 500px;
 }
 
 .box{
@@ -211,12 +289,44 @@ aside{
     border-radius: 100%;
 
     img{
-        width: 85px;
+        width: 80px;
     }
 }
 
 #icon-skill{
     background: #C2DDFF;
+}
+
+.type-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.icon-wrapper{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1rem 0;
+
+    .card-skill{
+        flex-direction: column;
+        padding: 0.4rem 1rem;
+        width: calc(90% / 4 - 0.5rem);
+
+        h6{
+            text-align: center;
+            margin-top: 0.6rem;
+        }
+
+        img{
+            width: 100%;
+            object-fit: fill;
+            aspect-ratio: 1/1;
+        }
+    }
 }
 
          
