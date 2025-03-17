@@ -75,7 +75,7 @@ export default {
         </div>
 
         <section class="wave-section">
-            <img src="../assets/wave.svg" alt="">
+            <img src="../assets/wave.svg" alt="wave1">
         </section>
     </section>
 
@@ -176,6 +176,11 @@ export default {
 
     <!-- perché scegliere me -->
     <section id="background-quality">
+
+        <section class="wave-section2">
+            <img src="../assets/wave2.svg" alt="wave2">
+        </section>
+
         <div class="content-container">
             
             <div class="row text-center justify-content-center">
@@ -281,11 +286,11 @@ aside{
         background: $color-background;
         border: 2px solid $color-background;
         transition: 0.3s ease;
-        color: rgb(45, 45, 45);
+        color: $color-dark;
 
         &:hover{
-            background: $color-tertiary;
-            border: 2px solid $color-tertiary;
+            background: $color-quinary;
+            border: 2px solid $color-quinary;
             color: white;
 
             i {
@@ -300,32 +305,60 @@ aside{
 
     
     .btn-moon {
-        background-image: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%);
+        position: relative;
+        overflow: hidden;
+        background: $color-secondary;
         transition: 0.5s;
-        background-size: 200% auto;
-        color: white;            
+        color: $color-dark;
+
+        &::before{
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: $color-dark;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease-out, height 0.6s ease-out;
+            z-index: 0;
+        }
+
+        &:hover::before {
+            width: 800px;
+            height: 800px;
+        }            
 
         &:hover {
-            background-position: right center; 
-            color: #fff;
-            text-decoration: none;
-            transition: 0.3s ease;
+            border-color: $color-dark;
+            
+             span{
+                color: white;
+                z-index: 1;
+            }
 
             i {
-                transition: transform 0.3s ease-in-out; 
+                transition: transform 0.4s ease-in-out;
             }
 
             &:hover i {
                 transform: translateX(10px);
+                color: white;
+                z-index: 1;
             }
+
+
         }
+
     }
          
 }
 
 //onda
-.wave-section {
-    height: 150px; 
+.wave-section,
+.wave.section2 {
+    height: 130px; 
     overflow: hidden; 
 }
 
@@ -333,6 +366,10 @@ aside{
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
+}
+
+section[class=wave-section2]{
+    height: 40px;
 }
 
 //proprietà delle competenze
@@ -343,6 +380,8 @@ aside{
 
 .card-box{
     background: white;
+    border-radius: 10px;
+    //box-shadow: 16px 16px 0 0 $color-shadow;
     padding: 0.8rem;
 }
 
@@ -446,7 +485,7 @@ aside{
     width: 100%;
     padding: 1rem;
     border-radius: 10px;
-    box-shadow: 0 0 6px rgba(94, 94, 94, 0.3);
+    //box-shadow: 12px 12px 25px 0 $color-dark;
     aspect-ratio: 3/2;
 
     img{
