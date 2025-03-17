@@ -26,10 +26,14 @@ export default {
 @use '../style/general' as*;
 
 header{
-    height: 90px;
-    padding: 1rem 0;
-    font-size: $font-standard;
+    height: 60px;
+    padding: 0.6rem 0;
+    font-size: $font-header;
+    font-family: $title-text;
     display: flex;
+    position: absolute;
+    width: 100%;
+
 }
 
 ul.list{

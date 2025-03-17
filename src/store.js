@@ -65,6 +65,31 @@ export const store = reactive({
             icon: 'https://img.icons8.com/dusk/100/folder-invoices.png'
         }
     ],
+
+    //perché scegliere me
+    qualities:[
+        {
+            title: 'Design semplice',
+            desc: 'Template con grafica semplice, lineare e ricca di interazioni per un\'estetica gradevole',
+            icon: '../public/icon/progettazione1.png',
+            iconDef: '../public/icon/progettazione1.png',
+            iconGif: '../public/icon/progettazione.gif'
+        },
+        {
+            title: 'Codice manutenibile',
+            desc: 'Codice comprensibile, semplice da leggere e facilmente modificabile',
+            icon: '../public/icon/pc1.png',
+            iconDef: '../public/icon/pc1.png',
+            iconGif: '../public/icon/pc.gif'
+        },
+        {
+            title: 'Creatività',
+            desc: 'Cerco sempre di sperimentare nuovi approcci e nuove metodologie quando sviluppo',
+            icon: '../public/icon/lampadina1.png',
+            iconDef: '../public/icon/lampadina1.png',
+            iconGif: '../public/icon/lampadina2.gif'
+        }
+    ],
     
 
     //progetti del portfolio

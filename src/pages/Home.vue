@@ -15,7 +15,13 @@ export default {
     methods: {
         changeRocket(isHover) {
             this.rocketImg = isHover ? rocketGif : rocketStatic;
+        },
+        changeIcon(index, isHover){
+            this.store.qualities[index].icon = isHover 
+            ? this.store.qualities[index].iconGif 
+            : this.store.qualities[index].iconDef;
         }
+
     }
 }
 </script>
@@ -67,30 +73,36 @@ export default {
                 </div>
             </div>
         </div>
+
+        <section class="wave-section">
+            <img src="../assets/wave.svg" alt="">
+        </section>
     </section>
 
     <!-- competenze -->
-    <section id="background-knowledge">
+    <section id="background-skill">
+
         <div class="content-container">
 
             <!-- titolo -->
             <div class="row text-center">
                 <div class="box">
-                    <div class="circle-box" id="icon-skill">
-                        <img :src="rocketImg" 
+                    <div class="blob">
+                        <img class="rotate" src="../../public/blob.svg" alt="">
+                        <img class="rocket" :src="rocketImg" 
                         alt="rocket"
                         @mouseover="changeRocket(true)" 
                         @mouseleave="changeRocket(false)"
                         />
                     </div>
+                    <h2>Le mie competenze</h2>
                 </div>
-                <h2>Le mie competenze</h2>
             </div>
             
-            <div class="row">
+            <div class="row py-4">
                 
                 <!-- stack tecnologico -->
-                <div class="col-12 col-lg-6 margin-bottom" id="hard-skill">
+                <div class="col-12 col-lg-6" id="hard-skill">
                     
                     
                     <div class="card-box">
@@ -111,14 +123,13 @@ export default {
                 <div class="col-12 col-lg-6">
                     
                     <div class="type-wrap">
-                        <div class="blob">
-                            <img class="rotate" src="../../public/blob.svg" alt="">
+                        <div class="circle-box">
+                            <!-- <img class="rotate" src="../../public/blob.svg" alt=""> -->
                             <img id="gear" class="img-skill" src="https://img.icons8.com/dusk/100/gear.png" alt="">
                         </div>
                     
                         
-                        <h2 class="text-center">Hard skills</h2>
-                        <p class="text-standard">Stack tecnologico maturato nel corso del tempo e sempre in aggiornamento</p>
+                        <h2 class="text-center">Stack tecnologico</h2>
                         
                     </div>
                     
@@ -126,32 +137,30 @@ export default {
                 
             </div>
 
-            <div class="row">
+            <div class="row py-4">
 
                 <!-- immagine soft-skill -->
                 <div class="col-12 col-lg-6">
 
                     <div class="type-wrap">
 
-                        <div class="blob">
-                            <img class="rotate" src="../../public/blob.svg" alt="">
+                        <div class="circle-box">
                             <img id="heart" class="img-skill" src="https://img.icons8.com/dusk/100/like--v2.png" alt="">
                         </div>
                         
-                        <h2 class="text-center">Soft skills</h2>
-                        <p class="text-standard">Competenze trasversali necessarie per il mondo del lavoro</p>
+                        <h2 class="text-center">Competenze trasversali</h2>
                     </div>
 
                 </div>
                 
-                <div class="col-12 col-lg-6 margin-top">
+                <div class="col-12 col-lg-6">
                     
                     <div class="card-box">
 
                         <div class="icon-wrapper">
 
                             <div class="card-skill" v-for="(s, index) in store.softSkill" :key="index">
-                                <img :src="s.icon" alt="Vue">
+                                <img :src="s.icon" :alt="s.name">
                                 <h6>{{ s.name }}</h6>
                             </div>
 
@@ -166,16 +175,57 @@ export default {
     </section>
 
     <!-- perché scegliere me -->
-    <section>
+    <section id="background-quality">
         <div class="content-container">
-            Perché scegliere me
+            
+            <div class="row text-center justify-content-center">
+
+                <!-- titolo -->
+                <div class="row">
+                    <div class="box">
+                        <div class="blob">
+                            <img class="rotate" src="../../public/blob.svg" alt="">
+                            <!-- <img class="rocket" :src="rocketImg"  -->
+                            <!-- alt="rocket" -->
+                            <!-- @mouseover="changeRocket(true)"  -->
+                            <!-- @mouseleave="changeRocket(false)" -->
+                            <!-- /> -->
+                        </div>
+                        <h2>Perchè scegliere me?</h2>
+                    </div>
+
+                </div>
+                
+                <!-- cards -->
+                <div class="container">
+                    <div class="row">
+                        
+                            <div class="col-12 col-md-4 col-lg-4" v-for="(item, index) in store.qualities" :key="index">
+                                <div class="card-quality">
+                                    <img :src="item.icon" :alt="item.title"
+                                    @mouseover="changeIcon(index, true)" 
+                                    @mouseleave="changeIcon(index, false)">
+                                    <h4>{{ item.title }}</h4>
+                                    <p class="text-medium">{{ item.desc }}</p>
+                                </div>
+                            </div>
+                    
+                    </div>
+
+                </div>
+
+
+            </div>
+
         </div>
     </section>
 
 
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+@use '../style/variables' as*;
 
 //proprietà dell'introduzione
 .img-wrap{
@@ -190,13 +240,20 @@ export default {
 }
 
 #background-intro{
-    background-color: #c5e2ff;
-    background-image: linear-gradient(62deg, #bfdfff 10%, #E0C3FC 90%);
+    background-image: url('../assets/background2.png');
+    background-size:cover;
+    background-position-y: 40% ;
+}
+
+.circle-box{
+    background: $color-secondary;
+    //background-color: #c5e2ff;
+    //background-image: linear-gradient(62deg, #bfdfff 10%, #E0C3FC 90%);
 
 }
 
 aside{
-    width: 70%;
+    width: 90%;
 }
 
 .btn-box{
@@ -210,7 +267,7 @@ aside{
         padding: 0.8rem 1rem;
         width: 50%;
         border-radius: 50px;
-        box-shadow: 0 0 15px #b9b9b9;
+        //box-shadow: 0 0 15px #b9b9b9;
     }
 
     .btn-sun,
@@ -221,11 +278,14 @@ aside{
     }
 
     .btn-sun{
-        background: rgb(245, 251, 255);
+        background: $color-background;
+        border: 2px solid $color-background;
         transition: 0.3s ease;
+        color: rgb(45, 45, 45);
 
         &:hover{
-            background: dodgerblue;
+            background: $color-tertiary;
+            border: 2px solid $color-tertiary;
             color: white;
 
             i {
@@ -263,45 +323,55 @@ aside{
          
 }
 
+//onda
+.wave-section {
+    height: 150px; 
+    overflow: hidden; 
+}
+
+.wave-section img{
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
 //proprietà delle competenze
 
-#background-knowledge{
-    background:rgb(244, 248, 250);
+#background-skill{
+    background: $color-background;
 }
 
 .card-box{
     background: white;
-    border-radius: 10px;
     padding: 0.8rem;
-    // height: 500px;
 }
 
 .box{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
+.type-wrap,
+.blob,
 .circle-box{
     display:flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    border-radius: 100%;
+}
 
-    img{
+.blob{
+    position: relative;
+    img.rotate{
+        height: 300px;
+        width: 300px;
+    }
+
+    .rocket{
+        position: absolute;
         width: 80px;
     }
 }
 
-#icon-skill{
-    background: #C2DDFF;
-}
-
 .type-wrap{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction:column;
     height: 100%;
 
@@ -310,24 +380,12 @@ aside{
     }
 }
 
-.blob{
-    position: relative;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    height: 300px;
-    width: 300px;
-
-    .img-skill{
-        position:absolute;
-        z-index: 1000;
-        height: 100px;
-        width: 100px;
-    }
+.circle-box{
+    padding: 1.5rem;
+    border-radius: 100%;
 
     img{
-        width: 100%;
-        object-fit: cover;
+        width: 80px;
     }
 }
 
@@ -352,7 +410,9 @@ aside{
     padding: 1rem 0;
 
     .card-skill{
+        display: flex;
         flex-direction: column;
+        align-items: center;
         padding: 0.4rem 1rem;
         width: calc(90% / 4 - 0.5rem);
 
@@ -366,6 +426,37 @@ aside{
             object-fit: fill;
             aspect-ratio: 1/1;
         }
+    }
+}
+
+//sezione perchè scegliere me
+
+#background-quality{
+    background-image: url('../assets/background.png');
+    background-size:cover;
+    background-position-y: 100%;
+}
+
+.card-quality{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(94, 94, 94, 0.3);
+    aspect-ratio: 3/2;
+
+    img{
+        width: 60px;
+    }
+
+    img,
+    h4,
+    p{
+        margin: 0.5rem 0;
     }
 }
 

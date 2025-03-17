@@ -19,8 +19,10 @@ export default {
 
 <style lang="scss" scoped>
 
+@use '../style/variables' as*;
+
 footer{
-    background-color: rgb(33,33,33);
+    background-color: $color-quaternary;
     color: white;
 }
     

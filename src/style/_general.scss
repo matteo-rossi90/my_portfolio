@@ -13,6 +13,7 @@
 
 body{
     height: 100vh;
+    overflow-x: hidden;
 }
 
 main{
@@ -32,12 +33,12 @@ ul {
 
 .content-container,
 .header-container{
-    width: 90%;
+    width: 85%;
     margin: 0 auto;
 }
 
 .content-container{
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 
 .header-container{
@@ -46,6 +47,7 @@ ul {
     align-items: center;
 }
 
+h4,
 h3,
 h2,
 h1{
@@ -58,16 +60,18 @@ h1{
     margin-bottom: 2rem;
 }
 
-h2{
-    margin-bottom: 3rem;
-}
-
+h2,
 h3{
-    margin: 1rem 0;
+    margin: 1.5rem 0;
 }
 
 .text-standard{
     font-size: $font-standard;
+    font-family: $title-text;
+}
+
+.text-medium{
+    font-size: $font-medium;
     font-family: $title-text;
 }
 
