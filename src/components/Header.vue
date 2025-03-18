@@ -1,11 +1,29 @@
 <script>
+
 export default {
-    name: 'Header'
+    name: 'Header',
+    data() {
+        return {
+            isScrolled: false
+        }
+    },
+    methods:{
+        handleScroll(){
+            this.isScrolled = window.scrollY > 50
+        }
+    },
+    mounted(){
+        window.addEventListener('scroll', this.handleScroll)
+    },
+    beforeUnmounted(){
+        window.removeEventListener('scroll', this.handleScroll)
+    }
 }
+
 </script>
 
 <template>
-   <header>
+   <header :class="['navbar', { 'navbar-fixed' : isScrolled }]">
     <div class="header-container">
         <div id="logo">
             <span>Matteo</span>
@@ -25,15 +43,26 @@ export default {
 <style lang="scss" scoped>
 @use '../style/general' as*;
 
-header{
+.navbar{
     height: 60px;
     padding: 0.6rem 0;
     font-size: $font-header;
     font-family: $title-text;
     display: flex;
     position: absolute;
+    transition: 0.3s ease-in-out;
     width: 100%;
 
+}
+
+.navbar-fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1100
 }
 
 ul.list{
