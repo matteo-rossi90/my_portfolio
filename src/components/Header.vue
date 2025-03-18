@@ -44,7 +44,7 @@ export default {
 @use '../style/general' as*;
 
 .navbar{
-    height: 60px;
+    height: 80px;
     padding: 0.6rem 0;
     font-size: $font-header;
     font-family: $title-text;
@@ -61,8 +61,9 @@ export default {
     left: 0;
     width: 100%;
     background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1100
+    //box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: $color-dark;
+    z-index: 1100;
 }
 
 ul.list{
@@ -70,6 +71,30 @@ ul.list{
     justify-content: space-between;
     align-items: center;
     gap: 2.5rem;
+
+    li {
+        position: relative; 
+
+        &::after {
+            content: '';
+            display: block; 
+            width: 100%;
+            height: 2px;
+            background-color: $color-dark;
+            position: absolute;
+            bottom: -5px; 
+            left: 0;
+            transform: scaleX(0); 
+            transform-origin: left;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        &:hover::after {
+            transform: scaleX(1); 
+        }
+    }
+
+    
 }
     
 </style>

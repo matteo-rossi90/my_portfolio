@@ -68,7 +68,7 @@ export default {
                 <!-- immagine -->
                 <div class="col-12 col-lg-5 d-flex justify-content-center">
                     <div class="img-wrap">
-                        <img src="../assets/programming-animate.svg" alt="">
+                        <img src="../assets/programming-static.png" alt="">
                     </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@ export default {
                 <div class="row">
                     <div class="box">
                         <div class="blob">
-                            <img class="rotate" src="../../public/blob.svg" alt="">
+                            <img class="rotate" src="../../public/blob2.svg" alt="">
                             <!-- <img class="rocket" :src="rocketImg"  -->
                             <!-- alt="rocket" -->
                             <!-- @mouseover="changeRocket(true)"  -->
@@ -245,13 +245,15 @@ export default {
 }
 
 #background-intro{
+    padding-top: 2.5rem;
+    background-color: $color-background;
     background-image: url('../assets/background2.png');
     background-size:cover;
     background-position-y: 40% ;
 }
 
 .circle-box{
-    background: $color-secondary;
+    background: $color-tertiary;
     //background-color: #c5e2ff;
     //background-image: linear-gradient(62deg, #bfdfff 10%, #E0C3FC 90%);
 
@@ -283,14 +285,14 @@ aside{
     }
 
     .btn-sun{
-        background: $color-background;
-        border: 2px solid $color-background;
+        background: transparent;
+        border: 2px solid $color-dark;
         transition: 0.3s ease;
         color: $color-dark;
 
         &:hover{
-            background: $color-quinary;
-            border: 2px solid $color-quinary;
+            background: $color-tertiary;
+            border: 2px solid $color-tertiary;
             color: white;
 
             i {
@@ -307,9 +309,9 @@ aside{
     .btn-moon {
         position: relative;
         overflow: hidden;
-        background: $color-secondary;
+        background: $color-dark;
         transition: 0.5s;
-        color: $color-dark;
+        color: white;
 
         &::before{
             content: "";
@@ -318,7 +320,7 @@ aside{
             left: 50%;
             width: 0;
             height: 0;
-            background-color: $color-dark;
+            background-color: $color-secondary;
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.6s ease-out, height 0.6s ease-out;
@@ -331,7 +333,7 @@ aside{
         }            
 
         &:hover {
-            border-color: $color-dark;
+            border-color: white;
             
              span{
                 color: white;
@@ -375,13 +377,13 @@ section[class=wave-section2]{
 //proprietà delle competenze
 
 #background-skill{
-    background: $color-background;
+    background: white;
 }
 
 .card-box{
     background: white;
     border-radius: 10px;
-    //box-shadow: 16px 16px 0 0 $color-shadow;
+    //box-shadow: 2px 16px 0 0 rgba(0, 0, 0, 0.2);
     padding: 0.8rem;
 }
 
@@ -471,6 +473,7 @@ section[class=wave-section2]{
 //sezione perchè scegliere me
 
 #background-quality{
+    background-color: $color-primary;
     background-image: url('../assets/background.png');
     background-size:cover;
     background-position-y: 100%;
