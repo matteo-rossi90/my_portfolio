@@ -52,6 +52,8 @@ export default {
     position: absolute;
     transition: 0.3s ease-in-out;
     width: 100%;
+    z-index: 1;
+    color: $font-color;
 
 }
 
@@ -60,9 +62,10 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: white;
-    //box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    color: $color-dark;
+    background: rgba(255, 255, 255, 0.5); /* Sfondo semi-trasparente */
+    backdrop-filter: blur(20px); /* Effetto sfocatura */
+    //box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    color: $font-color;
     z-index: 1100;
 }
 
@@ -80,7 +83,7 @@ ul.list{
             display: block; 
             width: 100%;
             height: 2px;
-            background-color: $color-dark;
+            background-color: $font-color;
             position: absolute;
             bottom: -5px; 
             left: 0;
@@ -91,6 +94,10 @@ ul.list{
 
         &:hover::after {
             transform: scaleX(1); 
+        }
+
+        a{
+            color: $font-color;
         }
     }
 

@@ -4,11 +4,13 @@ $title-font: 'Poppins', Arial;
 
 $title-text: 'Inter', Arial;
 
-$font-standard: 1.5rem;
+$font-standard: 1.3rem;
 
 $font-medium: 1rem;
 
 $font-header: 1.1rem;
+
+$font-color: #025A4E;
 
 
 //palette
@@ -22,8 +24,19 @@ $color-tertiary: #A3D1C6;
 
 // $color-quaternary: #B5828C;
 
-$color-quinary: #ECAB9E;
+$color-quinary: #f4f4f4;
 
 // $color-shadow: #FDE7E1;
 
 $color-dark: #52505E;
+
+$gradient: radial-gradient(circle at center, 
+    rgb(255, 199, 199),
+    rgb(255, 234, 194),
+    rgb(255, 255, 193),
+    rgb(192, 252, 192),
+    rgb(168, 254, 192),
+    rgb(188, 227, 255),
+    rgb(255, 204, 255)
+    
+    )

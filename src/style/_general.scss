@@ -14,6 +14,7 @@
 body{
     height: 100vh;
     overflow-x: hidden;
+    background: #F1E9D6;
 }
 
 main{
@@ -33,7 +34,7 @@ ul {
 
 .content-container,
 .header-container{
-    width: 85%;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -53,10 +54,11 @@ h2,
 h1{
     font-family: $title-font;
     font-weight: bold;
+    color: $font-color;
 }
 
 h1{
-    font-size: 4rem;
+    font-size: 5.5rem;
     margin-bottom: 2rem;
 }
 
@@ -68,11 +70,13 @@ h3{
 .text-standard{
     font-size: $font-standard;
     font-family: $title-text;
+    color: $font-color;
 }
 
 .text-medium{
     font-size: $font-medium;
     font-family: $title-text;
+    color: $font-color;
 }
 
 .margin-bottom{
