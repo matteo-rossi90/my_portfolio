@@ -25,11 +25,24 @@ export default {
                 
                 <div class="col-12">
                     <aside>
-                        <h1>Ciao, sono uno Junior Full Stack developer</h1>
-                        <p class="text-standard">
-                            Creo siti web e applicazioni di vario tipo cercando di trovare soluzioni adeguate, efficaci e intuitive per gli utenti e sempre nel rispetto delle esigenze del cliente. 
-                            Mi piace molto esplorare nuove tecnologie e ampliare ulteriormente il mio stack tecnologico.
+
+                        <div class="py-3" id="main-title">
+                            <div class="icon" id="star1">
+                                <img src="../assets/star-1.svg" alt="">
+                            </div>
+
+                            <h1>Ciao, sono Matteo e sono uno <br>Sviluppatore Web</h1>
+
+                            <div class="icon" id="star2">
+                                <img src="../assets/star-2.svg" alt="">
+                            </div>
+
+                        </div>
+
+                        <p class="m-auto text-standard w-75">
+                            Creo siti web e applicazioni di vario tipo cercando di trovare soluzioni adeguate, efficaci e intuitive per gli utenti. 
                         </p>
+
 
                         <!-- pulsanti contatto e progetti -->
                         <div class="btn-box text-standard">
@@ -102,16 +115,6 @@ export default {
 @use '../style/variables' as*;
 
 //proprietà dell'introduzione
-.img-wrap{
-    height: 600px;
-    width: 600px;
-    aspect-ratio: 1/1;
-
-    img{
-        max-width: 100%;
-        object-fit: cover;
-    }
-}
 
 #background-intro{
     position: relative;
@@ -122,6 +125,25 @@ aside{
     text-align: center;
     margin: 0 auto;
     width: 80%;
+}
+
+#main-title{
+    position: relative;
+
+    .icon{
+        position: absolute;
+    }
+
+    #star1{
+        top: 0;
+        left: calc(100% - 20px);
+        padding-bottom: 0.5rem;
+    }
+    #star2{
+        bottom: 0;
+        right: calc(100% - 20px);
+        padding-top: 0.5rem;
+    }
 }
 
 .btn-box{
@@ -220,10 +242,14 @@ aside{
 
 //proprietà delle competenze
 
+#background-skill{
+    position: relative;
+}
+
 .card-box{
     background: rgba(255, 255, 255, 0.4); 
     backdrop-filter: blur(20px);
-    border-radius: 10px;
+    border-radius: 30px;
     //box-shadow: 2px 16px 0 0 rgba(0, 0, 0, 0.2);
     padding: 0.8rem;
 }

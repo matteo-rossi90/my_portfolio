@@ -14,7 +14,7 @@
 body{
     height: 100vh;
     overflow-x: hidden;
-    background: #F1E9D6;
+    background: $bg-background;
 }
 
 main{
@@ -58,7 +58,7 @@ h1{
 }
 
 h1{
-    font-size: 5.5rem;
+    font-size: 5rem;
     margin-bottom: 2rem;
 }
 
@@ -70,13 +70,13 @@ h3{
 .text-standard{
     font-size: $font-standard;
     font-family: $title-text;
-    color: $font-color;
+    color: $font-text;
 }
 
 .text-medium{
     font-size: $font-medium;
     font-family: $title-text;
-    color: $font-color;
+    color: $font-text;
 }
 
 .margin-bottom{

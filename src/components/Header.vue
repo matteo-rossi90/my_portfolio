@@ -4,7 +4,12 @@ export default {
     name: 'Header',
     data() {
         return {
-            isScrolled: false
+            isScrolled: false,
+        }
+    },
+    computed: {
+        activeRoute() {
+            return this.$route.name; 
         }
     },
     methods:{
@@ -30,9 +35,9 @@ export default {
         </div>
         <nav id="menu">
             <ul class="list">
-                <li><router-link :to="{name: 'Home'}">Home</router-link></li>
-                <li><router-link :to="{name: 'Portfolio'}">Portfolio</router-link></li>
-                <li><router-link :to="{name: 'About'}">Bio</router-link></li>
+                <li :class="{'active': activeRoute === 'Home'}"><router-link :to="{name: 'Home'}">Home</router-link></li>
+                <li :class="{'active': activeRoute === 'Portfolio'}"><router-link :to="{name: 'Portfolio'}">Portfolio</router-link></li>
+                <li :class="{'active': activeRoute === 'About'}"><router-link :to="{name: 'About'}">Bio</router-link></li>
             </ul>
         </nav>
 
@@ -53,7 +58,7 @@ export default {
     transition: 0.3s ease-in-out;
     width: 100%;
     z-index: 1;
-    color: $font-color;
+    color: $font-text;
 
 }
 
@@ -65,7 +70,7 @@ export default {
     background: rgba(255, 255, 255, 0.5); /* Sfondo semi-trasparente */
     backdrop-filter: blur(20px); /* Effetto sfocatura */
     //box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-    color: $font-color;
+    color: $font-text;
     z-index: 1100;
 }
 
@@ -92,7 +97,8 @@ ul.list{
             transition: transform 0.2s ease-in-out;
         }
 
-        &:hover::after {
+        &:hover::after,
+        &.active::after {
             transform: scaleX(1); 
         }
 
@@ -101,6 +107,12 @@ ul.list{
         }
     }
 
+    
+}
+
+.active{
+    font-weight: bold;
+    color: $font-color !important;
     
 }
     

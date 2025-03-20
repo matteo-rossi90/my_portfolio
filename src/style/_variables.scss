@@ -12,6 +12,8 @@ $font-header: 1.1rem;
 
 $font-color: #025A4E;
 
+$font-text: #4C6763;
+
 
 //palette
 $color-background: #FBFFE4;
@@ -30,13 +32,23 @@ $color-quinary: #f4f4f4;
 
 $color-dark: #52505E;
 
-$gradient: radial-gradient(circle at center, 
-    rgb(255, 199, 199),
-    rgb(255, 234, 194),
-    rgb(255, 255, 193),
-    rgb(192, 252, 192),
-    rgb(168, 254, 192),
-    rgb(188, 227, 255),
-    rgb(255, 204, 255)
+$bg-background: #F1E9D6;
+
+// $gradient: radial-gradient(circle at center, 
+    // rgb(255, 199, 199),
+    // rgb(255, 234, 194),
+    // rgb(255, 255, 193),
+    // rgb(192, 252, 192),
+    // rgb(168, 254, 192),
+    // rgb(165, 188, 252)
     
-    )
+// );
+
+$gradient-color: 
+radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 1) 0px, transparent 50%),
+radial-gradient(at 80% 0%, rgb(156, 255, 191) 0px, transparent 50%),
+radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
+radial-gradient(at 80% 50%, rgb(236, 255, 168) 0px, transparent 50%),
+//radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
+//radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
+radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0px, transparent 50%);
