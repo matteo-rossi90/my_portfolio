@@ -1,6 +1,13 @@
 <script>
+import { store } from '../store';
+
 export default {
-    name: 'Portfolio'
+    name: 'Portfolio',
+    data() {
+        return {
+            store
+        }
+    },
 }
 </script>
 
@@ -14,8 +21,14 @@ export default {
             </div>
 
             <div class="row">
-                <div class="col-12 col-lg-4">
-
+                <div class="col-12 col-lg-12">
+                    <div class="box-wrap">
+                        <div class="card-portfolio" :id="`card` + project.id" v-for="project in store.projects">
+                            <router-link :to="{name: 'ShowProject', params: { id: project.id } }">
+                                {{ project.title }}
+                            </router-link>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -29,6 +42,52 @@ export default {
 section{
     position: relative;
     padding-top: 4rem;
+}
+
+.box-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-auto-rows: 200px; 
+    gap: 1.5rem;
+    padding-top: 3rem;
+
+    .card-portfolio {
+        height: 100%;
+        width: 100%; 
+        border-radius: 20px;
+        background: white;
+    }
+
+    
+    #card1 {
+        grid-column: span 2; 
+        grid-row: span 2; 
+    }
+
+    #card2 {
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    #card3 {
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    #card4 {
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    #card5 {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    #card6 {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
 }
     
 </style>
