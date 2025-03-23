@@ -49,13 +49,12 @@ export default {
 @use '../style/variables' as*;
 
 footer{
-    background-color: $color-dark;
-    color:white;
+    color:$font-color;
     font-family: $title-text;
     font-size: $font-header;
     
     a{
-        color:white;
+        color:$font-color;
     }
 
     .list{

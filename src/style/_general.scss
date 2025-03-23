@@ -48,7 +48,7 @@ ul {
     align-items: center;
 }
 
-h4,
+
 h3,
 h2,
 h1{
@@ -65,6 +65,12 @@ h1{
 h2,
 h3{
     margin: 1.5rem 0;
+}
+
+h4{
+    font-family: $title-font;
+    font-weight: bold;
+    color: $color-dark;
 }
 
 .text-standard{

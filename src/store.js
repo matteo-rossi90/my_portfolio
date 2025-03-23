@@ -96,69 +96,75 @@ export const store = reactive({
     projects: [
         {
             id: 1,
-            title: "Portfolio Personale",
-            stack: "Full Stack",
+            title: "ReactCalculator",
+            stack: "Front-end",
             isResponsive: true,
-            techs: ["Vue.js", "SCSS", "JavaScript"],
-            category: ["Web Application", "Portfolio"],
-            date: "2024-01-15",
+            techs: ["React.js", "CSS", "JavaScript"],
+            category: ["Web Application", "Calcolatore"],
+            date: "2025",
+            thumb: "../public/calculator.png",
             company: "Progetto personale",
-            description: "Sito portfolio per mostrare le mie competenze e progetti, sviluppato con Vue.js e SCSS."
+            text: "Calcolatore che esegue operazioni matematiche semplici."
         },
         {
             id: 2,
-            title: "E-commerce Store",
+            title: "PuzzleGame",
             stack: "Front-end",
-            isResponsive: true,
-            techs: ["React", "Redux", "Tailwind CSS"],
-            category: ["E-commerce", "Web Application"],
-            date: "2023-11-10",
-            company: "Freelance",
-            description: "Interfaccia utente per un e-commerce con gestione del carrello e pagamenti online."
+            isResponsive: false,
+            techs: ["JavaScript", "HTML", "CSS"],
+            category: ["Web application", "Game"],
+            date: "2025",
+            thumb: "../public/puzzle.png",
+            company: "Progetto personale",
+            text: "Gioco di puzzle tradizionale dove si possono scegliere diversi livelli di difficoltà."
         },
         {
             id: 3,
-            title: "Gestione Ordini",
-            stack: "Back-end",
-            isResponsive: false,
-            techs: ["Node.js", "Express", "MongoDB"],
-            category: ["API", "Gestione dati"],
-            date: "2023-09-20",
-            company: "Azienda logistica",
-            description: "API per gestire gli ordini e il magazzino di un'azienda di logistica, con autenticazione JWT."
+            title: "BoolBnB",
+            stack: "Full Stack",
+            isResponsive: true,
+            techs: ["Vue.js", "HTML", "SCSS", "JavaScript", "Bootstrap", "Laravel", "PHP", "MySQL"],
+            category: ["API", "Web application", "e-commerce"],
+            date: "2024",
+            thumb: "../public/boolbnb.png",
+            company: "Progetto Boolean",
+            text: "Web application per ricercare e gestire appartamenti da mettere in affitto."
         },
         {
             id: 4,
-            title: "Social Media Dashboard",
-            stack: "Full Stack",
-            isResponsive: true,
-            techs: ["React", "Node.js", "PostgreSQL"],
-            category: ["Dashboard", "Social Media"],
-            date: "2024-02-05",
-            company: "Startup tecnologica",
-            description: "Dashboard per analizzare metriche di social media e gestire post pianificati."
+            title: "AnimeTech",
+            stack: "Front-end",
+            isResponsive: false,
+            techs: ["Vue.js", "HTML", "CSS", "Bootstrap", "JavaScript"],
+            category: ["sito vetrina", "anime"],
+            date: "2024",
+            thumb: "../public/animetech.png",
+            company: "Progetto Boolean",
+            text: "Sito vetrina di un venditore di prodotti e anime giapponesi"
         },
         {
             id: 5,
-            title: "Blog con CMS",
+            title: "Boolzapp",
             stack: "Front-end",
             isResponsive: true,
-            techs: ["Next.js", "GraphQL", "Tailwind CSS"],
-            category: ["Blog", "CMS"],
-            date: "2023-08-12",
-            company: "Progetto accademico",
-            description: "Sviluppo di un blog dinamico con CMS personalizzato per la gestione degli articoli."
+            techs: ["Vue.js", "HTML", "CSS", "JavaScript"],
+            category: ["Web application", "Social media", "Chat"],
+            date: "2024",
+            thumb: "../public/boolzapp.png",
+            company: "Progetto Boolean",
+            text: "Replica template di WhatSapp per scambiare messaggi."
         },
         {
             id: 6,
-            title: "API per Servizio di Prenotazioni",
-            stack: "Back-end",
-            isResponsive: false,
-            techs: ["Django", "REST Framework", "PostgreSQL"],
-            category: ["API", "Booking System"],
-            date: "2023-05-30",
-            company: "Agenzia di viaggi",
-            description: "API REST per la gestione delle prenotazioni di hotel e voli, con autenticazione OAuth."
+            title: "Boolflix",
+            stack: "Front-end",
+            isResponsive: true,
+            techs: ["Vue.js", "HTML", "CSS", "JavaScript"],
+            category: ["API", "Web application"],
+            date: "2024",
+            thumb: "../public/boolflix.png",
+            company: "Progetto Boolean",
+            text: "Replica template di Netflix per cercare film e serie TV."
         }
     ]
 

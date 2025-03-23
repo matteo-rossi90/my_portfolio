@@ -19,7 +19,7 @@ export default {
     <section>
         <div class="content-container">
             <h1>{{ project.title }}</h1>
-            <p>{{ project.description }}</p>
+            <p>{{ project.text }}</p>
         </div>
         
     </section>
