@@ -18,8 +18,16 @@ export default {
 <template>
     <section>
         <div class="content-container">
-            <h1>{{ project.title }}</h1>
-            <p>{{ project.text }}</p>
+
+            
+                <h1>{{ project.title }}</h1>
+               
+               <div class="text-box m-auto">
+                    <h4>Descrizione</h4>
+                    <p class="text-standard">{{ project.descr }}</p>
+               </div>
+               
+            
         </div>
         
     </section>
@@ -27,5 +35,18 @@ export default {
 </template>
 
 <style lang="scss">
+
+h1{
+    text-align: center;
+}
+
+.text-box{
+    width: 65%;
+
+    h4{
+        margin: 1rem 0;
+    }
+}
+
     
 </style>

@@ -17,7 +17,7 @@ export default {
     background-image: $gradient-color;
     background-size: 200%;
     animation: bg-animation 10s infinite alternate ease-in-out;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     height: 80vh;

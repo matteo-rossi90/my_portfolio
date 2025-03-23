@@ -66,7 +66,7 @@ section{
 
 .box-wrap {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
+    grid-template-columns: repeat(6, 1fr); 
     grid-auto-rows: 200px; 
     gap: 1.5rem;
     padding-top: 3rem;
@@ -79,6 +79,7 @@ section{
         position: relative;
         cursor: pointer;
         overflow: hidden;
+        aspect-ratio: 1/1;
 
         .content{
              padding: 1rem;
@@ -133,12 +134,12 @@ section{
 
     
     #card1 {
-        grid-column: span 2; 
+        grid-column: span 3; 
         grid-row: span 2; 
         background: #9ADFD5;
 
         .box-image{
-            width: 60%;
+            width: 50%;
             margin: 0 auto;
             
             img{
@@ -158,11 +159,11 @@ section{
         background: #D990F2;
 
         .box-image{
-            width: 90%;
+            width: 80%;
             margin: 0 auto;
             
             img{
-                max-width: 120%;
+                max-width: 180%;
             }
 }
 
@@ -172,16 +173,16 @@ section{
     }
 
     #card3 {
-        grid-column: span 3;
+        grid-column: span 2;
         grid-row: span 2;
         background: #eaa279;
 
         .box-image{
-            width: 90%;
+            width: 80%;
             margin: 0 auto;
             
             img{
-                max-width: 120%;
+                max-width: 300%;
             }
         }
 
@@ -191,7 +192,7 @@ section{
     }
 
     #card4 {
-        grid-column: span 2;
+        grid-column: span 4;
         grid-row: span 2;
         background: #a7ceeb;
 
@@ -210,7 +211,7 @@ section{
     }
 
     #card5 {
-        grid-column: span 2;
+        grid-column: span 4;
         grid-row: span 2;
         background: #8bcf89;
         
@@ -232,6 +233,10 @@ section{
         grid-row: span 2;
         background: #ea7979;
 
+         h4{
+            color: white;
+        }
+
         .box-image{
             width: 80%;
             margin: 0 auto;
@@ -245,6 +250,29 @@ section{
             background: #ff9b9b;
         }
     }
+
+    #card7 {
+    
+        grid-column: span 2;
+        grid-row: span 2;
+        background: #797dea;
+        
+        h4{
+            color: white;
+        }
+        
+        .box-image{
+            width: 80%;
+            margin: 0 auto;
+        
+        img{
+            max-width: 260%;
+        }
+    }
+    &:hover{
+        background: #9397f7;
+    }
+}
 }
     
 </style>
