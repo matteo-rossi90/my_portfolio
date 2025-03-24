@@ -17,10 +17,6 @@ body{
     background: $bg-background;
 }
 
-main{
-    height: 100%;
-}
-
 a{
     text-decoration: none;
     color: rgb(33, 33, 33);
@@ -40,6 +36,7 @@ ul {
 
 .content-container{
     padding: 4rem 0;
+    overflow-x: hidden;
 }
 
 .header-container{

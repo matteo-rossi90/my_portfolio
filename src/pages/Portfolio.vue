@@ -13,51 +13,62 @@ export default {
 
 <template>
     <section>
-        <div class="content-container">
+            <div class="content-container" id="portfolio">
 
-            <div class="row text-center">
-                <h1>I miei progetti</h1>
-                <p class="text-standard">Qui puoi dare un'occhiata ai miei progetti.<br>Clicca sul progetto per visualizzare maggiori informazioni</p>
-            </div>
+                <div class="text-center">
+                    <h1>I miei progetti</h1>
+                    <p class="text-standard">Qui puoi dare un'occhiata ai miei progetti.<br>Clicca sul progetto per visualizzare maggiori informazioni</p>
+                </div>
 
-            <div class="row">
-                <div class="col-12 col-lg-12">
-                    <div class="box-wrap">
-                        <div class="card-portfolio" :id="`card` + project.id" v-for="project in store.projects">
+
+                <div class="box-wrap">
+                    <div class="card-portfolio" :id="`card` + project.id" v-for="project in store.projects">
+                        
+                        <router-link :to="{name: 'ShowProject', params: { id: project.id } }">
                             
-                            <router-link :to="{name: 'ShowProject', params: { id: project.id } }">
-                                
-                                <div class="content">
-                                    <h4>{{ project.title }}</h4>
-                                </div>
+                            <div class="content">
+                                <h4>{{ project.title }}</h4>
+                            </div>
 
-                                <div class="box-image">
-                                    <img :src="project.thumb" :alt="project.title">
-                                </div>
-                                
-                                <div class="info">
-                                    <p>{{ project.text }}</p>
-                                    <ul class="d-flex gap-2">
-                                        <li class="label-tech" v-for="tech in project.techs">
-                                            <small>
-                                                {{ tech }}
-                                            </small>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </router-link>
-                           
-                        </div>
+                            <figure class="box-image">
+                                <img :src="project.thumb" :alt="project.title">
+                            </figure>
+                            
+                            <div class="info">
+                                <p>{{ project.text }}</p>
+                                <ul class="d-flex gap-2">
+                                    <li class="label-tech" v-for="tech in project.techs">
+                                        <small>
+                                            {{ tech }}
+                                        </small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </router-link>
+                    
                     </div>
                 </div>
+                
+
+
             </div>
 
-        </div>
+        
+
     </section>
 </template>
 
 <style lang="scss">
 @use '../style/variables' as*;
+
+// body{
+    // overflow-x: hidden;
+    // width: 100%;
+// }
+
+.content-container[id=portfolio]{
+    width: 90%
+}
 
 section{
     position: relative;
@@ -74,7 +85,7 @@ section{
     .card-portfolio {
         height: 100%;
         width: 100%; 
-        border-radius: 30px;
+        border-radius: 40px;
         transition: 0.3s ease-in-out;
         position: relative;
         cursor: pointer;
@@ -114,6 +125,9 @@ section{
 
         .box-image{
             transition: padding-top 0.3s ease-in-out;
+            // overflow: hidden;
+
+            
         }
 
 
@@ -273,6 +287,107 @@ section{
         background: #9397f7;
     }
 }
+}
+
+//responsive//
+
+@media (max-width: 1200px) {
+
+    .content-container[id=portfolio]{
+        width:90%;
+    }
+
+    .box-wrap{
+        
+        #card3,
+        #card4,
+        #card5,
+        #card6,
+        #card7{
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+        
+    }
+}
+
+@media (max-width: 990px) {
+    
+    .box-wrap{
+        
+        #card1,
+        #card2,
+        #card3,
+        #card4,
+        #card5,
+        #card6,
+        #card7{
+            grid-column: span 6;
+            grid-row: span 2;
+        }
+
+    }
+}
+
+@media (max-width: 768px) {
+
+    section{
+        h1{
+            font-size: 3rem;
+        }
+
+        .text-standard{
+            font-size: 1rem;
+        }
+    }
+
+    .box-wrap{
+        grid-auto-rows: 150px; 
+        
+        #card1,
+        #card2,
+        #card3,
+        #card4,
+        #card5,
+        #card6,
+        #card7{
+            grid-column: span 6;
+            grid-row: span 1.5;
+        }
+
+        .card-portfolio{
+
+            .label-tech{
+                font-size: 12px;
+                padding: 0.3rem 0.6rem;
+            }
+        }
+        
+    }
+
+    @media (max-width: 600px){
+
+        .card-portfolio{
+
+            .label-tech{
+                display: none;
+            }
+        }      
+        
+
+    }
+
+    @media (max-width: 450px) {
+        
+        section{
+
+            h1{
+                font-size: 2rem;
+            }
+        }
+
+    }
+    
 }
     
 </style>

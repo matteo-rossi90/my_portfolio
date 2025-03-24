@@ -123,7 +123,7 @@ export const store = reactive({
         {
             id: 3,
             title: "TechNGo",
-            stack: "Back-end",
+            stack: "Full stack",
             isResponsive: false,
             techs: ["Laravel", "PHP", "HTML", "SCSS"],
             category: ["Dashboard", "Web application"],
