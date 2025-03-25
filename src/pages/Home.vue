@@ -54,13 +54,13 @@ export default {
                     <div class="btn-box text-standard">
 
                         
-                        <router-link :to="{name: 'Portfolio'}" class="btn-char btn-sun">
-                            <span>
-                                    Vai ai progetti
-                            </span>
-                            
-                            <i class="bi bi-chevron-right"></i>
-                        </router-link>
+                        <!-- <router-link :to="{name: 'Portfolio'}" class="btn-char btn-sun"> -->
+                            <!-- <span> -->
+                                    <!-- Vai ai progetti -->
+                            <!-- </span> -->
+<!--                              -->
+                            <!-- <i class="bi bi-chevron-right"></i> -->
+                        <!-- </router-link> -->
 
                         <a href="mailTo:matteo.rossi90@hotmail.it" class="btn-char btn-moon">
                             <span>
@@ -128,8 +128,8 @@ export default {
     justify-content: space-between;
 
     .btn-char{
-        padding: 0.8rem 1rem;
-        width: 50%;
+        padding: 1rem 3rem;
+        width: 100%;
         border-radius: 50px;
         //box-shadow: 0 0 15px #b9b9b9;
     }
