@@ -22,7 +22,8 @@ export default {
                                 <img src="../assets/star-1.svg" alt="">
                             </div>
 
-                            <h1>Ciao, sono Matteo e sono uno <br>Sviluppatore Web</h1>
+                            <h1>Ciao, sono Matteo,<br>uno Sviluppatore Web</h1>
+                    
 
                             <div class="icon" id="star2">
                                 <img src="../assets/star-2.svg" alt="">
@@ -44,16 +45,15 @@ export default {
     </section>
 
     <section>
-
-    </section>
-
-    <section>
         <div class="content-container">
+
+            <p class="text-big text-center">Vuoi saperne di più ?</p>
+
             <div class="d-flex justify-content-center">
+
                 <!-- pulsanti contatto e progetti -->
                     <div class="btn-box text-standard">
 
-                        
                         <!-- <router-link :to="{name: 'Portfolio'}" class="btn-char btn-sun"> -->
                             <!-- <span> -->
                                     <!-- Vai ai progetti -->
@@ -62,12 +62,12 @@ export default {
                             <!-- <i class="bi bi-chevron-right"></i> -->
                         <!-- </router-link> -->
 
-                        <a href="mailTo:matteo.rossi90@hotmail.it" class="btn-char btn-moon">
+                        <router-link :to="{name: 'Portfolio'}" class="btn-char btn-moon">
                             <span>
-                                Contattami
+                                Vai ai progetti
                             </span>
                             <i class="bi bi-chevron-double-right"></i>
-                        </a>
+                        </router-link>
                     </div>
 
             </div>
@@ -110,13 +110,13 @@ export default {
     #star1 {
         top: 10px;
         left: 95%; 
-        transform: translateX(-50%); 
+        transform: translateX(-340%); 
     }
 
     #star2 {
         bottom: 10px;
         right: 95%;
-        transform: translateX(50%);
+        transform: translateX(60%);
     }
 }
 
@@ -216,10 +216,12 @@ export default {
 
 //responsive//
 @media (max-width: 768px) {
+
     #main-title .icon {
         position: static;
         display: inline-block;
     }
+
     .btn-box {
         flex-direction: column;
     }

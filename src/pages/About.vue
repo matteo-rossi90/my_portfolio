@@ -15,6 +15,18 @@ export default {
 
     <section>
         <div class="content-container">
+            <h1 class="text-center">Chi sono</h1>
+
+            <div class="photo-descr">
+                <aside>
+                    foto
+                </aside>
+                <div class="text">
+                    <p>
+                        description
+                    </p>
+                </div>
+            </div>
             
         </div>
     </section>
@@ -64,6 +76,11 @@ export default {
 
 #background-skill{
     position: relative;
+}
+
+.photo-descr{
+    display:flex;
+    justify-content: center;
 }
 
 .card-box{

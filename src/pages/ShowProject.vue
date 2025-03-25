@@ -30,10 +30,7 @@ export default {
             <div class="wrapper">
                 
                     <div class="col-12 col-md-12 col-lg-4 py-4 card-tips">
-                        <div class="tips">
-                            <i class="bi bi-suitcase-lg-fill"></i>
-                            <h5 class="text-medium">Tipo di progetto</h5>
-                        </div>
+                        <h5 class="text-medium">Tipo di progetto</h5>
                         <span class="text-medium category-rs">
                             
                             {{ project.company }}
@@ -41,10 +38,7 @@ export default {
                         </span>
                     </div>
                     <div class="col-12 col-md-12 col-lg-4 py-4 card-tips">
-                        <div class="tips">
-                            <i class="bi bi-calendar-fill"></i>
-                            <h5 class="text-medium">Periodo</h5>
-                        </div>
+                         <h5 class="text-medium">Periodo</h5>
                         <span class="text-medium category-rs">
                         
                             {{ project.date }}
@@ -52,10 +46,8 @@ export default {
                         </span>
                     </div>
                     <div class="col-12 col-md-12 col-lg-4 py-4 card-tips">
-                        <div class="tips">
-                            <i class="bi bi-tags-fill"></i>
-                            <h5 class="text-medium">Categoria</h5>
-                        </div>
+                        
+                        <h5 class="text-medium">Categoria</h5>
                         <ul class="text-medium category-rs">
                         
                             <li v-for="cat in project.category">
@@ -73,7 +65,7 @@ export default {
         
     </section>
 
-    <!-- immagini campione -->
+    <!-- video dimostrativo -->
      <section>
         <video controls>
             <source :src="project.demo" type="video/mp4">
@@ -93,7 +85,6 @@ export default {
                         <i class="bi bi-info-circle-fill tooltip-mobile">
                             <span class="tooltiptext">Responsive</span>
                         </i>
-
 
                     </div>
                 </div>
@@ -156,7 +147,7 @@ h1{
 
     .btn-box{
 
-        margin: 3rem auto;
+        margin-top: 6rem;
         display: flex;
         justify-content: center;
             
@@ -191,6 +182,7 @@ h1{
 
     h5{
         margin-bottom: 0;
+        margin: 0.6rem 0;
     }
 
     li,
@@ -205,14 +197,6 @@ h1{
         padding: 1rem;
     }
 
-    .tips{
-        padding-bottom: 0.6rem;
-        display:flex;
-        align-items:center;
-        gap: 1rem;
-
-    }
-
 }
 
 .tooltip-mobile {
@@ -223,11 +207,12 @@ h1{
 
 .tooltip-mobile .tooltiptext {
     display: none;
-    width: 200px;
+
     background-color: $font-color;
     color: white;
+    font-size: 1rem;
     text-align: center;
-    padding: 5px 0;
+    padding: 0.6rem;
     border-radius: 6px;
     position: absolute;
     top: 100%;
@@ -250,6 +235,7 @@ section{
         border-radius: 40px;
         height: 100%;
         width: 90%;
+        box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.3);
         cursor: pointer;
 
     }
@@ -342,6 +328,12 @@ section{
      section{
         h1{
             font-size: 2rem;
+        }
+
+        video{
+            width: 100%;
+            border-radius: 0;
+            box-shadow: none;
         }
 
     }
