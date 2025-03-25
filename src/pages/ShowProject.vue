@@ -11,8 +11,9 @@ export default {
         const project = computed(() => store.projects.find(p => p.id == route.params.id));
 
         const isOnline = computed(() => project.value?.link !== null && project.value?.link !== '');
+        const isResponsive = computed(() => project.value.isResponsive !== false)
 
-        return { project, isOnline };
+        return { project, isOnline, isResponsive };
     }
 }
 </script>
@@ -87,8 +88,9 @@ export default {
                 <div class="descr d-flex align-items-center justify-content-between">
                     <h2>Descrizione</h2>
 
-                    <div class="mobile">
-                        <i class="bi bi-phone-fill tooltip-mobile">
+                    <div v-if="!isResponsive"></div>
+                    <div class="mobile" v-else>
+                        <i class="bi bi-info-circle-fill tooltip-mobile">
                             <span class="tooltiptext">Anche per Mobile</span>
                         </i>
 
