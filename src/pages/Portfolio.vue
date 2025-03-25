@@ -58,7 +58,7 @@ export default {
     </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use '../style/variables' as*;
 
 // body{
@@ -71,7 +71,6 @@ export default {
 }
 
 section{
-    position: relative;
     padding-top: 4rem;
 }
 

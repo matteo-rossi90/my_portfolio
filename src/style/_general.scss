@@ -17,6 +17,10 @@ body{
     background: $bg-background;
 }
 
+section{
+    position: relative;
+}
+
 a{
     text-decoration: none;
     color: rgb(33, 33, 33);
@@ -56,6 +60,7 @@ h1{
 
 h1{
     font-size: 5rem;
+    padding-top: 3rem;
     margin-bottom: 2rem;
 }
 

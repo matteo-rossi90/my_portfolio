@@ -10,43 +10,326 @@ export default {
         const route = useRoute();
         const project = computed(() => store.projects.find(p => p.id == route.params.id));
 
-        return { project };
+        const isOnline = computed(() => project.value?.link !== null && project.value?.link !== '');
+
+        return { project, isOnline };
     }
 }
 </script>
 
 <template>
+
+    <!-- intestazione e caratteristiche -->
     <section>
         <div class="content-container">
 
             
-                <h1>{{ project.title }}</h1>
-               
-               <div class="text-box m-auto">
-                    <h4>Descrizione</h4>
-                    <p class="text-standard">{{ project.descr }}</p>
-               </div>
+            <h1>{{ project.title }}</h1>
+
+            <div class="wrapper">
+                
+                    <div class="col-12 col-md-12 col-lg-4 py-4 card-tips">
+                        <div class="tips">
+                            <i class="bi bi-suitcase-lg-fill"></i>
+                            <h5 class="text-medium">Tipo di progetto</h5>
+                        </div>
+                        <span class="text-medium category-rs">
+                            
+                            {{ project.company }}
+                            
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-4 py-4 card-tips">
+                        <div class="tips">
+                            <i class="bi bi-calendar-fill"></i>
+                            <h5 class="text-medium">Periodo</h5>
+                        </div>
+                        <span class="text-medium category-rs">
+                        
+                            {{ project.date }}
+                        
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-4 py-4 card-tips">
+                        <div class="tips">
+                            <i class="bi bi-tags-fill"></i>
+                            <h5 class="text-medium">Categoria</h5>
+                        </div>
+                        <ul class="text-medium category-rs">
+                        
+                            <li v-for="cat in project.category">
+                                {{ cat }}
+                            </li>
+                        
+                        </ul>
+                    </div>
+                
+
+            </div>
                
             
         </div>
         
     </section>
 
+    <!-- immagini campione -->
+     <section>
+        <video controls>
+            <source :src="project.demo" type="video/mp4">
+        </video>
+     </section>
+
+    <!-- descrizione -->
+    <section>
+        <div class="content-container">
+
+             <div class="text-box">
+                <div class="descr d-flex align-items-center justify-content-between">
+                    <h2>Descrizione</h2>
+
+                    <div class="mobile">
+                        <i class="bi bi-phone-fill tooltip-mobile">
+                            <span class="tooltiptext">Anche per Mobile</span>
+                        </i>
+
+
+                    </div>
+                </div>
+                <p class="text-standard">{{ project.descr }}</p>
+             </div>
+
+            <div class="text-box">
+                
+                    <div class="col-12 mt-4">
+                        <ul class="d-flex gap-2">
+                            <li class="label" v-for="item in project.techs">
+                                {{ item }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-box">
+                        <div v-if="!isOnline"></div>
+                        <a :href="project.link" target="_blank" v-else>
+                            Visita ora
+                        </a>
+                    </div>
+            
+
+            </div>
+
+        </div>
+    </section>
+
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@use '../style/variables' as*;
+
+i{
+    font-size: 1.2rem;
+    color: $font-text;
+}
 
 h1{
     text-align: center;
+    padding-bottom: 2rem;
+}
+
+.text-box,
+.wrapper{
+    margin: 0 auto;
+    width: 65%;
+
 }
 
 .text-box{
-    width: 65%;
 
-    h4{
-        margin: 1rem 0;
+    .label{
+        border-radius: 50px;
+        padding: 0.4rem 1rem;
+        background-color: white;
+    }
+
+
+    .btn-box{
+
+        margin: 3rem auto;
+        display: flex;
+        justify-content: center;
+            
+            a{
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 50px;
+                background-color: $font-color;
+                font-size: 2rem;
+                font-family: $title-text;
+                padding: 0.6rem 1rem;
+                width: 40%;
+            }
+        }
+}
+
+.wrapper{
+
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    .descr{
+        margin-bottom: 3rem;
+        color: $font-color;
+        font-size: 3rem;
+
+        
+
+    }
+
+    h5{
+        margin-bottom: 0;
+    }
+
+    li,
+    span{
+        color: $font-color;
+    }
+
+    .card-tips{
+        background: rgba(255, 255, 255, 0.65); 
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 1rem;
+    }
+
+    .tips{
+        padding-bottom: 0.6rem;
+        display:flex;
+        align-items:center;
+        gap: 1rem;
+
+    }
+
+}
+
+.tooltip-mobile {
+    position: relative;
+    display: inline-block;
+    cursor:pointer;
+}
+
+.tooltip-mobile .tooltiptext {
+    display: none;
+    width: 200px;
+    background-color: $font-color;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -100px;
+    z-index: 1;
+    transition: 0.3s ease-in-out;
+
+}
+
+.tooltip-mobile:hover .tooltiptext {
+  display: block;
+}
+
+section{
+
+    video{
+        display: block;
+        margin: 0 auto;
+        border-radius: 40px;
+        height: 100%;
+        width: 90%;
+        cursor: pointer;
+
     }
 }
+
+//responsive//
+@media (max-width:1200px) {
+
+    .content-container{
+        width: 90%;
+    }
+
+    section{
+        h1{
+            font-size: 4rem;
+            padding-top: 4rem;
+        }
+    }
+
+    .text-box,
+    .wrapper{
+        width: 80%;
+
+        .descr{
+            h2{
+                font-size: 2rem;
+            }
+            
+        }
+    }
+    
+}
+
+@media (max-width: 992px) {
+
+    .wrapper{
+        flex-wrap: wrap;
+    }
+
+
+    section{
+        h1{
+            font-size: 3rem;
+        }
+
+    }
+
+    .text-box,
+    .wrapper{
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px){
+
+     section{
+        h1{
+            font-size: 2.5rem;
+        }
+
+        .text-standard{
+            font-size: 1rem;
+        }
+    }
+
+    .text-box,
+    .wrapper{
+        width: 95%;
+    }
+}
+
+@media (max-width: 540px){
+
+     section{
+        h1{
+            font-size: 2rem;
+        }
+
+    }
+
+}
+
 
     
 </style>
