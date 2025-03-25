@@ -144,7 +144,7 @@ export const store = reactive({
             category: ["Full-Stack", "API", "Web application", "e-commerce"],
             date: "Ottobre - Novembre 2024",
             thumb: "../public/boolbnb.png",
-            demo: "../public/video/Calculator_video.mp4",
+            demo: "../public/video/BoolBnB.mp4",
             link: null,
             company: "Progetto Boolean",
             text: "Web application per ricercare e gestire appartamenti da mettere in affitto.",
@@ -158,7 +158,7 @@ export const store = reactive({
             category: ["Front-End", "sito vetrina", "anime"],
             date: "Luglio 2024",
             thumb: "../public/animetech.png",
-            demo: "../public/video/Calculator_video.mp4",
+            demo: "../public/video/AnimeTech.mp4",
             link: null,
             company: "Progetto Boolean",
             text: "Sito vetrina di un venditore di prodotti e anime giapponesi",
@@ -172,7 +172,7 @@ export const store = reactive({
             category: ["Front-End", "Web application", "Social media", "Chat", "App Mobile"],
             date: "Giugno - Luglio 2024",
             thumb: "../public/boolzapp.png",
-            demo: "../public/video/Calculator_video.mp4",
+            demo: "../public/video/Boolzapp_video.mp4",
             link: "https://puzzle-js-application.netlify.app/",
             company: "Progetto Boolean",
             text: "Replica template di WhatSapp per scambiare messaggi.",
@@ -186,11 +186,11 @@ export const store = reactive({
             category: ["Front-End", "API", "Web application"],
             date: "Luglio 2024",
             thumb: "../public/boolflix.png",
-            demo: "../public/video/Calculator_video.mp4",
-            link: "https://puzzle-js-application.netlify.app/",
+            demo: "../public/video/Boolflix.mp4",
+            link: null,
             company: "Progetto Boolean",
             text: "Replica template di Netflix per cercare film e serie TV.",
-            descr: "L'applicazione permette agli utenti di ricercare un film o serie TV attraverso una barra di ricerca posta in alto.  "
+            descr: "L'applicazione permette agli utenti di ricercare un film o serie TV attraverso una barra di ricerca posta in alto. Effettuata la ricerca, il sistema presenta le anteprime dei film o delle serie tv che soddisfano la richiesta dell'utente. Passando il cursore sopra ogni anteprima si presenteranno tutte le informazioni relative al film, come la lingua originale, il cast e il ratings. L'applicazione, che nel template replica la grafica di Netflix, è stata implementata ricorrendo a delle API di MDB Movies, un database che archivia informazioni su film e cinema a livello internazionale. "
         }
     ]
 

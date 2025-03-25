@@ -89,9 +89,9 @@ export default {
                     <h2>Descrizione</h2>
 
                     <div v-if="!isResponsive"></div>
-                    <div class="mobile" v-else>
+                    <div v-else>
                         <i class="bi bi-info-circle-fill tooltip-mobile">
-                            <span class="tooltiptext">Anche per Mobile</span>
+                            <span class="tooltiptext">Responsive</span>
                         </i>
 
 
@@ -295,12 +295,17 @@ section{
             font-size: 3rem;
         }
 
+        video{
+            border-radius: 20px;
+        }
+
     }
 
     .text-box,
     .wrapper{
         width: 80%;
     }
+
 }
 
 @media (max-width: 768px){
@@ -318,6 +323,17 @@ section{
     .text-box,
     .wrapper{
         width: 95%;
+    }
+
+    .text-box{
+
+        .label{
+            font-size: 0.7rem;
+        }
+
+        a{
+            width: 80%;
+        }
     }
 }
 

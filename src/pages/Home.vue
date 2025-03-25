@@ -1,16 +1,7 @@
 <script>
-import rocketStatic from '../assets/rocket1.png';
-import rocketGif from '../assets/rocket2.gif';
-
-import { store } from '../store';
 
 export default {
-    name: 'Home',
-    data() {
-        return {
-            store
-        };
-    }
+    name: 'Home'
 }
 </script>
 
@@ -19,12 +10,12 @@ export default {
     <!-- sezione con descrizione generale -->
     <section id="background-intro">
         <div class="content-container">
-            <div class="row justify-content-center">
+            <div class="d-flex justify-content-center">
 
                 <!-- Descrizione -->
                 
                 <div class="col-12">
-                    <aside>
+                    <div class="welcome">
 
                         <div class="py-3" id="main-title">
                             <div class="icon" id="star1">
@@ -39,31 +30,12 @@ export default {
 
                         </div>
 
-                        <p class="m-auto text-standard w-75">
+                        <p class="m-auto text-standard">
                             Creo siti web e applicazioni di vario tipo cercando di trovare soluzioni adeguate, efficaci e intuitive per gli utenti. 
                         </p>
 
 
-                        <!-- pulsanti contatto e progetti -->
-                        <div class="btn-box text-standard">
-
-                            
-                            <router-link :to="{name: 'Portfolio'}" class="btn-char btn-sun">
-                                <span>
-                                     Vai ai progetti
-                                </span>
-                               
-                                <i class="bi bi-chevron-right"></i>
-                            </router-link>
-
-                            <a href="mailTo:matteo.rossi90@hotmail.it" class="btn-char btn-moon">
-                                <span>
-                                    Contattami
-                                </span>
-                                <i class="bi bi-chevron-double-right"></i>
-                            </a>
-                        </div>
-                    </aside>
+                    </div>
                 </div>
 
             </div>
@@ -71,40 +43,34 @@ export default {
 
     </section>
 
-    <!-- competenze -->
-    <section id="background-skill">
+    <section>
 
+    </section>
+
+    <section>
         <div class="content-container">
+            <div class="d-flex justify-content-center">
+                <!-- pulsanti contatto e progetti -->
+                    <div class="btn-box text-standard">
 
-            <!-- titolo -->
-            <div class="row text-center">
-                <div class="box">
-                    <h2>Le mie competenze</h2>
-                </div>
-            </div>
-            
-            <div class="row py-4">
-                
-                <!-- stack tecnologico -->
-                <div class="col-12 col-lg-12" id="hard-skill">
-                    
-                    
-                    <div class="card-box">
+                        
+                        <router-link :to="{name: 'Portfolio'}" class="btn-char btn-sun">
+                            <span>
+                                    Vai ai progetti
+                            </span>
+                            
+                            <i class="bi bi-chevron-right"></i>
+                        </router-link>
 
-                        <div class="icon-wrapper">
-
-                            <div class="card-skill" v-for="(h, index) in store.hardSkill" :key="index">
-                                <img :src="h.icon" :alt="h.name">
-                                <h6>{{ h.name }}</h6>
-                            </div>
-
-                        </div>
-
+                        <a href="mailTo:matteo.rossi90@hotmail.it" class="btn-char btn-moon">
+                            <span>
+                                Contattami
+                            </span>
+                            <i class="bi bi-chevron-double-right"></i>
+                        </a>
                     </div>
-                </div>
-                
-            </div>
 
+            </div>
         </div>
     </section>
 
@@ -121,28 +87,36 @@ export default {
     padding-top: 2.5rem;
 }
 
-aside{
+.welcome{
     text-align: center;
     margin: 0 auto;
     width: 80%;
+
+        .text-standard {
+            max-width: 100%;
+            width: 70%;
+    }
 }
 
 #main-title{
+
     position: relative;
 
-    .icon{
+    .icon {
         position: absolute;
+        width: 30px; 
     }
 
-    #star1{
-        top: 0;
-        left: calc(100% - 20px);
-        padding-bottom: 0.5rem;
+    #star1 {
+        top: 10px;
+        left: 95%; 
+        transform: translateX(-50%); 
     }
-    #star2{
-        bottom: 0;
-        right: calc(100% - 20px);
-        padding-top: 0.5rem;
+
+    #star2 {
+        bottom: 10px;
+        right: 95%;
+        transform: translateX(50%);
     }
 }
 
@@ -240,60 +214,14 @@ aside{
          
 }
 
-//proprietà delle competenze
-
-#background-skill{
-    position: relative;
-}
-
-.card-box{
-    background: rgba(255, 255, 255, 0.4); 
-    backdrop-filter: blur(20px);
-    border-radius: 30px;
-    //box-shadow: 2px 16px 0 0 rgba(0, 0, 0, 0.2);
-    padding: 0.8rem;
-}
-
-.box{
-    margin-bottom: 1.5rem;
-}
-
-.type-wrap{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction:column;
-    height: 100%;
-
-    p{
-        width: 80%;
+//responsive//
+@media (max-width: 768px) {
+    #main-title .icon {
+        position: static;
+        display: inline-block;
     }
-}
-
-.icon-wrapper{
-    display: flex;
-    flex-wrap:wrap;
-    justify-content: center;
-    gap: 3rem;
-    padding: 1rem 0;
-
-    .card-skill{
-        display: flex;
+    .btn-box {
         flex-direction: column;
-        align-items: center;
-        padding: 0.4rem 1rem;
-        width: calc(50vw / 5 - 0.5rem);
-
-        h6{
-            text-align: center;
-            margin-top: 0.6rem;
-        }
-
-        img{
-            width: 100%;
-            object-fit: fill;
-            aspect-ratio: 1/1;
-        }
     }
 }
 
