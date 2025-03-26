@@ -42,30 +42,6 @@ export const store = reactive({
         }
     ],
 
-    //soft skills
-    softSkill: [
-        {
-            name: 'Lavoro di gruppo',
-            icon: 'https://img.icons8.com/dusk/100/chat.png'
-        },
-        {
-            name: 'Gestione delle priorità',
-            icon: 'https://img.icons8.com/dusk/100/high-priority.png'
-        },
-        {
-            name: 'Attenzione al dettaglio',
-            icon: 'https://img.icons8.com/dusk/100/search--v1.png'
-        },
-        {
-            name: 'Flessibilità',
-            icon: 'https://img.icons8.com/dusk/100/sorting-arrows-horizontal.png'
-        },
-        {
-            name: 'Organizzazione',
-            icon: 'https://img.icons8.com/dusk/100/folder-invoices.png'
-        }
-    ],
-
     //perché scegliere me
     qualities:[
         {
