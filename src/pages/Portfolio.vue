@@ -1,5 +1,10 @@
 <script>
 import { store } from '../store';
+import { nextTick, onMounted } from 'vue';
+import gsap from 'gsap';
+
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// gsap.registerPlugin(ScrollTrigger);
 
 export default {
     name: 'Portfolio',
@@ -8,6 +13,35 @@ export default {
             store
         }
     },
+    setup(){
+        onMounted(async() => {
+
+            await nextTick();
+
+            gsap.from(".text-center h1", {
+                y: 40,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power3.out",
+            });
+
+            gsap.from(".text-standard", {
+                y: 60,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power3.out",
+            });
+
+            gsap.from(".box-wrap", {
+                opacity: 0,
+                y: 80,
+                duration: 1.2,
+                ease: "power3.out",
+                stagger: 0.4,
+            });
+
+        })
+    }
 }
 </script>
 

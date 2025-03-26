@@ -4,6 +4,12 @@ import { store } from '../store';
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 
+import { onMounted } from 'vue';
+import gsap from 'gsap';
+
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
 export default {
     name: 'ShowProject',
     setup() {
@@ -12,6 +18,79 @@ export default {
 
         const isOnline = computed(() => project.value?.link !== null && project.value?.link !== '');
         const isResponsive = computed(() => project.value.isResponsive !== false)
+
+        onMounted(() => {
+            gsap.from('.content-container h1', {
+                y: 30,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power1.out'
+
+            });
+
+            gsap.from('.card-tips', {
+                y: 50,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power3.out',
+                stagger: 0.3
+            });
+
+            gsap.from('video', {
+                y: 50,
+                opacity: 0,
+                duration: 2,
+                ease: 'power2.out',
+            });
+
+            gsap.from('.text-box h2', {
+                y: 60,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger:{
+                    trigger: ".text-box",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                }
+            });
+
+            gsap.from('.text-box p', {
+                y: 70,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger:{
+                    trigger: ".text-box",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                }
+            });
+
+            gsap.from('.label', {
+                y: 90,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger:{
+                    trigger: ".text-box",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                }
+            });
+
+            gsap.from('.btn-box', {
+                y: 100,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger:{
+                    trigger: ".text-box",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                }
+            });
+        })
 
         return { project, isOnline, isResponsive };
     }

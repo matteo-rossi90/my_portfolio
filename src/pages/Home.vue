@@ -1,7 +1,47 @@
 <script>
+import { onMounted } from 'vue';
+import gsap from 'gsap';
 
 export default {
-    name: 'Home'
+    name: 'Home',
+    setup() {
+        onMounted(() => {
+                gsap.from("#main-title h1", {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power3.out",
+
+                 });
+
+                 gsap.from(".text-standard", {
+                    y: 30,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 0.5,
+                    ease: "power3.out",
+                });
+
+                gsap.from(".text-big", {
+                    y: 40,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 0.5,
+                    ease: "power3.out",
+                });
+
+                gsap.from("#star1 img, #star2 img", {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "back.out(1.7)",
+                    stagger: 0.3, 
+                });
+
+       }) 
+    }
+    
+    
 }
 </script>
 
