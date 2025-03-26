@@ -15,20 +15,56 @@ export default {
 
     <section>
         <div class="content-container">
+
+            <!-- titolo pagina -->
             <h1 class="text-center">Chi sono</h1>
 
-            <div class="photo-descr">
-                <aside>
-                    foto
-                </aside>
-                <div class="text">
-                    <p>
-                        description
-                    </p>
+            <!-- foto e descrizione -->
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-6 col-lg-2">
+                    <figure>
+                        <img src="../assets/foto.jpeg" alt="">
+                    </figure>
                 </div>
+                
+                <div class="col-12 col-md-6 col-lg-8">
+                    <div class="text">
+                        <h2>Perché proprio la programmazione</h2>
+                        <p class="text-standard">
+                            Ho un background di studi geografici che mi hanno permesso di specializzarmi nei GIS (Geograhic Information System).
+                            La conoscenza dei GIS a sua volta mi ha consentito di lavorare a progetti accademici che hanno riguardato la costruzione di datanase cartografici e mappe online. Studiando le mappe online, sono venuto a contatto con i linguggi di programmazione necessari per crearle - soprattutto HTML, CSS e JavaScript - che ho iniziato a studiare da autodidatta.
+                        </p>
+                        <p class="text-standard">
+                            La programmazione mi ha talmente affascinato che, appena ne ho avuto l'occasione, ho deciso di approfondire queste conoscenze con un corso più mirato e strutturato.
+                        </p>
+                    </div>
+
+                </div>
+                
             </div>
             
         </div>
+    </section>
+
+    <!-- timeline -->
+    <section>
+    
+        <div class="d-flex justify-content-center">
+            <div class="timeline">
+                <div class="box-content">
+                </div>
+                <div class="line">
+                    <div class="circle" id="degree-master"></div>
+                    <div class="circle" id="degree-GIS"></div>
+                    <div class="circle" id="degree-phd"></div>
+                    <div class="circle" id="degree-fellowship"></div>
+                    <div class="circle" id="degree-boolean"></div>
+                </div>
+                <div class="box-content">
+                </div>
+            </div>
+        </div>
+
     </section>
     
     <!-- competenze -->
@@ -37,13 +73,13 @@ export default {
         <div class="content-container">
 
             <!-- titolo -->
-            <div class="row text-center">
+            <div class="text-center">
                 <div class="box">
                     <h2>Le mie competenze</h2>
                 </div>
             </div>
             
-            <div class="row py-4">
+            <div class="py-4">
                 
                 <!-- stack tecnologico -->
                 <div class="col-12 col-lg-12" id="hard-skill">
@@ -74,14 +110,91 @@ export default {
 <style lang="scss" scoped>
 @use '../style/general' as*;
 
+//titolo, foto e descrizione
+
 #background-skill{
     position: relative;
 }
 
-.photo-descr{
-    display:flex;
-    justify-content: center;
+figure{
+    width: 300px;
+
+    img{
+        border-radius: 100%;
+        max-width: 100%;
+        object-fit: cover;
+    }
 }
+    
+
+
+//timeline
+
+    .timeline{
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 700px;
+        width: 1400px;
+
+        .box-content{
+            background-color: yellow;
+            width: 100%;
+            height: calc(50% - 1px);
+
+        }
+
+        .line{
+            background-color: greenyellow;
+            width: 100%;
+            height: 2px;
+            position: relative;
+
+            .circle{
+                height: 40px;
+                width: 40px;
+                border-radius: 100%;
+                background-color: greenyellow;
+                position: absolute;
+                transform: translate(-50%, -50%);
+
+            }
+
+            
+        }
+    }
+
+    #degree-master{
+        top: 10%;
+        left: 10%;
+        
+    }
+
+    #degree-GIS{
+        top: 30%;
+        left: 30%;
+        
+    }
+
+    #degree-phd{
+        top: 50%;
+        left: 50%;
+        
+    }
+
+    #degree-fellowship{
+        top: 70%;
+        left: 70%;
+    
+    }
+
+    #degree-boolean{
+        top: 90%;
+        left: 90%;
+    }
+
+
+//competenze
 
 .card-box{
     background: rgba(255, 255, 255, 0.4); 
