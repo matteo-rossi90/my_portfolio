@@ -28,6 +28,9 @@ const router = createRouter({
             name: 'ShowProject',
             component: ShowProject
         },
-    ]
+    ],
+    scrollBehavior(to, from, savedPosition) {
+        return { top: 0, behavior: 'instant' };
+    }
 });
 export { router };
