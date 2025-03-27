@@ -29,12 +29,12 @@ export default {
                 
                 <div class="col-12 col-md-12 col-lg-8">
                     <div class="text">
+                        <h2>Qualcosa in più su di me...</h2>
                         <p class="text-standard">
-                            Ho un background di studi geografici che mi hanno permesso di specializzarmi nei GIS (Geograhic Information System).
-                            La conoscenza dei GIS a sua volta mi ha consentito di lavorare a progetti accademici che hanno riguardato la costruzione di datanase cartografici e mappe online. Studiando le mappe online, sono venuto a contatto con i linguggi di programmazione necessari per crearle - soprattutto HTML, CSS e JavaScript - che ho iniziato a studiare da autodidatta.
+                            Mi sono avvicinato alla programmazione per puro caso: studiando le mappe online in occasioni di alcuni lavori accademici, sono venuto a contatto con i linguggi di programmazione necessari per crearle - soprattutto HTML, CSS e JavaScript - che ho iniziato a studiare da autodidatta. Questa esperienza mi ha talmente affascinato da spingermi ad approfondire queste conoscenze con una formazione più mirata e specifica.
                         </p>
                         <p class="text-standard">
-                            La programmazione mi ha talmente affascinato che, appena ne ho avuto l'occasione, ho deciso di approfondire queste conoscenze con un corso più mirato e strutturato.
+                            Sono sempre disponibile a imparare nuovi linguaggi e approcci metodologici per crescere professionalmente.
                         </p>
                     </div>
 
@@ -44,6 +44,25 @@ export default {
             
         </div>
     </section>
+
+    <!-- le mie caratteristiche -->
+    <section>
+        <div class="content-container">
+            <h2 class="text-center">Le mie caratteristiche</h2>
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-4 py-3 d-flex align-items-stretch" v-for="(char, index) in store.qualities" :key="index">
+                    <div class="card-qualities">
+                        <h5>{{ char.title }}</h5>
+                        <p class="text-standard">{{ char.desc }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        
+    </section>
+
     
     <!-- competenze -->
     <section id="background-skill">
@@ -82,30 +101,12 @@ export default {
         </div>
     </section>
 
-    <!-- le mie caratteristiche -->
-    <section>
-        <div class="content-container">
-            <h2 class="text-center">Le mie caratteristiche principali</h2>
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-4 py-3" v-for="(char, index) in store.qualities" :key="index">
-                    <div class="card-qualities">
-                        <h5>{{ char.title }}</h5>
-                        <p>{{ char.desc }}</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-        
-    </section>
-
     <!-- scarica il cv -->
     <section>
         <div class="content-container">
             
             <div class="row">
-                <h3 class="text-center">Per altre informazioni scarica il CV</h3>
+                <p class="text-center text-standard">Per altre informazioni scarica il CV</p>
                 <div class="btn-box">
                     <a href="#" download>
                         <span>
@@ -140,7 +141,13 @@ figure{
     }
 }
     
-
+//qualità
+.card-qualities{
+    background: rgba(255, 255, 255, 0.6); 
+    backdrop-filter: blur(20px);
+    padding: 1rem;
+    border-radius: 20px;
+}
 
 //competenze
 
@@ -193,16 +200,6 @@ figure{
             aspect-ratio: 1/1;
         }
     }
-}
-
-//timeline
-
-//qualità
-.card-qualities{
-    background: rgba(255, 255, 255, 0.6); 
-    backdrop-filter: blur(20px);
-    padding: 1rem;
-    border-radius: 20px;
 }
 
 //scarica il curriculum

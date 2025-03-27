@@ -84,23 +84,47 @@ export default {
 
     </section>
 
+    <!-- Perché la programmazione? / Cosa mi piace dello sviluppo -->
     <section>
         <div class="content-container">
 
-            <p class="text-big text-center">Vuoi saperne di più ?</p>
+            <!-- perché la programmazione -->
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-6 mb-5">
+                    <div class="frame">
+                        <h3>Perché proprio la programmazione?</h3>
+                        <p class="text-standard">
+                            Credo che la programmazione sia un linguaggio universale con cui realizzare ciò che vuoi e dare libero sfogo a creatività e fantasia.
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-12 col-lg-6 mt-5">
+                    <div class="frame">
+                        <h3>Cosa mi piace dello sviluppo</h3>
+                        <p class="text-standard">
+                            Lavorando a progetti individuali e di gruppo ho capito che dello sviluppo mi piace trovare soluzioni efficaci per fornire un'esperienza utente quanto più possibile efficace e intuitiva.
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- pulsante progetti -->
+    <section>
+        <div class="content-container">
+
+            <p class="text-standard text-center">Vuoi saperne di più ?</p>
 
             <div class="d-flex justify-content-center">
 
-                <!-- pulsanti contatto e progetti -->
                     <div class="btn-box text-standard">
-
-                        <!-- <router-link :to="{name: 'Portfolio'}" class="btn-char btn-sun"> -->
-                            <!-- <span> -->
-                                    <!-- Vai ai progetti -->
-                            <!-- </span> -->
-<!--                              -->
-                            <!-- <i class="bi bi-chevron-right"></i> -->
-                        <!-- </router-link> -->
 
                         <router-link :to="{name: 'Portfolio'}" class="btn-char btn-moon">
                             <span>
@@ -160,10 +184,22 @@ export default {
     }
 }
 
+//caratteristiche sulla programmazione
+
+.block{
+    display: flex;
+    justify-content: space-between;
+}
+
+.frame{
+    padding: 0 1rem;
+}
+
+//sezione vai a i progetti
+
 .btn-box{
     padding: 2rem 0;
     display: flex;
-    gap: 1.5rem;
     align-items: center;
     justify-content: space-between;
 

@@ -46,7 +46,7 @@ export const store = reactive({
     qualities:[
         {
             title: 'Design semplice',
-            desc: 'Template con grafica semplice, lineare e ricca di interazioni per un\'estetica gradevole',
+            desc: 'Template con grafica semplice, lineare e ricca di interazioni',
             icon: '../public/icon/progettazione1.png',
             iconDef: '../public/icon/progettazione1.png',
             iconGif: '../public/icon/progettazione.gif'
@@ -60,7 +60,7 @@ export const store = reactive({
         },
         {
             title: 'Creatività',
-            desc: 'Cerco sempre di sperimentare nuovi approcci e nuove metodologie quando sviluppo',
+            desc: 'Cerco sempre di sperimentare nuovi approcci e nuove metodologie',
             icon: '../public/icon/lampadina1.png',
             iconDef: '../public/icon/lampadina1.png',
             iconGif: '../public/icon/lampadina2.gif'
