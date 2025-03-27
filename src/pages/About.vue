@@ -1,12 +1,80 @@
 <script>
 import { store } from '../store';
 
+import { onMounted } from 'vue';
+
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
 export default {
     name: 'About',
     data() {
         return {
             store
-        };
+        }
+    },
+    setup() {
+       
+        onMounted(() => {
+            gsap.from("h1", {
+                y: 30,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power3.out",
+            });
+
+            gsap.from("figure, #title-descr, .text p", {
+                y: 30,
+                opacity: 0,
+                duration: 1.5,
+                delay: 0.5,
+                ease: "power3.out",
+                stagger: 0.3
+            });
+
+            gsap.from("#title-qualities, .card-qualities", {
+                y: 40,
+                opacity: 0,
+                duration: 1.5,
+                delay: 0.5,
+                ease: "power3.out",
+                stagger: 0.3,
+                scrollTrigger:{
+                    trigger: "#qualities",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                }
+            });
+
+            gsap.from("#title-skill, .card-skill", {
+                y: 40,
+                opacity: 0,
+                duration: 1.5,
+                delay: 0.5,
+                ease: "power3.out",
+                stagger: 0.3,
+                scrollTrigger:{
+                    trigger: "#background-skill",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                }
+            });
+
+            gsap.from("#text-descr, .btn-box", {
+                y: 40,
+                opacity: 0,
+                duration: 1.5,
+                delay: 0.5,
+                ease: "power3.out",
+                stagger: 0.3,
+                scrollTrigger:{
+                    trigger: "#download-cv",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                }
+            });
+        })
     }
 }
 </script>
@@ -29,7 +97,7 @@ export default {
                 
                 <div class="col-12 col-md-12 col-lg-8">
                     <div class="text">
-                        <h2>Qualcosa in più su di me...</h2>
+                        <h2 id="title-descr">Qualcosa in più su di me...</h2>
                         <p class="text-standard">
                             Mi sono avvicinato alla programmazione per puro caso: studiando le mappe online in occasioni di alcuni lavori accademici, sono venuto a contatto con i linguggi di programmazione necessari per crearle - soprattutto HTML, CSS e JavaScript - che ho iniziato a studiare da autodidatta. Questa esperienza mi ha talmente affascinato da spingermi ad approfondire queste conoscenze con una formazione più mirata e specifica.
                         </p>
@@ -46,9 +114,9 @@ export default {
     </section>
 
     <!-- le mie caratteristiche -->
-    <section>
+    <section id="qualities">
         <div class="content-container">
-            <h2 class="text-center">Le mie caratteristiche</h2>
+            <h2 class="text-center" id="title-qualities">Le mie caratteristiche</h2>
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-4 py-3 d-flex align-items-stretch" v-for="(char, index) in store.qualities" :key="index">
                     <div class="card-qualities">
@@ -67,53 +135,54 @@ export default {
     <!-- competenze -->
     <section id="background-skill">
 
-        <div class="content-container">
-
-            <!-- titolo -->
-            <div class="text-center">
-                <div class="box">
-                    <h2>Le mie competenze</h2>
-                </div>
+        <!-- titolo -->
+        <div class="text-center">
+            <div class="box">
+                <h2 id="title-skill">Le mie competenze</h2>
             </div>
+        </div>
+        
+        <div class="py-4">
             
-            <div class="py-4">
+            <!-- stack tecnologico -->
+            <div class="col-12 col-lg-12" id="hard-skill">
                 
-                <!-- stack tecnologico -->
-                <div class="col-12 col-lg-12" id="hard-skill">
-                    
-                    
-                    <div class="card-box">
+                
+                <div class="card-box">
 
-                        <div class="icon-wrapper">
+                    <div class="icon-wrapper">
 
-                            <div class="card-skill" v-for="(h, index) in store.hardSkill" :key="index">
-                                <img :src="h.icon" :alt="h.name">
-                                <h6>{{ h.name }}</h6>
-                            </div>
-
+                        <div class="card-skill" v-for="(h, index) in store.hardSkill" :key="index">
+                            <img :src="h.icon" :alt="h.name">
+                            <h6>{{ h.name }}</h6>
                         </div>
 
                     </div>
-                </div>
-                
-            </div>
 
+                </div>
+            </div>
+            
         </div>
+
+        
     </section>
 
     <!-- scarica il cv -->
-    <section>
+    <section id="download-cv">
         <div class="content-container">
+
+            <p class="text-center text-standard" id="text-descr">Per altre informazioni scarica il CV</p>
             
-            <div class="row">
-                <p class="text-center text-standard">Per altre informazioni scarica il CV</p>
-                <div class="btn-box">
-                    <a href="#" download>
-                        <span>
+            <div class="d-flex justify-content-center">
+                
+                <div class="btn-box mt-4">
+                    <a href="/CV/MatteoRossiCV4.pdf" download class="btn-char btn-moon">
+                        <span class="text-standard">
                             Scarica il CV
                         </span>
                     </a>
                 </div>
+
             </div>
 
         </div>
@@ -124,6 +193,7 @@ export default {
 
 <style lang="scss" scoped>
 @use '../style/general' as*;
+
 
 //titolo, foto e descrizione
 
@@ -154,7 +224,7 @@ figure{
 .card-box{
     background: rgba(255, 255, 255, 0.4); 
     backdrop-filter: blur(20px);
-    border-radius: 30px;
+    // border-radius: 30px;
     //box-shadow: 2px 16px 0 0 rgba(0, 0, 0, 0.2)
     padding: 0.8rem;
 }
@@ -207,13 +277,55 @@ figure{
 .btn-box{
     display: flex;
     justify-content: center;
+    flex-direction: column;
 
-    a{
-        padding: 0.8rem 1rem;
+    .btn-char{
+        padding: 1rem 3rem;
+        width: 100%;
         border-radius: 50px;
-        width: 20%;
-        border: 2px solid $font-color;
-        text-align: center;
+        //box-shadow: 0 0 15px #b9b9b9;
+    }
+
+    .btn-moon {
+        position: relative;
+        overflow: hidden;
+        border: 2px solid $font-text;
+        transition: 0.5s;
+        color: $font-text;
+        gap: 10px; 
+
+        &::before{
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: $font-color;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease-out, height 0.6s ease-out;
+            z-index: 0;
+        }
+
+        span {
+            position: relative; 
+            z-index: 1;   
+            transition: transform 0.4s ease-in-out, color 0.4s ease-in-out;      
+        }
+
+        &:hover::before {
+            width: 800px;
+            height: 800px;
+        } 
+
+        &:hover {
+            
+            span{
+                color: white;
+                z-index: 1;
+            }
+        }
     }
 }
 

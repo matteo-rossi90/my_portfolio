@@ -2,6 +2,9 @@
 import { onMounted } from 'vue';
 import gsap from 'gsap';
 
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
 export default {
     name: 'Home',
     setup() {
@@ -14,20 +17,58 @@ export default {
 
                  });
 
-                 gsap.from(".text-standard", {
+                 gsap.from("#text-descr", {
                     y: 30,
                     opacity: 0,
                     duration: 1.2,
                     delay: 0.5,
                     ease: "power3.out",
-                });
+                    stagger: 0.3,
+                 })
 
-                gsap.from(".text-big", {
-                    y: 40,
+                 gsap.from(".main-content",{
+                    y: 30,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 0.6,
+                    ease: "power3.out",
+                    stagger: 0.3,
+                    scrollTrigger:{
+                        trigger: ".main-content",
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    }
+                 })
+
+                 gsap.from(".frame h2", {
+                    y: 20,
                     opacity: 0,
                     duration: 1.2,
                     delay: 0.5,
                     ease: "power3.out",
+                    stagger: 0.3
+                 });
+
+                 gsap.from(".frame #text-1, .frame img", {
+                    y: 30,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 0.5,
+                    ease: "power3.out",
+                    stagger: 0.3
+                });
+
+                gsap.from("#text-2, .btn-box a", {
+                    y: 30,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 0.5,
+                    ease: "power3.out",
+                    scrollTrigger:{
+                        trigger: "#projects",
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    }
                 });
 
                 gsap.from("#star1 img, #star2 img", {
@@ -37,6 +78,7 @@ export default {
                     ease: "back.out(1.7)",
                     stagger: 0.3, 
                 });
+
 
        }) 
     }
@@ -71,7 +113,7 @@ export default {
 
                         </div>
 
-                        <p class="m-auto text-standard">
+                        <p class="m-auto text-standard" id="text-descr">
                             Creo siti web e applicazioni di vario tipo cercando di trovare soluzioni adeguate, efficaci e intuitive per gli utenti. 
                         </p>
 
@@ -89,24 +131,21 @@ export default {
         <div class="content-container">
 
             <!-- perché la programmazione -->
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-6 mb-5">
+            <div class="row main-content">
+                <div class="col-12 col-md-6 col-lg-6 d-flex align-items-center">
                     <div class="frame">
-                        <h3>Perché proprio la programmazione?</h3>
-                        <p class="text-standard">
-                            Credo che la programmazione sia un linguaggio universale con cui realizzare ciò che vuoi e dare libero sfogo a creatività e fantasia.
+                        <h2>Cosa mi piace dello sviluppo</h2>
+                        <p class="text-standard" id="text-1">
+                            Credo che la programmazione sia un linguaggio universale con cui è possibile dare libero sfogo a creatività e fantasia.
+                            Trovare soluzioni ed esplorare nuovi orizzonti sperimentando nuovi approcci e metodi è uno degli aspetti che più preferisco dello sviluppo.
                         </p>
 
                     </div>
                 </div>
 
-                <div class="col-12 col-md-12 col-lg-6 mt-5">
-                    <div class="frame">
-                        <h3>Cosa mi piace dello sviluppo</h3>
-                        <p class="text-standard">
-                            Lavorando a progetti individuali e di gruppo ho capito che dello sviluppo mi piace trovare soluzioni efficaci per fornire un'esperienza utente quanto più possibile efficace e intuitiva.
-                        </p>
-
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="frame d-flex justify-content-center" >
+                        <img src="../assets/programming-animate2.svg" alt="">
                     </div>
                 </div>
 
@@ -118,9 +157,9 @@ export default {
 
     <!-- pulsante progetti -->
     <section>
-        <div class="content-container">
+        <div class="content-container" id="projects">
 
-            <p class="text-standard text-center">Vuoi saperne di più ?</p>
+            <p class="text-standard text-center" id="text-2">Vuoi saperne di più ?</p>
 
             <div class="d-flex justify-content-center">
 
@@ -132,6 +171,7 @@ export default {
                             </span>
                             <i class="bi bi-chevron-double-right"></i>
                         </router-link>
+
                     </div>
 
             </div>
@@ -148,7 +188,7 @@ export default {
 
 #background-intro{
     position: relative;
-    padding-top: 2.5rem;
+    padding-top: 4rem;
 }
 
 .welcome{
@@ -172,13 +212,13 @@ export default {
     }
 
     #star1 {
-        top: 10px;
+        top: 60px;
         left: 95%; 
         transform: translateX(-340%); 
     }
 
     #star2 {
-        bottom: 10px;
+        bottom: -30px;
         right: 95%;
         transform: translateX(60%);
     }
@@ -193,6 +233,11 @@ export default {
 
 .frame{
     padding: 0 1rem;
+
+    img{
+        height: 80%;
+        width: 80%;
+    }
 }
 
 //sezione vai a i progetti
@@ -201,7 +246,6 @@ export default {
     padding: 2rem 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 
     .btn-char{
         padding: 1rem 3rem;
@@ -242,7 +286,7 @@ export default {
     .btn-moon {
         position: relative;
         overflow: hidden;
-        background: $color-dark;
+        background: $font-text;
         transition: 0.5s;
         color: white;
 
@@ -253,7 +297,7 @@ export default {
             left: 50%;
             width: 0;
             height: 0;
-            background-color: $color-secondary;
+            background-color: $font-color;
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.6s ease-out, height 0.6s ease-out;

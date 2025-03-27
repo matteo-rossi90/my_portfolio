@@ -95,17 +95,8 @@ export default {
 <style lang="scss" scoped>
 @use '../style/variables' as*;
 
-// body{
-    // overflow-x: hidden;
-    // width: 100%;
-// }
-
 .content-container[id=portfolio]{
     width: 90%
-}
-
-section{
-    padding-top: 4rem;
 }
 
 .box-wrap {
