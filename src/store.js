@@ -66,6 +66,28 @@ export const store = reactive({
             iconGif: '../public/icon/lampadina2.gif'
         }
     ],
+
+    social:[
+        {
+            name: 'LinkedIn',
+            icon: 'bi bi-linkedin',
+            link: 'matteo-rossi',
+            href: 'https://www.linkedin.com/in/matteo-rossi-5163b6128/'
+        },
+        {
+            name: 'GitHub',
+            icon: 'bi bi-github',
+            link: 'matteo-rossi90',
+            href: 'https://github.com/matteo-rossi90'
+        },
+        {
+            name: 'Email',
+            icon: 'bi bi-envelope',
+            link: 'matteo.rossi90@hotmail.it',
+            href: 'mailto:matteo.rossi90@hotmail.it'
+        }
+    ],
+
     
 
     //progetti del portfolio
