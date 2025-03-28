@@ -36,8 +36,9 @@ export default {
         <nav id="menu">
             <ul class="list">
                 <li :class="{'active': activeRoute === 'Home'}"><router-link :to="{name: 'Home'}">Home</router-link></li>
-                <li :class="{'active': activeRoute === 'Portfolio'}"><router-link :to="{name: 'Portfolio'}">Portfolio</router-link></li>
+                <li :class="{'active': activeRoute === 'Portfolio'}"><router-link :to="{name: 'Portfolio'}">Progetti</router-link></li>
                 <li :class="{'active': activeRoute === 'About'}"><router-link :to="{name: 'About'}">Bio</router-link></li>
+                <li :class="{'active': activeRoute === 'Contacts'}"><router-link :to="{name: 'Contacts'}">Contatti</router-link></li>
             </ul>
         </nav>
 

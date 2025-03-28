@@ -99,7 +99,7 @@ export default {
                     <div class="text">
                         <h2 id="title-descr">Qualcosa in più su di me...</h2>
                         <p class="text-standard">
-                            Mi sono avvicinato alla programmazione per puro caso: studiando le mappe online in occasioni di alcuni lavori accademici, sono venuto a contatto con i linguggi di programmazione necessari per crearle - soprattutto HTML, CSS e JavaScript - che ho iniziato a studiare da autodidatta. Questa esperienza mi ha talmente affascinato da spingermi ad approfondire queste conoscenze con una formazione più mirata e specifica.
+                            Mi sono avvicinato allo sviluppo per puro caso: studiando le mappe online in occasioni di alcuni lavori accademici, sono venuto a contatto con i linguaggi di programmazione necessari per crearle - soprattutto HTML, CSS e JavaScript - che ho iniziato a studiare da autodidatta. Questa esperienza mi ha talmente affascinato da spingermi ad approfondire queste conoscenze con una formazione più mirata e specifica.
                         </p>
                         <p class="text-standard">
                             Sono sempre disponibile a imparare nuovi linguaggi e approcci metodologici per crescere professionalmente.
@@ -217,15 +217,14 @@ figure{
     backdrop-filter: blur(20px);
     padding: 1rem;
     border-radius: 20px;
+
 }
 
 //competenze
 
 .card-box{
-    background: rgba(255, 255, 255, 0.4); 
+    background: rgba(255, 255, 255, 0.6); 
     backdrop-filter: blur(20px);
-    // border-radius: 30px;
-    //box-shadow: 2px 16px 0 0 rgba(0, 0, 0, 0.2)
     padding: 0.8rem;
 }
 
@@ -256,8 +255,7 @@ figure{
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0.4rem 1rem;
-        width: calc(50vw / 5 - 0.5rem);
+        width: calc(40vw / 5 - 0.5rem);
 
         h6{
             text-align: center;

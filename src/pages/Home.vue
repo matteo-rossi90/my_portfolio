@@ -254,32 +254,10 @@ export default {
         //box-shadow: 0 0 15px #b9b9b9;
     }
 
-    .btn-sun,
     .btn-moon{
         display: flex;
         gap: 0.7rem;
         justify-content: center;
-    }
-
-    .btn-sun{
-        background: transparent;
-        border: 2px solid $color-dark;
-        transition: 0.3s ease;
-        color: $color-dark;
-
-        &:hover{
-            background: $color-tertiary;
-            border: 2px solid $color-tertiary;
-            color: white;
-
-            i {
-                transition: transform 0.3s ease-in-out; 
-            }
-
-            &:hover i {
-                transform: translateX(10px);
-            }
-        }
     }
 
     
