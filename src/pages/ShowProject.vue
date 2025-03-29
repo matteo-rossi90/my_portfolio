@@ -329,7 +329,7 @@ section{
 
     section{
         h1{
-            font-size: 4rem;
+            font-size: 3rem;
             padding-top: 4rem;
         }
     }
@@ -388,6 +388,12 @@ section{
     .text-box,
     .wrapper{
         width: 95%;
+
+        .descr{
+            h2{
+                font-size: 1.5rem;
+            }
+        }
     }
 
     .text-box{

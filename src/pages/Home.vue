@@ -101,20 +101,20 @@ export default {
 
                         <div class="py-3" id="main-title">
                             <div class="icon" id="star1">
-                                <img src="../assets/star-1.svg" alt="">
+                                <img src="../assets/star-1.svg" alt="star-1">
                             </div>
 
-                            <h1>Ciao, sono Matteo,<br>uno Sviluppatore Web</h1>
+                            <h1>Ciao, sono Matteo</h1>
                     
 
                             <div class="icon" id="star2">
-                                <img src="../assets/star-2.svg" alt="">
+                                <img src="../assets/star-2.svg" alt="star-2">
                             </div>
 
                         </div>
 
                         <p class="m-auto text-standard" id="text-descr">
-                            Creo siti web e applicazioni di vario tipo cercando di trovare soluzioni adeguate, efficaci e intuitive per gli utenti. 
+                            Sono uno <strong>Sviluppatore Web</strong>. Creo siti web e applicazioni di vario tipo cercando di trovare soluzioni adeguate, efficaci e intuitive per gli utenti. 
                         </p>
 
 
@@ -132,7 +132,7 @@ export default {
 
             <!-- perché la programmazione -->
             <div class="row main-content">
-                <div class="col-12 col-md-6 col-lg-6 d-flex align-items-center">
+                <div class="col-12 col-md-12 col-lg-6 d-flex align-items-center">
                     <div class="frame">
                         <h2>Cosa mi piace dello sviluppo</h2>
                         <p class="text-standard" id="text-1">
@@ -143,7 +143,7 @@ export default {
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-6">
+                <div class="col-12 col-md-12 col-lg-6">
                     <div class="frame d-flex justify-content-center" >
                         <img src="../assets/programming-animate2.svg" alt="">
                     </div>
@@ -213,13 +213,13 @@ export default {
 
     #star1 {
         top: 60px;
-        left: 95%; 
+        left: 60vw; 
         transform: translateX(-340%); 
     }
 
     #star2 {
         bottom: -30px;
-        right: 95%;
+        right: 60vw;
         transform: translateX(60%);
     }
 }
@@ -313,15 +313,188 @@ export default {
 }
 
 //responsive//
-@media (max-width: 768px) {
 
-    #main-title .icon {
-        position: static;
-        display: inline-block;
+// @media (max-width: 1380px){
+
+        
+        // #main-title h1{
+            // font-size: 3rem;
+        // }
+   
+// }
+
+@media (max-width: 1200px){
+
+    section{
+        
+        #main-title h1{
+            font-size: 3rem;
+        }
+
+        #star1 {
+            
+            left: 65vw !important;
+            transform: translate(-100%) !important;
+            
+        }
+        #star2 {
+            
+            right: 65vw !important;
+            transform: translate(-100%) !important;
+            
+        }
+    
+    }
+}
+
+@media (max-width: 992px) {
+
+    .content-container{
+        width: 90%;
     }
 
-    .btn-box {
-        flex-direction: column;
+    section{
+
+        h2{
+            text-align: center;
+        }
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    #main-title h1{
+        font-size: 2.5rem;
+    }
+    
+    section {
+
+        h2{
+            font-size: 1.5rem;
+        }
+
+        .text-standard{
+            font-size: 1rem;
+        }
+
+        #star1 {
+    
+            left: 70vw !important;
+            transform: translate(-100%) !important;
+            
+        }
+
+        #star2 {
+            
+            right: 70vw !important;
+            transform: translate(-100%) !important;
+            
+        }
+    }
+
+
+}
+
+@media (max-width: 600px) {
+    
+    .welcome .text-standard{
+
+        width: 100%;
+        padding: 1.5rem 0;
+    }
+
+    section{
+
+        #star1 {
+
+            left: 65vw !important;
+            transform: translate(-100%, 20%) !important;
+            
+        }
+
+        #star2 {
+            
+            right: 65vw !important;
+            transform: translate(-100%, -20%) !important;
+            
+        }
+    }
+}
+
+@media (max-width: 540px) {
+    
+    section{
+
+        #main-title h1{
+
+            font-size: 2rem;
+        
+        }
+
+        #main-title .icon{
+
+             img{
+
+                width: 150%;
+             }
+        }
+
+
+        #star1 {
+
+            transform: translate(-10%, 80%) !important;
+            
+        }
+        #star2 {
+            
+            
+            transform: translate(-80%, -80%) !important;
+            
+        }
+
+    }
+}
+
+@media (max-width: 450px) {
+
+    section{
+
+        #star1 {
+
+            
+            transform: translate(80%, 80%) !important;
+            
+        }
+
+        #star2 {
+            
+        
+            transform: translate(-100%, -80%) !important;
+            
+        }
+    
+
+    }
+
+}
+
+@media (max-width: 400px) {
+    
+    section{
+
+        #star1 {
+            
+            transform: translate(-80%, 80%) !important;
+            
+        }
+
+        #star2 {
+            
+                
+            transform: translate(-10%, -80%) !important;
+            
+        }
     }
 }
 

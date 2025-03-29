@@ -321,6 +321,12 @@ export default {
         width:90%;
     }
 
+    section{
+        h1{
+            font-size: 3rem;
+        }
+    }
+
     .box-wrap{
         
         #card3,
@@ -357,7 +363,7 @@ export default {
 
     section{
         h1{
-            font-size: 3rem;
+            font-size: 2.5rem;
         }
 
         .text-standard{
@@ -388,30 +394,25 @@ export default {
         }
         
     }
-
-    @media (max-width: 600px){
-
-        .card-portfolio{
-
-            .label-tech{
-                display: none;
-            }
-        }      
-        
-
-    }
-
-    @media (max-width: 450px) {
-        
-        section{
-
-            h1{
-                font-size: 2rem;
-            }
-        }
-
-    }
     
+}
+
+@media (max-width: 600px){
+    .card-portfolio{
+        .label-tech{
+            display: none;
+        }
+    }      
+    
+}
+
+@media (max-width: 450px) {
+    
+    section{
+        h1{
+            font-size: 2rem;
+        }
+    }
 }
     
 </style>
